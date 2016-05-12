@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+
+\node[tplace] (p0) at (0,0) {};
+\node[] (0) at (0,0) {3};
+\node[tplace] (p3) at (1,-2) {};
+\node[] (3) at (1,-2) {1};
+\node[tplace] (p1) at (-1,-2) {};
+\node[tplace] (p2) at (2,-4) {};
+\node[] (2) at (2,-4) {3};
+\node[tplace] (p4) at (0,-4) {};
+  
+\node[transition] (t0) at (1,-1) {};
+\node[transition] (t1) at (-1,-1) {};
+\node[transition] (t2) at (0,-2) {};
+\node[transition] (t4) at (2,-3) {};
+\node[transition] (t3) at (-1,-3) {};
+\node[transition] (t5) at (1,-4) {};
+ 
+\draw[style={->,>=triangle 45}] (p0) edge node[above left]{2} (t1);   
+\draw[style={->,>=triangle 45}] (p0) edge node[right]{} (t0);   
+\draw[style={->,>=triangle 45}] (t1) edge node[left]{4} (p1);   
+\draw[style={->,>=triangle 45}] (t0) edge node[right]{2} (p3);   
+\draw[style={->,>=triangle 45}] (p3) edge node[above]{3} (t2);   
+\draw[style={->,>=triangle 45}] (p3) edge node[above right]{4} (t4);   
+\draw[style={->,>=triangle 45}] (t2) edge node[above]{3} (p1);   
+\draw[style={->,>=triangle 45}] (t2) edge node[right]{3} (p4);   
+\draw[style={->,>=triangle 45}] (t4) edge node[right]{4} (p2);   
+\draw[style={->,>=triangle 45}] (p1) edge node[left]{2} (t3);   
+\draw[style={->,>=triangle 45}] (p2) edge node[below]{4} (t5);   
+\draw[style={->,>=triangle 45}] (t3) edge node[below left]{4} (p4);   
+\draw[style={->,>=triangle 45}] (t5) edge node[left]{2} (p3);   
+
+
+\end{tikzpicture}

@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[t]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont Polyhedra
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A} & \bf 0,16 & 0,13 & \ding{55} & \ding{55} & 0,15 & 0,12 & 0,11 \newrow
+\rm\bench[42]{A} & \bf 0,11 & 0,10 & \ding{55} & \ding{55} & \bf 0,11 & 0,08 & 0,08 \newrow
+\rm\bench{Choice} & \bf 0,95 & 0,21 & \ding{55} & \ding{55} & \bf 0,95 & \bf 0,95 & 0,20 \newrow
+%complex	#N/A	#N/A	#N/A	#N/A	#N/A	#N/A	#N/A \newrow
+\rm\bench{ConfDimB} &\bf  0,87 & 0,26 & 0,41 & \ding{55} &\bf  0,87 & \bf 0,87 & 0,25 \newrow
+\rm\bench[5]{Cycles} & \bf 0,23 & \bf 0,23 & \ding{55} & \ding{55} & \bf 0,23 & 0,22 & 0,22 \newrow
+\rm\bench[2]{DbMut} & 0,26 & 0,24 & \ding{55} & \ding{55} & \bf 0,27 & 0,25 & 0,23 \newrow
+\rm\bench{DocumentFlow} & \bf 0,04 & \bf 0,04 & \bf 0,04 & \ding{55} & \bf 0,04 & \bf 0,04 & \bf 0,04 \newrow
+\rm\bench{FHMexample} & N/A	 & N/A & N/A & N/A & N/A & N/A & N/A \newrow
+\rm\bench{Incident} & \bf 0,13 & 0,12 & \ding{55} & \ding{55} & 0,11 & 0,12 & 0,12 \newrow
+\rm\bench{Receipt} &\bf  0,15 & 0,13 & \ding{55} & \ding{55} & \bf 0,15 & 0,14 & 0,12 \newrow
+\rm\bench{Svn} & \bf 0,15 & 0,14 & \ding{55} & \ding{55} & \bf 0,15 & 0,14 & 0,14 \newrow
+\rm\bench[32]{T} & 0,13 & 0,12 & \ding{55} & \ding{55} & \bf 0,14 & 0,11 & 0,11 \newrow
+\rm\bench{Telecom} & \bf 0,08 & \bf 0,08 & \ding{55} & \ding{55} & \bf 0,08 & \bf 0,08 & \bf 0,08 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Experimental results on the precision of the models mined by \pachtool.}
+\label{tab:pol_prec}
+\end{table}

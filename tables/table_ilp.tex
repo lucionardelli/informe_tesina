@@ -1,0 +1,57 @@
+\begin{table}[H]
+
+\setlength\tabcolsep{3.7pt}
+\def\sep{\hspace{22pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\footnotesize
+\tt
+\begin{tabular}{lr@{\tinysep}r@{\tinysep}r@{\tinysep}r@{\tinysep}r@{\tinysep}r@{\tinysep}r@{\tinysep}r@{\tinysep}r}
+&\multicolumn{2}{c}{\small ILP miner}
+&
+&\multicolumn{2}{c}{\small Halfspace}
+&
+&  \multicolumn{2}{c}{\small Matrix}
+\\
+  \cmidrule(r){2-3}
+  \cmidrule(r){5-6}
+  \cmidrule(r){8-9}
+  \small Benchmark
+& \small Prec.
+& \small Gen.
+&
+& \small Prec.
+& \small Gen.
+%& \small t(s)
+&
+& \small Prec.
+& \small Gen.
+%& \small t(s)
+\\
+\midrule
+
+\rm\bench[32]{A} & \color{blue} 0.55 & 0.40 & & 0.13 & \color{blue} 0.60 & & \color{blue} 0.55 & 0.40 \newrow
+\rm\bench[42]{A} & \color{blue} 0.26 & 0.37 & & 0.10 & \color{blue} 0.52 & & \color{blue} 0.26 & 0.37 \newrow
+\rm\bench{Choice}& \color{blue} 1.00 & \color{blue} 1.00 & & 0.22 & \color{blue} 1.00 & & \color{blue} 1.00 & \color{blue} 1.00 \newrow
+\rm\bench{Complex} & \color{blue} 0.64 & 0.53 & & 0.23 & \color{blue} 0.76 & & 0.35 & 0.66 \newrow
+\rm\bench{ConfDimB} & \color{blue} 0.99 & \color{blue} 0.83 & & 0.26 & \color{blue} 0.83 & & \color{blue} 0.99 & \color{blue} 0.83 \newrow
+\rm\bench[5]{Cycles} & 0.26 & \color{blue} 0.77 & & \color{blue} 0.33 & \color{blue} 0.77 & & \color{blue} 0.33 & \color{blue} 0.77 \newrow
+\rm\bench[2]{DbMut} & \color{blue} 0.33 & 0.33 & & 0.05 & \color{blue} 1.00 & & 0.12 & \color{blue} 1.00 \newrow
+\rm\bench{DocumentFlow} & \color{blue} 0.35 & 0.97 & & 0.19 & \color{blue} 0.98 & & 0.16 & \color{blue} 0.98 \newrow
+\rm\bench{FHMexample} & \color{blue} 0.28 & \color{blue} 0.99 & & 0.12 & \color{blue} 0.99 & & 0.12 & \color{blue} 0.99 \newrow
+\rm\bench{Incident} & \color{blue} 0.44 & \color{blue} 1.00 & & 0.06 & \color{blue} 1.00 & & 0.09 & \color{blue} 1.00 \newrow
+\rm\bench{Receipt} & \color{blue} 0.46 & 0.81 & & 0.15 & \color{blue} 0.95 & & 0.21 & \color{blue} 0.95 \newrow
+\rm\bench{Svn} & \color{blue} 0.29 & \color{blue} 1.00 & & 0.26 & \color{blue} 1.00 & & 0.09 & \color{blue} 1.00 \newrow
+\rm\bench[32]{T} & \color{blue} 0.42 & 0.23 & & 0.10 & \color{blue} 0.40 & & \color{blue} 0.42 & 0.23 \newrow
+\rm\bench{Telecom} & 0.55 & \color{blue} 1.00 & & \color{blue} 0.85 & \color{blue} 1.00 & & \color{blue} 0.85 & \color{blue} 1.00 \newrow
+
+\\
+\bottomrule
+\end{tabular}
+\vspace{0pt}
+\rm
+\caption{Experimental results on models obtained by the ILP miner and simplified by \pachtool using negative information.}
+\label{tab:exp_ilp}
+\end{table} 

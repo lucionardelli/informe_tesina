@@ -1,0 +1,208 @@
+% Capítulo 2 - Nociones preliminares
+\chapter[Nociones preliminares]{Nociones preliminares}
+\label{chap:2}
+
+En este capítulo introduciremos las definiciones y conceptos básicos con los que se trabajará durante el desarrollo de esta tesina. Se presentarán las \textit{redes de Petri} (\autoref{sec:2.petrinets}), la \textit{minería de procesos} (\autoref{sec:2.process mining}), \textit{Parikh Vectors} (\autoref{sec:2.parikh}),
+\textit{Domínios numéricos abstractos} y su aplicación al desubrimiento de procesos (\autoref{sec:2.discovery}) así como los conceptos utilizados de \textit{logs} (\autoref{sec:2.logs}) e \textit{información negativa} (\autoref{sec:2.negative}).
+\\
+
+Por último, utilizando estos conceptos, plantearemos de manera concreta el problema a resolver en los capítulos siguientes (\autoref{chap:2.problem}).
+
+\section{Redes de Petri}
+\label{sec:2.petrinets}
+Las \textbf{redes de Petri}, introducidas en el año 1962 por el matemático
+Carl Adam Petri, consisten en una generalización de la teoría de automátas.
+Nacidas de la necesida de de representar sistemas dinámicos con eventos concurrentes;
+forman un lenguaje gráfico y matemático con una semántica formal.
+Desde su creación, han sido utilizadas para, entre otros usos, para representación,
+análisis, verificación y simulación de sistemas a eventos discretos con comportamiento dinámico\cite{Murata89}.
+
+Una red de Petri esta formada por dos componentes, la red propiamente dicha y un conjunto
+de \dquote{fichas} asignados a ciertos nodos de la misma.
+
+La primera de estas componentes consiste en un grafo bipartito dirigido ponderado,
+cuyos nodos se separan en los conjuntos dijuntos 
+llamados lugares -\textit{places}- y transiciones -\textit{transitions}-.
+Los arcos del grafo se dirigen tanto de los places a las transitions como viceversa.
+
+En el momento de graficar una red de Petri, los places, por los general, se
+representan mediante círculos y las transiciones mediante cajas o, simplemente, barras.
+
+La segunda componente de una red de Petri consiste en la asignación
+de un número entero de fichas o marcas a cada uno de los places, 
+utilizado para simular el comportamiento dinámico y concurrente del sistema.
+A la distribución de estas marcas sobre cada uno de los places, se la denomina
+\textit{marking} y corresponde al estado en el cual se encuentra en cada momento el sistema.
+La distribución inicial de estas fichas, por tanto, se conoce como \textit{marking inicial}.
+
+Gráficamente, esta asignación se representa de manera distribuída, indicando dentro 
+de cada place el número entero asignado por el marking, o bien, dibujando una 
+cantidad de puntos igual a dicho número.
+\\
+
+Formalmente, una red de Petri es una 4-upla $(P,T,F,M_0)$ donde $P$ y $T$\footnotemark[1]
+representan los conjuntos finitos y disjuntos de places y transitions respectívamente.
+Por su parte, las transiciones ponderadas vienen dadas por \mbox{$F:(P \times T) \cup (T \times P)  \to \nat$}
+y un marking $M$ viene dado por la función \mbox{$M:P \to \nat$}.
+En particular, llamamos $M_0$ al estado inicial de la red, i.e. el marking inicial.
+
+\footnotetext[1]{ En este trabajo, utilizamos el mismo símbolo $T$ para denotar el conjunto de transiciones -\textit{transitions}-
+    de una red de Petri así como para el alfabeto de eventos de las trazas de un log.
+    
+    Esta colisión es intencionada ya que, en nuestro modelo, cada transición se corresponde biunivocamente
+    con una actividad del log (solo consideramos la actividad completa y no el inicio/fin como en otros enfoques).
+    Por esta razón, las transiciones silenciosas (aquellas donde su ejecución no puede ser observada)
+    no son admitidas en la red y por la cual dos transiciones diferentes no pueden representar una misma acción.
+}
+
+Denotamos el \textit{preset} y \textit{postset} de un place $p$ como $\preset{p}$ y $\postset{p}$ respectivamente,
+los cuales se definen formalmente como: $\preset{p} =  \{t \in T ~|~ F(t,p) > 0 \}$
+y $\postset{p} = \{t \in T ~|~ F(p,t) > 0 \}$.
+
+Se le llama red de Petri \emph{pura} a una red que no posea ciclos de longitud uno, i.e.
+$\forall p \in P:~ {\preset{p}} \mathrel{\cap} {\postset{p}} = \emptyset$.
+En adelante, asumiremos que todas las redes de Petri con las que trabajamos son puras.
+Esto es una consecuencia de utilizar la teoría de poliedros. Es importante destacar que esto no es una 
+restricción importante ya que podemos, de manera sistemática, relajar un modelo no puro agregando
+places ficticios y convertir cualquier lazo en un ciclo de longitud dos para obtener una red de Petri pura.
+\\
+
+Como notamos anteriormente, las redes de Petri se utilizan para representar sistemas 
+dinámicos; este comportamiento dinámico está definido mediante las \emph{reglas de evolución}.
+
+Decimos que una cierta transición $t \in T$ esta \emph{habilitada},
+en un cierto marking $M$ si \mbox{$\forall p \in P, M(p) \ge F(p,t) $}.
+
+Ejecutar una transición $t$ en un marking induce un nuevo marking $M'$
+definido de manera incremental, como  \mbox{$M'(p) = M(p) - F(p,t) +  F(t,p)$},
+para cualquier $p \in P$. A esta evolución la notamos \firing{M}{t}{M'}.
+
+Una cierta secuencia de transiciones \mbox{$\sigma = t_1,t_2, t_3, \ldots, t_n$}
+se dice ejecutable si existe una secuencia de markings \mbox{$\omega = M_1, M_2, \ldots, M_n$}
+tal que ocurra la evolución
+\firing {\firing {\firing {\firing {M_0} {t_1} {M_1}} {t_2} {M_2} } {t_3} {\cdots}} {t_n} {M_n}.
+
+Dada una red de Petri $N$, llamamos $\Language(N)$ al lenguaje de la misma, i.e.
+el conjunto de secuencias de transitions ejecutables sobre $N$.
+Por su parte, al conjunto de markings alcanzable partiendo desde el marking inicial $M_0$,
+llamado \emph{conjunto alcanzable} de $N$, lo notamos $\rs(N)$.
+
+\begin{figure}[t]
+  	\centering
+    \input{img/ineq_net1}
+    \caption{Una red de Petri (pura) con pesos no unitarios.}
+    \label{fig:pn1}
+\end{figure}
+
+Consideremos ahora un place $p$ con
+\mbox{$\preset{p}=\{x_1,\ldots,x_k\}$},
+\mbox{$\postset{p}=\{y_1,\ldots,y_l\}$} y una función de transición 
+$F$ igual a la función constante 1.
+Siendo $M_0(p)$ la cantidad de tokens en el marking inicial 
+para el place $p$, entonces, la siguiente ecuación
+se satisface para cualquier secuencia de eventos $\sigma$
+
+\beql{1place_cte}
+M(p) = M_0(p) + \widehat\sigma(x_1)+\cdots +\widehat\sigma(x_k) -
+\widehat\sigma(y_1)-\cdots -\widehat\sigma(y_l).
+\eeq
+
+La ecuación \eqref{eq:1place_cte}, puede generalizarse para permitir arcos
+ponderados como
+
+\beql{1place_wei}
+M(p) = M_0(p) + \sum_{x_i \in \preset{p}}F(x_i,p)\cdot
+\widehat\sigma(x_i) -
+\sum_{y_i\in\postset{p}}F(p,y_i)\cdot\widehat\sigma(y_i).
+\eeq
+
+Si extendemos \eqref{eq:1place_wei} a todos los places de una red de Petri,
+utilizando la notación matricial, tenemos
+
+\beql{matrix_eq}
+M = M_0 + A \cdot \widehat\sigma 
+\eeq
+
+donde $M$ y $M_0$ son vectores y $A$ representa la \emph{matriz de incidencia}
+del grafo; $A$ posee $|P|$ filas y $|T|$ columnas y representa las conexiones 
+existentes en la red.
+A la ecuación \eqref{eq:matrix_eq}, se la llama \emph{ecuación de marking} de una red
+de Petri~\cite{Murata89}.
+
+Ademas, llamamos \emph{conjunto potencialmente alcanzable}
+al conjunto de soluciones de la siguiente ecuación
+
+\beql{matrix_ineq}
+M = M_0 + A \cdot \widehat\sigma \geq 0
+\eeq
+
+y lo notamos $\prs(N)$.
+Utilizando la ecuación \eqref{eq:matrix_ineq} resulta simple definir el concepto
+de complejidad de una red de Petri que utilizamos. El mismo consiste en la suma
+de los valores absolutos de todos los coeficientes de la matriz $A$ con la suma
+de los valores absolutos del vector de $M_0$.
+
+A continuacion, a modo de ejemplo, construímos la ecuación \eqref{eq:matrix_ineq} de
+la red de Petri de la ~\autoref{fig:pn1}, la cual es
+
+\beq
+ \left[\begin{array}{c} 1 \\ 6 \end{array} \right] +
+\left[\begin{array}{rr} 1 & -1 \\ -2 & 3 \end{array} \right]
+\cdot
+\left[\begin{array}{c} \widehat\sigma(x) \\ \widehat\sigma(y) \end{array}
+\right]
+\geq \left[\begin{array}{c} 0 \\ 0 \end{array} \right]
+\eeq
+
+Es importante ver que todo marking alcanzable de una red de Petri
+satisface \eqref{eq:matrix_ineq}. Sin embargo, lo opuesto no siempre es cierto.
+En general, pueden existir markings no alcanzables para
+los cuales \eqref{eq:matrix_ineq} se satisface, i.e. $\rs(N) \subseteq \prs(N)$.
+
+\section{Minería de procesos} 
+\label{sec:2.process mining}
+
+\section{Parikh Vector} 
+\label{sec:2.parikh}
+
+\section{Domínios númericos abstractos y descubrimiento de procesos} 
+\label{sec:2.discovery}
+
+\section{Logs} 
+\label{sec:2.logs}
+
+\section{Información negativa} 
+\label{sec:2.negative}
+
+\section{Enunciado del problema} 
+\label{sec:2.problem}
+
+Dado un log $\pmlogp$ y un conjunto de trazas negativas $\pmlogn$ el objetivo de las técnicas utilizadas 
+en el desarrollo de la tesina es derivar $N$ tal que posea las siguientes caraterísticas:\\
+
+\begin{itemize}
+ \item $N$ es una red de Petri pura ponderada;
+ \item $\forall \sigmap \in \pmlogp:~ \sigmap \in \Language(N)$;
+ \item $\forall \sigman \in \pmlogn:~ \sigman \notin \Language(N)$;
+ \item $N$ minimiza su complejidad. 
+\end{itemize}
+
+Los primers tres items son triviales ya que son garantizados por la metodología utilizada
+para generar la red.
+
+\todo[inline]{traducir el texto que sigue.}
+, while for simplicity we will evaluate derived models with respect to a tailored fine-grain simplicity metric
+which takes into account not only the number of elements but also its weight. In the evaluation section, we will use current metrics for precision and
+generalization to estimate whereas the derived models are in good balance between underfitting and overfitting the log.
+\todo[inline]{Primero debería entenderlo....}
+
+\section{Resumen del capítulo}
+\label{sec:2.resumen}
+En este capítulo se hizo una introducción a diferentes temas fundamentales para la comprensión y el desarrollo de este trabajo. 
+Se presentaron conceptos cruciales como \textit{redes de Petri} y \textit{minería de procesos}, definiciones como la
+de \textit{Parikh Vector} y se describireron las nociones utilizadas de \textit{logs}, \textit{información negativa} o el concepto 
+entendido por complejidade de una red de Petri.
+\todo[inline]{rellenar el resumen del capítulo}
+En particular, 
+\todo[inline]{rellenar el resumen del capítulo. Primero sería bueno terminarlo para contar que dice, no?}
+Por último, utilizando estos conceptos, se presentó una definición formal del problema a tratar.

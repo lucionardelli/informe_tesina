@@ -1,0 +1,20 @@
+\begin{tikzpicture}[only marks]
+    \draw[color=white, fill=black!8] (0,1) -- (8.35,3.55) -- (3,0) -- (0,0);
+        
+    \draw[->] (0,0) -- coordinate (x axis mid) (10,0);
+    \draw[->] (0,0) -- coordinate (y axis mid)(0,6);
+    \foreach \x in {0,1,2,3,4,5,6,7,8,9}
+        \draw [](\x cm,1pt) -- (\x cm,-3pt)
+            node[anchor=north] {\large $\x$};
+    \foreach \y in {0,1,2,3,4,5}
+        \draw (1pt,\y cm) -- (-3pt,\y cm) node[anchor=east] {\large $\y$};
+        
+    \draw[-] (0,1) -- coordinate (x axis mid) (10,4);
+    \draw[-] (3,0) -- coordinate (x axis mid) (10,14/3);
+
+    \node[] (sigmax) at (10.5,-.5) {\large $\widehat\sigma(x)$};                    
+    \node[] (sigmay) at (-.75,6) {\large $\widehat\sigma(y)$};                                   
+               
+    \node[] (p) at (9,4) {\huge $\bullet$};
+      
+\end{tikzpicture}

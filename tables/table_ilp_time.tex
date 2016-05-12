@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[H]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont ILP
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A} & 15,19 & 7,16 & 1,66 & 2,43 & 1,62 & 8,50 & 18,96 \newrow
+\rm\bench[42]{A} & 67,79 & 17,95 & 4,10 & 6,11 & 4,12 & 32,85 & 98,49 \newrow
+\rm\bench{Choice} & 2,41 & 0,33 & 0,16 & 0,17 & 0,16 & 0,06 & 0,15 \newrow
+%\rm\bench{Complex} & 20,07 & N/A & N/A & N/A & N/A & N/A & N/A \newrow
+\rm\bench{ConfDimB} & 2,20 & 0,30 & 0,31 & 0,20 & 0,16 & 0,18 & 0,26 \newrow
+\rm\bench[5]{Cycles} & 10,33 & 0,37 & 0,19 & 0,31 & 0,19 & 0,20 & 0,79 \newrow
+\rm\bench[2]{DbMut} & 19,92 & 1,52 & 0,55 & 0,72 & 0,55 & N/A & N/A \newrow
+\rm\bench{DocumentFlow} & 549,82 & 25,61 & 7,02 & 9,07 & 6,93 & 61,79 & 76,45 \newrow
+\rm\bench{FHMexample} & 31,29 & 1,29 & 0,44 & 0,57 & 0,44 & 1,00 & 3,40 \newrow
+\rm\bench{Incident} & 8,83 & 3,10 & 0,70 & 0,88 & 0,70 & 2,84 & 3,17 \newrow
+\rm\bench{Receipt} & 8,69 & 3,36 & 0,79 & 1,03 & 0,76 & 8,67 & 10,36 \newrow
+\rm\bench{Svn} & 23,21 & 1,12 & 0,37 & 0,46 & 0,36 & 2,16 & 6,81 \newrow
+\rm\bench[32]{T} & 64,60 & 10,97 & 2,44 & 3,66 & 2,41 & 15,01 & 44,54 \newrow
+\rm\bench{Telecom} & 1347,14 & 14,43 & 2,73 & 3,81 & 2,73 & 409,43 & 528,16 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Computational times of the ILP miner and the simplifications made by \pachtool.}
+\label{tab:ilp_time}
+\end{table}

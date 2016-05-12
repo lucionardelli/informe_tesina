@@ -1,0 +1,51 @@
+\begin{table}[t]
+
+\setlength\tabcolsep{3.7pt}
+\def\sep{\hspace{22pt}}
+\def\tinysep{\hspace{4pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\footnotesize
+\tt
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\sep}r@{\sep}r@{\sep}r@{\sep}r}
+&\multicolumn{3}{c}{\small Polyhedra}
+&
+&  \multicolumn{3}{c}{\small \textsc{Removal}}
+\\
+  \cmidrule(r){2-4}
+  \cmidrule(r){6-8}
+  \small Benchmark
+& \small Prec.
+& \small Gen.
+& \small t(s)
+&
+& \small Prec.
+& \small Gen.
+& \small t(s)
+\\
+\midrule
+
+\rm\bench[32]{A}        & 0.24 & \color{blue} 0.49 & \color{blue}0.79           & & \color{blue} 0.26 & 0.47 & 3.74\newrow
+\rm\bench[42]{A}        & 0.15 & \color{blue} 0.49 & \color{blue}0.78           & & \color{blue} 0.18 & 0.42 & 2.52\newrow
+\rm\bench{Choice}       & 1.00 & 1.00 & \color{blue}0.11                        & & 1.00 & 1.00 & 0.17\newrow
+\rm\bench{Complex}      & 0.37 & \color{blue} 0.55 & \color{blue}3.39           & & \color{blue} 0.43 & 0.53 & 9.14\newrow
+\rm\bench{ConfDimB}     & 1.00 & 0.83 & \color{blue}0.07                        & & 1.00 & 0.83 & 0.14\newrow
+\rm\bench[5]{Cycles}    & 0.31 & 0.77 & \color{blue}0.45                        & & 0.31 & 0.77 & 1.20\newrow
+\rm\bench[2]{DbMut}     & 0.24 & 1.00 & \color{blue}0.30                        & & 0.24 & 1.00 & 1.25\newrow
+\rm\bench{DocumentFlow} & 0.10 & 0.99 & \color{blue}0.33                        & & 0.10 & 0.99 & 0.79\newrow
+\rm\bench{FHMexample}   & 0.22 & \color{blue} 0.95 & \color{blue}0.29           & & \color{blue} 0.43 & 0.94 & 0.72\newrow
+\rm\bench{Incident}     & 0.11 & 0.99 & \color{blue}0.16                        & & \color{blue} 0.12 & 0.99 & 0.27\newrow
+\rm\bench{Receipt}      & \color{blue} 0.32 & 0.79 & \color{blue}0.32           & & 0.24 & \color{blue} 0.82 & 1.03\newrow
+\rm\bench{Svn}          & 0.17 & 0.99 & \color{blue}0.31                        & & \color{blue} 0.24 & 0.99 & 2.33\newrow
+\rm\bench[32]{T}        & \color{blue} 0.18 & \color{blue} 0.34 & \color{blue}0.83 & & 0.17 & 0.33 & 1.93\newrow
+\rm\bench{Telecom}      & 0.11 & 0.99 & \color{blue}3.24                        & & 0.11 & 0.99 & 6.20\newrow
+
+\\
+\bottomrule
+\end{tabular}
+\vspace{0pt}
+\rm
+\caption{Experimental results on models mined by \pachtool with no SMT-simplification, but halfspace removal.}
+\label{tab:exp}
+\end{table} 

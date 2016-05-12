@@ -1,0 +1,27 @@
+\begin{picture}(0,0)%
+\includegraphics{Figures/simplification_example.pdf}%
+\end{picture}%
+\setlength{\unitlength}{3947sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(4998,1530)(6769,-3457)
+\put(8776,-2611){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_1)\ c - a +2 \ge 0$}%
+}}}}
+\put(8776,-2836){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_2)\ 2a - b \ge 0$}%
+}}}}
+\put(8776,-3061){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_3)\ b - 2c \ge 0$}%
+}}}}
+\put(10801,-2566){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_1)\ c - a +2 \ge 0$}%
+}}}}
+\put(10801,-2791){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_2')\ a - b \ge 0$}%
+}}}}
+\put(10801,-3016){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$(p_3')\ b - c \ge 0$}%
+}}}}
+\put(9076,-2086){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$A$, $M_0$}%
+}}}}
+\end{picture}%

@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[H]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont Polyhedra
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A}  & 13129 & 10324 & \ding{55} & \ding{55} & 6489 & 132 & \bf 130 \newrow
+\rm\bench[42]{A}  & 7813 & 6209 & \ding{55} & \ding{55} & 5009 & 117 & \bf 114 \newrow
+\rm\bench{Choice} & 33 & 29 & \ding{55} & \ding{55} & \ding{55} & 25 & \bf 21 \newrow
+%complex	13849,10	11074,20	13849,10	#N/A	12763,80	#N/A	#N/A \newrow
+\rm\bench{ConfDimB}  & 33 & 31 & 29 & \ding{55} & 30 & \bf 25 & 27 \newrow
+\rm\bench[5]{Cycles} & 105 & 104 & \ding{55} & \ding{55} & 102 & \bf 45 & \bf 45 \newrow
+\rm\bench[2]{DbMut} & 134 & 120 & \ding{55} & \ding{55} & 126 & 74 & \bf 72 \newrow
+\rm\bench{DocumentFlow} & 56 & 52 & 50 & \ding{55} & 52 & 35 & \bf 29 \newrow
+\rm\bench{FHMexample} & 297 & 215 & 295 & \ding{55} & 235 & 72 & \bf 43 \newrow
+\rm\bench{Incident} & 406 & 316 & \ding{55} & \ding{55} & 292 & 104 & \bf 75 \newrow
+\rm\bench{Receipt} & 588 & 412 & \ding{55} & \ding{55} & 462 & 129 & \bf 101 \newrow
+\rm\bench{Svn} & 27831 & 21051 & \ding{55} & \ding{55} & 7399 & 8778 & \bf 1562 \newrow
+\rm\bench[32]{T} & 50117 & 40741 & \ding{55} & \ding{55} & 34389 & 188 & \bf 114 \newrow
+\rm\bench{Telecom} & 840 & 592 & \ding{55} & \ding{55} & 688 & 197 & \bf 111 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Experimental results on the simplicity of the models mined by \pachtool.}
+\label{tab:pol_simp}
+\end{table}

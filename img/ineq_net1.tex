@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+
+  \node[transition] (x) at (-.75,-1) {$x$};
+  \node[transition] (y) at (.75,-1) {$y$};
+  \node[tplace,label=above:$p_1$] (p1) at (0,0) {};
+  \node[tplace,label=below:$p_0$] (p2) at (0,-2) {};
+      
+  \node[] (t) at (p1) {6};
+  \node[] (t) at (p2) {1};
+    
+  \draw[style={->,>=triangle 45}] (p1) edge node[above left]{2} (x);
+  \draw[style={->,>=triangle 45}] (x) to (p2);    
+  \draw[style={->,>=triangle 45}] (p2) to (y);      
+  \draw[style={->,>=triangle 45}] (y) edge node[above right]{3} (p1);
+  
+  \node[] (null) at (0,-3) {};
+  
+\end{tikzpicture}

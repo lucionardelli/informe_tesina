@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[H]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont ILP
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A} & 396 & 289 & \ding{55} & \ding{55} & \ding{55} & 100 & \bf 97 \newrow
+\rm\bench[42]{A} & 933 & 678 & \ding{55} & \ding{55} & \ding{55} & \bf 124 & 175 \newrow
+\rm\bench{Choice} & 24 & \bf 21 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \bf 21 \newrow
+%complex	46,00	#N/A	#N/A	#N/A	#N/A	#N/A	#N/A \newrow
+\rm\bench{ConfDimB} & 24 & \bf 23 & \bf 23 & \ding{55} & \ding{55} & \ding{55} & \bf 23 \newrow
+\rm\bench[5]{Cycles}  & 30 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} \newrow
+\rm\bench[2]{DbMut} & 92 & \bf 77 & \ding{55} & \ding{55} & \ding{55} & N/A & N/A \newrow
+\rm\bench{DocumentFlow} & 2426 & 1463 & \ding{55} & \ding{55} & \ding{55} & 937 & \bf 695 \newrow
+\rm\bench{FHMexample} & 102 & 85 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \bf 72 \newrow
+\rm\bench{Incident} & 194 & 107 & \ding{55} & \ding{55} & \ding{55} & 150 & \bf 77 \newrow
+\rm\bench{Receipt} & 183 & 121 & \ding{55} & \ding{55} & \ding{55} & 120 & \bf 89 \newrow
+\rm\bench{Svn} & 82 & 68 & \ding{55} & \ding{55} & \ding{55} & 65 & \bf 47 \newrow
+\rm\bench[32]{T} & 606 & 441 & \ding{55} & \ding{55} & \ding{55} & \bf 108 & 149 \newrow
+\rm\bench{Telecom} & 777 & 486 & \ding{55} & \ding{55} & \ding{55} & 341 & \bf 194 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Experimental results on the simplicity of the models mined by the ILP miner and simplified by \pachtool.}
+\label{tab:ilp_simp}
+\end{table}

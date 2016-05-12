@@ -1,0 +1,136 @@
+%!TEX spellcheck = es-AR
+\documentclass[spanish,12pt,a4paper]{memoir} % Change font size here (allowable values are 9pt-12pt), change the paper size, specify one or two sided printing and specify whether to show trimming lines
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,latexsym}
+% Doe's not play well with memoir
+%\usepackage{subfigure}
+\usepackage{pifont}
+\usepackage[linktocpage=true]{hyperref}
+\usepackage{MnSymbol}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage[figuresleft]{rotating}
+\usepackage{rotfloat}
+\usepackage[final]{fixme}
+\usepackage{multicol}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usetikzlibrary{automata,petri,positioning,shapes,snakes,arrows,backgrounds,babel}
+\tikzstyle{tplace}=[circle,draw,inner sep=1.8mm]
+\usepackage{amsthm}
+% Saca los espacios adicionales de las listas tipo itemize
+\usepackage{enumitem}
+\usepackage{hypcap}
+\setlist{nolistsep}
+% Para armar código bonito
+%\usepackage{minted}
+%\usemintedstyle{bw}
+%\usepackage{xcolor}
+%\usepackage[framemethod=default]{mdframed}
+%\definecolor{bg}{rgb}{0.95,0.95,0.95}
+%\mdfdefinestyle{codebox}{backgroundcolor=bg,skipabove=10,linewidth=0}
+%\usepackage[most]{tcolorbox}
+
+\definecolor{mygreen}{rgb}{0,0.5,0}
+
+\input{macros}
+\input{macros_environments}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Section}
+\def\exampleautorefname{Example}
+\def\definitionautorefname{Definition}
+\def\propositionautorefname{Proposition}
+\def\lemmaautorefname{Lemma}
+\def\remarkautorefname{Remark}
+\def\assumptionautorefname{Assumption}
+\def\theoremautorefname{Theorem}
+\def\algorithmautorefname{Algorithm}
+\def\tableautorefname{Table}
+\def\figureautorefname{Figure}
+
+%% Activa la numeracion de subchaptersciones
+%\setchaptersnumdepth{subsection}
+%%mostrar sub chaptersciones en indice
+%\setcounter{tocdepth}{2}
+
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+
+\begin{document} 
+
+%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%
+%   TITLEPAGE
+%
+%   due to variety of titlepage schemes it is probably better to make titlepage manually
+%
+%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%
+\thispagestyle{empty}
+{
+\sffamily
+\centering
+\Large
+
+\vspace{\fill}
+
+{\huge 
+Generación y simplificación automática de especificaciones de procesos
+}\\[0.6em]
+Tesina de Grado\\
+Licenciatura en Ciencias de la Computación
+
+\vspace{1.5cm}
+
+{\LARGE
+Lucio Nardelli
+}
+
+\vspace{1.5cm}
+
+{\tiny Director}\\
+Hernán Ponce de León\\
+
+\vspace{2.5cm}
+
+\includegraphics[scale=0.8]{img/unr.png}\\
+Departamento de Ciencias de la Computación\\
+Facultad de Ciencias Exactas, Ingeniería y Agrimensura\\
+Universidad Nacional de Rosario
+
+\vspace{\fill}
+\centerline{Junio 2016}
+}
+
+% NOTE Comentamos esto porque es molesto al principio al menos
+%\cleardoublepage
+%
+%\tableofcontents
+%
+%\cleardoublepage
+%\listoffigures
+%
+%\cleardoublepage
+%\listofalgorithms
+
+% Introducción
+%\include{chapters/chapter1}
+% Nociones preliminares
+\include{chapters/chapter2}
+% Descubrimiento de procesos supervisado
+%\include{chapters/chapter3}
+% Implementación
+%\include{chapters/chapter4}
+% Experimentos
+%\include{chapters/chapter5}
+% Conclusiones
+%\include{chapters/chapter6}
+
+%\bibliographystyle{alpha}
+\bibliographystyle{elsarticle-num}
+\bibliography{biblio}
+
+\end{document} 

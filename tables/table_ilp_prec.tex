@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[H]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont ILP
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A} & \bf 0,46 & 0,08 & \ding{55} & \ding{55} & \ding{55} & 0,21 & 0,07 \newrow
+\rm\bench[42]{A} & \bf 0,32 & 0,09 & \ding{55} & \ding{55} & \ding{55} & 0,13 & 0,08 \newrow
+\rm\bench{Choice} & \bf 0,98 & 0,21 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & 0,21 \newrow
+%\rm\bench{Complex} & 0,54 & N/A & N/A & N/A & N/A & N/A & N/A \newrow
+\rm\bench{ConfDimB} & \bf 0,99 & 0,28 & 0,62 & \ding{55} & \ding{55} & \ding{55} & 0,28 \newrow
+\rm\bench[5]{Cycles} & 0,20 & \bf 0,22 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & \ding{55} \newrow
+\rm\bench[2]{DbMut} & \bf 0,22 & 0,12 & \ding{55} & \ding{55} & \ding{55} & N/A & N/A \newrow
+\rm\bench{DocumentFlow} & \bf 0,15 & 0,12 & \ding{55} & \ding{55} & \ding{55} & \bf 0,15 & 0,11 \newrow
+\rm\bench{FHMexample} & \bf 0,27 & \bf 0,27 & \ding{55} & \ding{55} & \ding{55} & \ding{55} & 0,26 \newrow
+\rm\bench{Incident} & \bf 0,24 & 0,13 & \ding{55} & \ding{55} & \ding{55} & 0,23 & 0,12 \newrow
+\rm\bench{Receipt} & \bf 0,22 & 0,08 & \ding{55} & \ding{55} & \ding{55}& 0,21 & 0,08 \newrow
+\rm\bench{Svn} & \bf 0,11 & 0,10 & \ding{55} & \ding{55} & \ding{55} & 0,10 & 0,10 \newrow
+\rm\bench[32]{T} & \bf 0,39 & 0,09 & \ding{55} & \ding{55} & \ding{55} & 0,22 & 0,08 \newrow
+\rm\bench{Telecom} & N/A & 0,03 & \ding{55} & \ding{55} & \ding{55} & 0,22 & 0,20 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Experimental results on the precision of the models mined by the ILP miner and simplified by \pachtool.}
+\label{tab:ilp_prec}
+\end{table}

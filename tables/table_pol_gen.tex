@@ -1,0 +1,54 @@
+% !TEX spellcheck = en-EN
+
+\begin{table}[H]
+
+\setlength\tabcolsep{3pt}
+\def\sep{\hspace{8pt}}
+\def\tinysep{\hspace{10pt}}
+\def\negsep{\hspace{2.5pt}}
+
+\centering
+\small
+\tt
+\begin{adjustbox}{width=\textwidth}
+\resizebox{18cm}{!}{
+\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+&
+&\multicolumn{2}{c}{\normalfont \bf Positive}
+&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
+  \cmidrule(r){3-4}
+  \cmidrule(r){5-6}
+  \cmidrule(r){7-8}
+  \normalfont Benchmark
+& \normalfont Polyhedra
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Halfspace
+& \normalfont Matrix
+& \normalfont Baseline
+& \normalfont SMT
+\\
+\midrule
+\newrow
+\rm\bench[32]{A} & 0,65 & 0,66 & \ding{55} & \ding{55} & 0,66 & \bf 0,70 & \bf 0,70 \newrow
+\rm\bench[42]{A} & 0,63 & 0,64 & \ding{55} & \ding{55} & 0,63 & 0,71 & \bf 0,72 \newrow
+\rm\bench{Choice} & \bf 1,00 & \bf 1,00 & \ding{55} & \ding{55} & \bf 1,00 & \bf 1,00 & \bf 1,00 \newrow
+%complex & N/A & N/A & N/A & N/A & N/A & N/A & N/A \newrow
+\rm\bench{ConfDimB} & \bf 0,83 & \bf 0,83 & \bf 0,83 & \ding{55} & 0,81 & \bf 0,83 & \bf 0,83 \newrow
+\rm\bench[5]{Cycles}  & \bf 0,90 & \bf 0,90 & \ding{55} & \ding{55} & \bf 0,90 & \bf 0,90 & \bf 0,90 \newrow
+\rm\bench[2]{DbMut} & \bf 1,00 & \bf 1,00 & \ding{55} & \ding{55} & \bf 1,00 & \bf 1,00 & \bf 1,00 \newrow
+\rm\bench{DocumentFlow} & 0,97 & 0,97 & 0,97 & \ding{55} & 0,97 & \bf 1,00 & \bf 1,00 \newrow
+\rm\bench{FHMexample} & N/A & N/A & N/A & \ding{55} & N/A & N/A & N/A \newrow
+\rm\bench{Incident} & \bf 0,98 & \bf 0,98 & \ding{55} & \ding{55} & \bf 0,98 & \bf 0,98 & \bf 0,98 \newrow
+\rm\bench{Receipt} & \bf 0,87 & \bf 0,87 & \ding{55} & \ding{55} & \bf 0,87 & 0,86 & 0,86 \newrow
+\rm\bench{Svn} & 0,99 & 0,99 & \ding{55} & \ding{55} & 0,99 & \bf 1,00 & \bf 1,00 \newrow
+\rm\bench[32]{T} & 0,53 & 0,54 & \ding{55} & \ding{55} & 0,51 & \bf 0,56 & \bf 0,56 \newrow
+\rm\bench{Telecom} & \bf 1,00 & \bf 1,00 & \ding{55} & \ding{55} & \bf 1,00 & \bf 1,00 & \bf 1,00 \newrow
+\\
+\bottomrule
+\end{tabular}}
+\end{adjustbox}
+\rm\caption{Experimental results on the generalization of the models mined by \pachtool.}
+\label{tab:pol_gen}
+\end{table}

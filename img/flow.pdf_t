@@ -1,0 +1,45 @@
+\begin{picture}(0,0)%
+\includegraphics{Figures/flow.pdf}%
+\end{picture}%
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(5514,4842)(79,-4171)
+\put(3286,209){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$13a +4b -c \ge 0$}%
+}}}}
+\put(3286,-16){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a - d +1 \ge 0$}%
+}}}}
+\put(3286,-241){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$34f - 12g \ge 0$}%
+}}}}
+\put(3286,-466){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$2a + 2h - 3b +1 \ge 0$}%
+}}}}
+\put(3286,-661){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$h - i +j \ge 0$}%
+}}}}
+\put(2341,-3391){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$PN^+_-$}%
+}}}}
+\put(586,-2446){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\itdefault}{\color[rgb]{0,0,0}$\pmlog_{-}$}%
+}}}}
+\put(136,389){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\itdefault}{\color[rgb]{0,0,0}Log $\pmlog =  \pmlog^ +$}%
+}}}}
+\put(5086,-196){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$PN^+$}%
+}}}}
+\put(1441,389){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\itdefault}{\color[rgb]{0,0,0}${\cal P}$ covering $\Pi(\pmlog^+)$}%
+}}}}
+\put(3151,389){\makebox(0,0)[lb]{\smash{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\itdefault}{\color[rgb]{0,0,0}$\textit{H-Representation}$}%
+}}}}
+\put(3646,-3301){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a - d +1 \ge 0$}%
+}}}}
+\put(3646,-3526){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$3f - g \ge 0$}%
+}}}}
+\put(3646,-3751){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a + h - b +1 \ge 0$}%
+}}}}
+\put(3646,-3946){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$h - i +j \ge 0$}%
+}}}}
+\put(3646,-3076){\makebox(0,0)[lb]{\smash{{\SetFigFont{10}{12.0}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$13a +4b -c \ge 0$}%
+}}}}
+\end{picture}%

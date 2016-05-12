@@ -1,0 +1,181 @@
+\newcommand{\til}{\widetilde}
+\newcommand{\inv}{\overline}
+\newcommand{\bsl}{\backslash}
+\newcommand{\loor}{\vee}
+\newcommand{\loand}{\wedge}
+\newcommand{\xor}{\oplus}
+\newcommand{\subs}{\subset}
+\newcommand{\subse}{\subseteq}
+\newcommand{\sups}{\supset}
+\newcommand{\supse}{\supseteq}
+\newcommand{\ror}{\vdash}
+\newcommand{\Ror}{\models}
+\newcommand{\rar}{\rightarrow}
+\newcommand{\mrar}{$\rightarrow$}
+\newcommand{\Rar}{\Rightarrow}
+\newcommand{\URar}[1]{\stackrel{#1}{\Rar }}
+\newcommand{\Urar}[1]{\stackrel{#1}{\rar }}
+\newcommand{\ULRar}[1]{\stackrel{#1}{\Longrightarrow }}
+\newcommand{\Ulrar}[1]{\stackrel{#1}{\longrightarrow }}
+\newcommand{\paral}{\parallel}
+\newcommand{\emptys}{\emptyset}
+\newcommand{\mult}{\times}
+\newcommand{\verx}{\vspace{12pt}}
+\newcommand{\niz}{\vspace{10pt}}
+\newcommand{\eproof}{\hspace{\fill} $\Box $}
+\newcommand{\ediamon}{\hspace{\fill} $\Diamond $}
+
+
+% Alex's predicates
+
+\newcommand{\ins}{\mbox{\tt in}}
+\newcommand{\IN}{\mbox{\tt IN}}
+\newcommand{\out}{\mbox{\tt out}}
+\newcommand{\OUT}{\mbox{\tt OUT}}
+\newcommand{\INOUT}{\mbox{\tt IN\_OUT}}
+\newcommand{\exit}{\mbox{\tt exit}}
+\newcommand{\EXIT}{\mbox{\tt EXIT}}
+\newcommand{\enter}{\mbox{\tt enter}}
+\newcommand{\nocross}{\mbox{\tt nocross}}
+\newcommand{\ENTER}{\mbox{\tt ENTER}}
+\newcommand{\inexit}{\mbox{\tt in\_exit}}
+\newcommand{\inenter}{\mbox{\tt in\_enter}}
+\newcommand{\enterexit}{\mbox{\tt enter\_exit}}
+\newcommand{\exitenter}{\mbox{\tt enter\_exit}}
+\newcommand{\outexit}{\mbox{\tt out\_exit}}
+\newcommand{\outenter}{\mbox{\tt out\_enter}}
+\newcommand{\genet}{\mbox{\tt Genet}}
+\newcommand{\petrify}{\mbox{\tt petrify}}
+\newcommand{\mlc}{\mbox{\tt MLC}}
+
+\newtheorem{exam}{Example}[section]
+\newtheorem{prop}{Proposition}[section]
+\newenvironment{condition}[1]{\noindent{\bf Condition #1.} \em}{\rm \\}
+
+\newcommand{\bop}{\noindent{\bf Proof: }}
+\newcommand{\eop}{$\square$ \\}
+%\newenvironment{proof}{\bop}{\eop}
+%\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{corollary}{Corollary}[section]
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{property}{Property}[section]
+%\newtheorem{definition}{Definition}[section]
+%\newtheorem{problem}{Problem}[section]
+%\newtheorem{procedure}{Procedure}[section]
+%\newtheorem{restriction}{Restriction}[section]
+%\newtheorem{algorithm}{Algorithm}
+\def\acs/{{\sf ACS}}
+\def\ets/{{\sf ETS}}
+\def\ec/{{\sf EC}}
+\def\eec/{{\sf EEC}}
+\def\ects/{{\sf ECTS}}
+\def\eects/{{\sf EECTS}}
+\def\nts/{{\sf NTS}}
+\def\gnts/{{\sf GNTS}}
+\def\eer/{{\sf EER}}
+\def\esr/{{\sf ESR}}
+\def\en/{{\sf EN}}
+\def\ger/{{\sf GER}}
+\def\er/{{\sf ER}}
+\def\sr/{{\sf SR}}
+\def\gsr/{{\sf GSR}}
+\def\bacs/{{\sf BACS}}
+\def\ts/{{\sf TS}}
+\def\lts/{{\sf LTS}}
+\def\alts/{{\sf ALTS}}
+\def\std/{{\sf STD}}
+\def\cd/{{\sf CD}}
+\def\alc/{{\sf ALC}}
+\def\id/{{\sf ID}}
+\def\pd/{{\sf PD}}
+
+\def\stg/{{\sf STG}}
+\def\cln/{{\sf CLN}}
+\def\clstg/{{\sf CL-STG}}
+\def\btm/{{Binary Trace Model}}
+\def\tm/{{Trace Model}}
+
+\newcommand{\pn}{\textsf{PN}}
+\newcommand{\rg}{\textsf{RG}}
+\newcommand{\rs}{\textsf{RS}}
+\newcommand{\prs}{\textsf{PRS}}
+\newcommand{\pl}{\textsf{PL}}
+
+\newcommand{\mg}{\mbox{\textsf{MG}}}       % Marked graph
+\def\dr/{{Distributive}}
+\def\drone/{{Distributive-1}}
+\def\drtwo/{{Distributive-2}}
+\def\op/{{Output-persistent}}
+\def\sm/{{\sf SM}}
+\def\bull{\vrule height .9ex width .8ex depth -.1ex }
+%\def\trans#1{\stackrel{#1}{\rightarrow}}
+\def\dquote#1{``#1''}
+\def\trans#1{[#1>}
+\def\etrans#1{E(#1)}
+\def\vect#1#2{$#1_1,\ldots,#1_{#2}$}
+\def\assign#1#2{\mbox{$#1 \leftarrow #2$}}
+\def\tild{{\verb+~+}}
+\def\pred#1{\,^\bullet #1}
+\def\succ#1{#1^\bullet}
+\def\prereg#1{\,^\circ #1}
+\def\postreg#1{#1^\circ}
+\def\prepostreg#1{\,^\circ #1^\circ}
+\def\endofproof{\hspace{\fill} $\Box $}
+
+
+\def\grad#1#2{\Delta_{#1}(#2)}
+\def\pow#1{#1^\diamond}
+\def\enabling#1{^\star#1}
+\def\rzero{\mbox{\bf 0}}
+\def\rone{\mbox{\bf 1}}
+\def\rk{\mbox{\bf K}}
+\def\REG{{\mathcal R}}
+\def\TOP{\sqcap}
+\def\sup{\mbox{\em supp}}
+\def\topk{\top}
+%  Nomenclature for Petri nets, STGs, etc.
+
+\newcommand{\reachm}[1]{[#1\rangle}             % reachable markings
+\newcommand{\firing}[3]{\mbox{$#1\Ulrar{#2} #3$}} % Transition firing
+\newcommand{\altfiring}[3]{#1[#2\rangle #3}        % Alternative transition firing
+\newcommand{\preset}[1]{\mbox{$^\bullet#1$}}             % Preset
+\newcommand{\postset}[1]{\mbox{$#1^\bullet$}}            % Postset
+\newcommand{\pmlog}{\ensuremath{{\mathcal L}}}        % Log
+\newcommand{\pmlogp}{\ensuremath{{\mathcal L}}\textsuperscript{+}}        % Positive Log
+\newcommand{\pmlogn}{\ensuremath{{\mathcal L}}\textsuperscript{-}}        % Negative Log
+\newcommand{\ph}{\ensuremath{{\mathcal P}}}          % Polyhedron
+\newcommand{\parikh}[1]{\ensuremath{\Pi(#1)}}    % Set of Parikh vectors
+
+% Natural numbers
+\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+
+\newcommand\bench[2][]{%
+\if\relax\detokenize{#1}\relax%
+\textsc{#2}\else \textsc{#2}\hspace{0.3pt}{\footnotesize(}#1{\footnotesize)}\fi\@\xspace}
+
+\newcommand\pnsimp  {\textsc{PNsimpl}\@\xspace}
+\newcommand\pachtool  {\textsc{PacH}\@\xspace}
+\newcommand\qhulltool  {\textsc{Qhull}\@\xspace}
+
+\newcommand{\model}{\mathcal{M}}
+\newcommand{\sys}{\mathcal{S}}
+\newcommand{\Language} {\mathcal{L}}
+
+
+\newcommand{\nlgtext}[1] {``\emph{#1}''}
+\newcommand{\nlgfun}[1] {\texttt{#1}}
+\newcommand{\reglaverb}[2]{\item #1 \\ \hspace*{0.56cm} $\rightarrow$ #2}
+% fix para 
+\renewcommand*\Call[2]{\textproc{#1}(#2)}
+
+% Equations commands
+% Begin equation mode
+\newcommand{\beq}{\begin{equation}}
+% Begin equation mode with label
+\newcommand{\beql}[1]{\begin{equation}\label{eq:#1}}
+% End equation mode
+\newcommand{\eeq}{\end{equation}}
+
+\newcommand{\sigmap}{\ensuremath{\sigma}\textsuperscript{+}}        % Positive Sigma
+\newcommand{\sigman}{\ensuremath{\sigma}\textsuperscript{-}}        % Negative Sigma
