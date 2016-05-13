@@ -155,21 +155,78 @@ la red de Petri de la ~\autoref{fig:pn1}, la cual es
 \eeq
 
 Es importante ver que todo marking alcanzable de una red de Petri
-satisface \eqref{eq:matrix_ineq}. Sin embargo, lo opuesto no siempre es cierto.
+satisface \eqref{eq:matrix_ineq}, sin embargo, lo opuesto no siempre es cierto.
 En general, pueden existir markings no alcanzables para
 los cuales \eqref{eq:matrix_ineq} se satisface, i.e. $\rs(N) \subseteq \prs(N)$.
 
 \section{Minería de procesos} 
 \label{sec:2.process mining}
 
+\subsection{Logs} 
+\label{sec:2.logs}
+
+La minería de procesos tiene su punto inicial en la recopilación de una serie de \textit{log de eventos}. 
+Un evento refiere a una actividad, observable o no, de un proceso y
+un log de enventos -o simplemente \textit{log}- se define como una secuencia
+ordenada de estos eventos, por lo general, generadas de manera automática.
+Un log corresponde a una instancia única de la ejecución de un sistema, llamada, instancia de proceso o caso y 
+durante la minería de procesos, suelen utilizarse varíos casos de sobre un mismo proceso.
+
+Un log posee los siguientes elementos constitutivos fundamentales: un conjunto de actividades,
+un cierto orden temporal en el cual ocurren y un caso o instancia de proceso que agrupe dichas actividades.
+Sin embargo, un log pueden contener, además, datos adicionales que, aunque no sean fundamentales, pueden
+ayudar a la minería de procesos otorgándole mayor nivel de detalle y claridad.
+
+La tabla \autoref{tab:log_ex} muestra un ejemplo parcial de un conjunto de logs con información adicional (i.e. medio, actividad, nivel) que permite un entendimiento mayor del devenir del proceso,
+
+\input{tables/table_log.tex}
+
+Formalmente, dado un alfabeto $T$\footnote{Ver nota previa referente a la colisión de nombres} representando
+al conjunto de posibles eventos, un log se define como un conjunto $\pmlog \in \mathcal{P}(\eventstar)$\footnote{
+Los logs pueden ser definidos de manera más general como multiconjuntos donde algunos comportamientos
+pueden ser observados múltiples veces. No consideramos este enfoque ya que no consideramos 
+la frecuencia de cada traza; las redes solo contemplan la presencia o ausencia de un cierto comportamiento.}. 
+
+
+Los elementos del log \pmlog, llamados \textit{trazas}, son secuencias de eventos de $T$,
+i.e. $\sigma \in \eventstar$.
+Dados un numero natural $1 \leq k \leq n$ y una traza $\sigma=\sigma_1,\sigma_2,\dots,\sigma_n$, a la traza
+$\sigma_1,\sigma_2,\dots,\sigma_k$ se la llama prefijo -\textit{prefix}- de $\sigma$.
+
+Abusando de notación,  si una cierta traza $\sigma'$ es el prefijo de alguna traza de $\pmlog$, se dice que 
+$\sigma' \in \pmlog$ .
+
+% The problem of process discovery requires the computation of a model $\model$ that adequately represents
+% a log $\pmlog$.
+% A model $\model$ is {\em overfitting} with respect to log $\pmlog$ if it is too specific and too much driven
+% by the information in $\pmlog$. On the other hand, $\model$ is an {\em underfitting} model for $\pmlog$ if the behavior
+% of $\model$ is too general and allows for things ``not supported by evidence'' in $\pmlog$.  Whereas overfitting
+% denotes lack of generalization, underfitting represents too much generalization. A good balance between
+% overfitting and underfitting is a desired feature in any process discovery algorithm~\cite{AalstBook}. There exists several formalism for modeling
+% processes; those include transition systems, workflow nets, BPMN and causal nets between others. In this article we will discover processes modeled
+% as Petri nets.
+
+\subsection{Minería de procesos} 
+\label{sec:2.process mining subsection}
+
+Process discovery techniques aim
+at extracting from a log $\pmlog$ a process model $N$ (e.g., a Petri net) with the goal to elicit the process
+underlying in ${\sys}$. By relating the behaviors of $\pmlog$, $\Language(N)$ and ${\sys}$,
+particular concepts can be defined~\cite{BuijsDA14}. A log is \emph{incomplete} if ${\sys} \setminus \pmlog \ne
+\emptyset$. A model $N$ \emph{fits} log $\pmlog$ if $\pmlog \subseteq \Language(N)$. A model is
+\emph{precise} in describing a log $\pmlog$ if $\Language(N) \setminus \pmlog$ is small. A model $N$
+represents a \emph{generalization} of log $\pmlog$ with respect to system ${\sys}$ if some behavior in ${\sys}
+\setminus \pmlog$ exists in $\Language(N)$. Finally, a model $N$ is \emph{simple} when it has the minimal
+complexity in representing $\Language(N)$, i.e., the well-known \emph{Occam's razor principle}.
+It is widely acknowledged that the size of a process model is the
+most important simplicity indicator~\cite{AalstBook}. However, as we will see in Section~\ref{sec:ssr}, this paper introduces
+a tailored simplicity metric which is sensitive to the type of models considered.
+
 \section{Parikh Vector} 
 \label{sec:2.parikh}
 
 \section{Domínios númericos abstractos y descubrimiento de procesos} 
 \label{sec:2.discovery}
-
-\section{Logs} 
-\label{sec:2.logs}
 
 \section{Información negativa} 
 \label{sec:2.negative}

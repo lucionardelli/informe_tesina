@@ -1,7 +1,7 @@
-# informe_tesina
-Fuente correspondiente al informe de tesina.
+# Tesina - Informe 
+**Lucio Nardelli - _Director_ Hernán Ponce de León**
 
-Source code: https://github.com/lucionardelli/tesina# informe_tesina# informe_tesina
-Fuente correspondiente al informe de tesina.
 
-Source code: https://github.com/lucionardelli/tesina
+### Description
+
+  Fuente correspondiente al informe de tesina: https://github.com/lucionardelli/tesina
