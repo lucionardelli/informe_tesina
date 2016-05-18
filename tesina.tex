@@ -20,7 +20,9 @@
 \usepackage{multicol}
 \usepackage{tabularx,ragged2e,booktabs,caption}
 \usepackage{todonotes}
+\usepackage{graphicx}
 \usepackage{tikz}
+\newsubfloat{figure}% Allow subfloats in figure environment
 \usetikzlibrary{automata,petri,positioning,shapes,snakes,arrows,backgrounds,babel}
 \tikzstyle{tplace}=[circle,draw,inner sep=1.8mm]
 \usepackage{amsthm}
@@ -56,8 +58,8 @@
 
 %% Activa la numeracion de subchaptersciones
 %\setchaptersnumdepth{subsection}
-%%mostrar sub chaptersciones en indice
-%\setcounter{tocdepth}{2}
+% Mostrar sub chaptersciones en indice
+\setcounter{tocdepth}{2}
 
 \hypersetup{pdftex,colorlinks=true,allcolors=blue}
 
@@ -105,11 +107,9 @@ Universidad Nacional de Rosario
 \centerline{Junio 2016}
 }
 
+\cleardoublepage
+\tableofcontents
 % NOTE Comentamos esto porque es molesto al principio al menos
-%\cleardoublepage
-%
-%\tableofcontents
-%
 %\cleardoublepage
 %\listoffigures
 %

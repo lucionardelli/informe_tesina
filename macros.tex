@@ -171,11 +171,11 @@
 
 % Equations commands
 % Begin equation mode
-\newcommand{\beq}{\begin{equation}}
+\newcommand{\bequation}{\begin{equation}}
 % Begin equation mode with label
-\newcommand{\beql}[1]{\begin{equation}\label{eq:#1}}
+\newcommand{\bequationl}[1]{\begin{equation}\label{eq:#1}}
 % End equation mode
-\newcommand{\eeq}{\end{equation}}
+\newcommand{\eequation}{\end{equation}}
 
 %Math symbols
 \newcommand{\sigmap}{\ensuremath{\sigma}\textsuperscript{+}}        % Positive Sigma
@@ -185,3 +185,6 @@
 % Condensed table
 \newcommand\newrow{\\[-1.5pt]}
 \newcommand\tvdots{\multicolumn{1}{c}{$\vdots$}}
+
+% Scale input
+\newcommand{\scaledinput}[2]{\scalebox{#1}{\input{#2}}}
