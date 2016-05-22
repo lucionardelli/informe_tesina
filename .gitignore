@@ -33,3 +33,4 @@
 .directory
 paper.tex
 chapters/*.tex.bak
+_minted-tesina/
