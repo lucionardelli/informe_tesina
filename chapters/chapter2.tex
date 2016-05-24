@@ -6,8 +6,8 @@
 En este capítulo introduciremos las definiciones y conceptos básicos con los que se trabajará durante el desarrollo de 
 esta tesina. Se presentarán la \textit{minería de procesos} (\autoref{sec:2.process mining}), 
 las \textit{redes de Petri} (\autoref{sec:2.Petrinets}), \textit{Vectores Parikh} (\autoref{sec:2.parikh}), 
-\textit{Dominios numéricos abstractos} y su aplicación al desubrimiento de procesos (\autoref{sec:2.discovery}), 
-se realizará una introducción a la \textit{Teoría de satisfacibilidad módulo} 
+\textit{Dominios numéricos abstractos} y su aplicación al desubrimiento de procesos (\autoref{sec:2.discovery}).
+Luego se realizará una introducción a la \textit{Teoría de satisfacibilidad módulo} 
 y se introducirán los conceptos utilizados de \textit{logs} (\autoref{sec:2.logs}) 
 e \textit{información negativa} (\autoref{sec:2.negative}).
 
@@ -22,7 +22,7 @@ como objetivo extraer información referente al proceso de un cierto sistema
 con el objetivo de poder analizar, probar ciertas propiedades 
 así como implementar posibles mejoras sobre dicho proceso.
 
-A diferencia de los enfoques clásicos de las técnicas de minería de datos, el foco
+A diferencia de las técnicas clásicos de las técnicas de minería de datos, el foco
 está en los procesos, en el flujo de un sistema.
 
 \subsection{Logs} 
@@ -30,7 +30,7 @@ está en los procesos, en el flujo de un sistema.
 
 La minería de procesos tiene su punto inicial en la recopilación de un \textit{log de eventos}. 
 Un evento refiere a una actividad de un sistema $\sys$ y
-una traza de eventos -o simplemente traza- se define como una secuencia
+una traza de eventos -o simplemente traza- se define como una sucesión
 ordenada de estos eventos, por lo general, generadas de manera automática.
 Un log de eventos -o simplemente \textit{log}- por su parte, se conforma de un
 conjunto de trazas cada una de las cuales corresponden a una instancia única 
@@ -59,7 +59,7 @@ información y, aunque su objetivo primario es la minería de procesos, también
 utiliza en otras áreas como minería de datos y análisis estadístico.
 En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguiendo el standard XES.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \begin{minted}[
     bgcolor=bg,
     frame=lines,
@@ -133,7 +133,7 @@ al comparar un modelo con un log) y \textit{mejora de modelos} (i.e. corregir un
 En la ~\autoref{fig:pmcycle} se muestra como se relacionan los diferentes tipos de PM entre sí, con los logs de procesos
 y con otros modelos, en búsqueda de un modelo de los procesos de un cierto sistema.
 
-\begin{figure}[t]
+\begin{figure}[h]
   	\centering
     \includegraphics[scale=0.5]{img/pmcycle.png}\\
     \caption{Interacción de los diferentes tipos de PM.}
@@ -148,18 +148,15 @@ modelo \emph{adecuado}, modelo \emph{preciso}, modelo \emph{generalizador} de un
 
 \begin{itemize}
   \item $\pmlog$ se dice incompleto con respecto a un sistema $\sys$ si existen comportamientos
-        de $\sys$ no representados en $\pmlog$.
-        i.e. ${\sys} \setminus \pmlog \ne \emptyset$.
+        de $\sys$ no representados en $\pmlog$, i.e. ${\sys} \setminus \pmlog \ne \emptyset$.
   \item $N$ se dice adecuado con respecto a un log $\pmlog$ si el modelo captura el comportamiento 
-        de las trazas en $\pmlog$, indica cuanto del comportamiento observado acepta $N$. 
-        i.e. $\pmlog \subseteq \Language(N)$.
+        de las trazas en $\pmlog$, i.e. $\pmlog \subseteq \Language(N)$.
   \item $N$ se dice preciso con respecto a un log $\pmlog$ si $N$ no admite ejecuciones que no hayan
-        sido observados en $\pmlog$.
-        i.e. $\Language(N) \setminus \pmlog = \emptyset$.
+        sido observados en $\pmlog$, i.e. $\Language(N) \setminus \pmlog = \emptyset$.
   \item $N$ se dice una generalización de un log $\pmlog$ sobre un sistema $\sys$ si $N$
-        no se restringe al comportamiento observado en $\pmlog$ y acepta trazas que no han sido observadas aún.
+        no se restringe al comportamiento observado en $\pmlog$ y acepta trazas que no han sido observadas aún,
         i.e. $({\sys} \setminus \pmlog) \cap \Language(N) \neq \emptyset$.
-  \item $N$ se dice simple cuando posee la menor complejidad posible y representa $\Language(N)$,
+  \item $N$ se dice simple cuando posee la menor complejidad posible y representa $\Language(N)$.
         Es ampliamente aceptado que el tamaño de un modelo de procesos constituye el indicador más importante
         sobre la simplicidad del mismo~\cite{AalstBook,Aalst2012,LeonRCHH15,CarmonaC14}.
 \end{itemize}
@@ -173,11 +170,11 @@ posiblemente obtenido mediante las técnicas de descubrimiento del punto anterio
 son necesarios, por lo menos, un modelo $N$ y un log $\pmlog$ y consiste en medir la calidad 
 de $N$ en reproducir los comportamientos observados en $\pmlog$. Para medir la calidad de $N$ se 
 utilizan los conceptos ut supra definidos:
-Se busca un modelo \emph{adecuado}, \emph{preciso}, \emph{general} y \emph{simple}.
+se busca un modelo \emph{adecuado}, \emph{preciso}, \emph{general} y \emph{simple}.
 
-Por último, la mejora de modelos, se preocupa de extender y mejorar un modelo dado utilizando la información
+Por último, la mejora de modelos, tiene como objetivo extender y mejorar un modelo dado utilizando la información
 del proceso real obtenida a partir de los logs. En este punto, se buscan detectar posibles dificultades en 
-el modelo así como también reducir su complejidad. 
+el modelo así como también reducir su complejidad.
 
 
 \section{Redes de Petri}
@@ -190,12 +187,12 @@ Desde su creación han sido utilizadas, entre otros usos, para representación,
 análisis, verificación y simulación de sistemas de eventos discretos con 
 comportamiento dinámico~\cite{Murata89}.
 
-Una red de Petri esta formada por dos componentes, la red propiamente dicha y un conjunto
-de \dquote{fichas} asignados a ciertos nodos de la misma.
+Una red de Petri está formada por dos componentes, la red propiamente dicha y un conjunto
+de \dquote{fichas} asignadas a ciertos nodos de la misma.
 
 La primera de estas componentes consiste en un grafo bipartito dirigido y ponderado,
 cuyos nodos se separan en los conjuntos disjuntos 
-llamados lugares -\textit{places}- y transiciones -\textit{transitions}-.
+llamados \textit{places} y transiciones -\textit{transitions}-.
 Los arcos del grafo se dirigen tanto de los places a las transiciones como viceversa.
 
 En el momento de graficar una red de Petri, los places, generalmente se
@@ -225,7 +222,8 @@ Por último, $M_0$ representa el estado inicial de la red, i.e. el marking inici
     con una actividad del log.
 }
 
-El \textit{preset} y \textit{postset} de un place $p$ se denotan como $\preset{p}$ y $\postset{p}$
+El \textit{preset} y \textit{postset} de un place $p$ corresponden al conjunto 
+de transiciones que \dquote{llegan} y \dquote{salen} de $p$. Se denotan como $\preset{p}$ y $\postset{p}$
 respectivamente, los cuales se definen formalmente como: $\preset{p} =  \{t \in T ~|~ F(t,p) > 0 \}$
 y $\postset{p} = \{t \in T ~|~ F(p,t) > 0 \}$.
 
@@ -245,15 +243,15 @@ dinámicos; este comportamiento dinámico está definido mediante las \emph{regl
 Intuitivamente, el dinamismo de una red viene dado por los markings que se encuentran en cada
 uno des sus places, los cuales se van \dquote{moviendo} de un place a otro a través de la 
 ejecución de las transiciones. 
-Para que una transición pueda ser recorrida, debe estar \emph{habilitada}. Una transacción 
-$t \in T$ esta habilitada, en un cierto marking $M$ si 
+Para que una transición pueda ser recorrida, debe estar \emph{habilitada}. Una transición 
+$t \in T$ está habilitada, en un cierto marking $M$ si 
 
 \bequation
     \mbox{$\forall p \in P:~ M(p) \ge F(p,t) $}.
 \eequation
 
 Es decir, una transición $t$ se encuentra habilitadas, si el marking contiene suficientes
-tokens como marca el preset de $t$.
+fichas como marca el preset de $t$.
 
 Ejecutar una transición $t$ sobre un place $p \in P$ en un cierto marking genera 
 un nuevo marking $M'$, esto se denota \firing{M}{t}{M'}.
@@ -274,7 +272,7 @@ el conjunto de secuencias de transiciones ejecutables sobre $N$.
 Por su parte, al conjunto de markings alcanzable partiendo desde el marking inicial $M_0$,
 llamado \emph{conjunto alcanzable} de $N$, se lo nota $\rs(N)$.
 
-\begin{figure}[t]
+\begin{figure}[h]
   	\centering
     \input{img/ineq_net1}
     \caption{Una red de Petri (pura) con pesos no unitarios.}
@@ -291,7 +289,7 @@ se satisface para cualquier secuencia de eventos $\sigma$
     M(p) = M_0(p) + \widehat\sigma(x_1)+\cdots +\widehat\sigma(x_k) - \widehat\sigma(y_1)-\cdots -\widehat\sigma(y_l).
 \eequation
 
-Generalizando la  ecuación \eqref{eq:1place_cte} para permitir arcos ponderados
+Generalizando la ecuación \eqref{eq:1place_cte} para permitir arcos ponderados, se tiene
 
 \bequationl{1place_wei}
     M(p) = M_0(p) + \sum_{x_i \in \preset{p}}F(x_i,p)\cdot \widehat\sigma(x_i) - \sum_{y_i\in\postset{p}}F(p,y_i)\cdot\widehat\sigma(y_i).
@@ -302,19 +300,19 @@ utilizando la notación matricial, se obtiene la ecuación conocida como
 \emph{ecuación de marcado} de una red de Petri~\cite{Murata89}
 
 \bequationl{matrix_eq}
-    M = M_0 + A \cdot \widehat\sigma 
+    M = M_0 + A \cdot \widehat\sigma,
 \eequation
 
 donde $M$ y $M_0$ son vectores y $A$ representa la \emph{matriz de incidencia}
 del grafo; La matriz $A$ posee $|P|$ filas y $|T|$ columnas y representa las conexiones 
 existentes en la red.
 
-De la ecuación \autoref{eq:matrix_eq} se desprende el concepto
+De la ecuación \eqref{eq:matrix_eq} se desprende el concepto
 de \textit{conjunto potencialmente alcanzable} el cual corresponde al conjunto
 de soluciones de la siguiente inecuación
 
 \bequationl{matrix_ineq}
-    M = M_0 + A \cdot \widehat\sigma \geq 0
+    M = M_0 + A \cdot \widehat\sigma \geq 0.
 \eequation
 
 %Utilizando la ecuación \eqref{eq:matrix_ineq} resulta natural definir el concepto
@@ -331,7 +329,7 @@ la red de Petri de la ~\autoref{fig:pn1},
     \cdot
     \left[\begin{array}{c} \widehat\sigma(x) \\ \widehat\sigma(y) \end{array} \right]
     \geq 
-    \left[\begin{array}{c} 0 \\ 0 \end{array} \right]
+    \left[\begin{array}{c} 0 \\ 0 \end{array} \right].
 \eequation
 
 Es importante ver que todo marking alcanzable de una red de Petri
@@ -346,8 +344,8 @@ El enfoque presentado en esta tesina utiliza dominios numéricos abstractos sobr
 del log de un cierto sistema para obtener un modelo formal del mismo.
 La idea principal consiste en convertir las diferentes trazas de eventos en un conjunto de puntos
 en el espacio mediante el uso de los \textit{vectores Parikh} para luego, mediante métodos 
-de programación lineal, calcular la mínima cápsula convexa que contenga dichos puntos. 
-Al obtener este poliedro, se muestra como puede derivarse una red de Petri 
+de programación lineal, calcular la cápsula convexa que contenga dichos puntos. 
+Luego de obtener este poliedro, se muestra como puede derivarse una red de Petri 
 que modela el procesos del sistema.
 
 \subsection{Vectores Parikh} 
@@ -369,9 +367,10 @@ del evento asociado.
     \bequation
         \begin{array}{lll}
             \widehat{\ }:& T^*&\rightarrow \nat^n\\
-            %\;&\sigma &\mapsto \widehat{\sigma}=(|\sigma|_{t_1},\dots, |\sigma|_{t_n} )\\
-            \widehat{\sigma}&=&(|\sigma|_{t_1},\dots, |\sigma|_{t_n} )
-        \end{array}.
+            \;&\sigma &\mapsto \widehat{\sigma}=(|\sigma|_{t_1},\dots, |\sigma|_{t_n} ).
+            %\widehat{\sigma}&=&(|\sigma|_{t_1},\dots, |\sigma|_{t_n} )
+            %\widehat{\sigma}:& \sigma&\mapsto (|\sigma|_{t_1},\dots, |\sigma|_{t_n} )
+        \end{array}
     \eequation
 Además, por simplicidad, se denota cada $|\sigma|_{t_i}$ como $\widehat\sigma(t_i)$.
 \end{definition}
@@ -410,7 +409,7 @@ vector.
 
 Un \textit{semiespacio} es cada
 una de las porciones en las que queda dividido un espacio $n$-dimensional por un hiperplano $(n-1)$-dimensional. Un semiespacio
-puede ser descripto mediante un incuación lineal de la forma $$a_1x_1 + a_2x_2 + \cdots + a_nx_n \geq b$$.
+puede ser descripto mediante un incuación lineal de la forma $$a_1x_1 + a_2x_2 + \cdots + a_nx_n \geq b.$$
 
 Un poliedro convexo $n$-dimensional es un conjunto convexo de puntos en $\mathbb{R}^n$. Existen 
 dos maneras de representar un poliedro convexo, la $V$-representación y la $H$-representación~\cite{Rockafellar70}.
@@ -423,20 +422,20 @@ como la intersección de un conjunto de $k$ hiperespacios,
 donde  \mbox{$A \in \mathbb{R}^{k \times n}$} y
 \mbox{$b\in\mathbb{R}^{k}$}.
 
-Los siguientes resultados son importantes para el resto del trabajo~\cite{CarmonaC14},
-
-\begin{theorem}
-\label{theo:orig_in_b_pos}
-    Sea $\ph$ un poliedro convexo definido como la intersección de un conjunto
-    finito de semiespacios siguiendo \eqref{eq:convex_poly}. $\ph$ contiene el 
-    origen \mbox{$z=(0,\ldots,0)$} sí y solo sí, $b \geq 0$
-\end{theorem}
-
-\begin{proof}
-    Si el orígen pertenece a $\ph$, entonces $b$ debe tener todas sus componentes positivas,
-    en caso contrario una de las inecuaciones no se cumpliría al evaluar el origen.
-    Por otro lado, si $b \geq 0$, entonces el origen satisface todas las inecuaciones.
-\end{proof}
+%Los siguientes resultados son importantes para el resto del trabajo~\cite{CarmonaC14}:
+%
+%\begin{theorem}
+%\label{theo:orig_in_b_pos}
+%    Sea $\ph$ un poliedro convexo definido como la intersección de un conjunto
+%    finito de semiespacios siguiendo \eqref{eq:convex_poly}. $\ph$ contiene el 
+%    origen \mbox{$z=(0,\ldots,0)$} sí y solo sí, $b \geq 0$.
+%\end{theorem}
+%
+%\begin{proof}
+%    Si el orígen pertenece a $\ph$, entonces $b$ debe tener todas sus componentes positivas,
+%    en caso contrario una de las inecuaciones no se cumpliría al evaluar el origen.
+%    Por otro lado, si $b \geq 0$, entonces el origen satisface todas las inecuaciones.
+%\end{proof}
 
 En adelante, cuando se habla simplemente de un poliedro se hace referencia a un poliedro convexo,
 excepto que se indique lo contrario.
@@ -485,7 +484,7 @@ bidimensional. Las áreas en gris claro representan un poliedro que contiene tod
 los puntos visitados por las tres caminatas. Dicho poliedro, puede representarse como 
 la intersección de dos semiespacios en $\mathbb{R}^2$
 
-\begin{figure}[t]
+\begin{figure}[h]
   \centering
   \subbottom[\label{sfig:simp.1}]{%
     \scaledinput{0.37}{img/ineq}}
@@ -546,9 +545,8 @@ evitar durante la ejecución del sistema y como tal no debe ser aceptado en el m
 \begin{definition}
     \label{def:neg}
     (Trazas negativas) Una cierta secuencia $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$ es
-    una traza negativa (o prohibida) del sistema $\sys$ si $\exists k \in \nat, k \lneq n$ tal que
+    una traza negativa (o prohibida) del sistema $\sys$ si $\exists k \in \nat, k \lvertneqq n$ tal que
     el prefijo $\sigma'=\sigma_1\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_k \in \sys$ pero $\sigma \notin \sys$
-    \todo[inline]{Si no puedo hacer andar este símbolo $\lneq$ ,poner $\lvertneqq$ o simplemente $<$}
 \end{definition}
 
     Debido al hecho de que los logs de eventos existentes en la vida real rara vez contienen información negativa, 
@@ -559,9 +557,9 @@ basada en la información positiva.
 %a la cual se las concatena con un único evento negativo.
 %Corresponde al caso particular en que para todas las trazas negativas,
 %según la definición \autoref{def:neg}, $|\sigma'|=k=n-1$. 
-En este trabajo se utiliza la definición \autoref{def:neg}, una versión más general 
+En este trabajo se utiliza la \autoref{def:neg}, una versión más general 
 a la utilizada en~\cite{Goedertier2009,BrouckeWVB14} ya que se utilizan sufijos
-automaticos sobre las trazas negativas obtenidas del algoritmo 
+automáticos sobre las trazas negativas obtenidas del algoritmo 
 descrito en~\cite{BrouckeWVB14}.
 Esta generalización responde al hecho  de que las trazas negativas 
 son tranformadas en puntos negativos y luego estos son utilizados
@@ -586,7 +584,7 @@ expresión booleana, es decir, satisfacibilidad de problemas proposicionales
 o \textit{SAT} (de \textit{Propositional \textbf{SAT}isfability Problem}). Para resolverlos,
 se cuenta con los conocidos SAT-solvers~\cite{barrettSMT2009}.
 Por otra parte, existen problemas cuya modelización es más natural utilizando lenguajes con
-un más poder de expresión, como la lógica de primer orden o lógicas de mayor orden las cuales
+mayor poder de expresión, como la lógica de primer orden o lógicas de mayor orden las cuales
 admiten diferentes expresiones como variables no booleanes, funciones y cuantificadores.
 Para este tipo de problemas, no bastará con utilizar un SAT-solver pero se cuenta con
 otro tipo de herramientas, los llamados resolvedores de teorías de satisfacibilidad módulo
