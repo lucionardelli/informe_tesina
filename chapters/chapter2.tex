@@ -208,7 +208,6 @@ La distribución inicial de estas fichas, por tanto, se conoce como \textit{mark
 Gráficamente, esta asignación se representa de manera distribuida, indicando dentro 
 de cada place el número entero asignado por el marking, o bien, dibujando una 
 cantidad de puntos igual a dicho número.
-\\
 
 Formalmente, una red de Petri es una 4-upla $(P,T,F,M_0)$ donde $P$ y $T$\footnotemark[1]
 representan los conjuntos finitos y disjuntos de places y transiciones respectivamente.
@@ -236,7 +235,6 @@ Es importante destacar que esto no es una
 restricción importante ya que podemos, de manera sistemática, relajar un modelo no puro agregando
 places ficticios y convertir cualquier ciclo de longitud uno en un ciclo de longitud dos para
 obtener una red de Petri pura.
-\\
 
 Como notamos anteriormente, las redes de Petri se utilizan para representar sistemas 
 dinámicos; este comportamiento dinámico está definido mediante las \emph{reglas de evolución}.
@@ -344,7 +342,7 @@ El enfoque presentado en esta tesina utiliza dominios numéricos abstractos sobr
 del log de un cierto sistema para obtener un modelo formal del mismo.
 La idea principal consiste en convertir las diferentes trazas de eventos en un conjunto de puntos
 en el espacio mediante el uso de los \textit{vectores Parikh} para luego, mediante métodos 
-de programación lineal, calcular la cápsula convexa que contenga dichos puntos. 
+de programación lineal, obtener un poliedro convexo que contenga dichos puntos. 
 Luego de obtener este poliedro, se muestra como puede derivarse una red de Petri 
 que modela el procesos del sistema.
 
@@ -422,6 +420,8 @@ como la intersección de un conjunto de $k$ hiperespacios,
 donde  \mbox{$A \in \mathbb{R}^{k \times n}$} y
 \mbox{$b\in\mathbb{R}^{k}$}.
 
+En adelante, cuando se habla simplemente de un poliedro se hace referencia a un poliedro convexo,
+excepto que se indique lo contrario.
 %Los siguientes resultados son importantes para el resto del trabajo~\cite{CarmonaC14}:
 %
 %\begin{theorem}
@@ -437,16 +437,13 @@ donde  \mbox{$A \in \mathbb{R}^{k \times n}$} y
 %    Por otro lado, si $b \geq 0$, entonces el origen satisface todas las inecuaciones.
 %\end{proof}
 
-En adelante, cuando se habla simplemente de un poliedro se hace referencia a un poliedro convexo,
-excepto que se indique lo contrario.
-%Since we will use the convex polyhedron of the Parikh representation of a log we restrict to the integer points inside it. 
-
 Se denomina látice entera, y se denota $Z^n$, a una látice en el espacio Euclidiano $\mathbb{R}^n$
 cuyos puntos son $n$-uplas de enteros. 
-
 Dado un poliedro convexo $\ph$, el conjunto de puntos enteros dentro de $\ph$
 forman una látice entera, denominada $Z$-poliedro de $\ph$.
 % Cambió de idioma y se transvistió...
+Dado que en este trabajo se utilizará un poliedro convexo que contenga la representación como vectores Parikh
+de un log, el espacio estará restringido a pntos entereso, i.e. al $Z$-poliedro correspondiente.
 
 \subsection{Descubrimiento de procesos} 
 \label{sec:2.discovery discovery}
