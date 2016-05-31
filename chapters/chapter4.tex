@@ -14,17 +14,16 @@ simplificación y generalización sobre un cierto modelo dado.
 \label{sec:4.pach}
 
 Para el desarrollo de esta tesina, el~\autoref{algo} ha sido implementado íntegramente 
-como una herramienta de linea de comando llamada \pachtool~\cite{pach}.
-
+como una herramienta de linea de comando llamada \pachtool~\footnote{\texttt{PacH}, Lucio Nardelli, \url{https://github.com/lucionardelli/PacH},v1.0}
 La herramienta se encuentra desarrollada en Python y ha sido satisfactoriamente probada en Linux y MAC;
 el código fuente se encuentra disponible bajo licencia BSD en
 \begin{center}\url{http://github.com/lucionardelli/PacH}\end{center}
 
 \pachtool maneja los estándar para logs (XES) y redes de Petri (PNML) y puede funcionar como 
-una herramienta de descubrimiento de procesos a partir de logs, generalización y eliminación
-o simplemente como una herramienta de post procesamiento de modelos existentes.
+una herramienta de descubrimiento de procesos a partir de logs o simplemente como una herramienta 
+de post procesamiento de modelos existentes.
 
-Una lista exhaustiva de comandos y opciones se encuentra disponible en el sitio de la herramienta.
+Una lista exhaustiva de comandos y opciones se encuentra disponible en el sitio web de la herramienta.
 
 %Assume that we have a log file of positive traces \verb!log.xes! and a log file of forbidden traces \verb!neg_log.xes!, we instruct \pachtool to do supervised process discovery with the following command:
 %\begin{verbatim}
@@ -51,7 +50,7 @@ paquetes necesarios:
     \begin{Verbatim}[frame=single,fontsize=\scriptsize]
         pip install -r requirements.txt
     \end{Verbatim}
-    \caption{Instalación rápida de dependencias para \pachtool.}
+    %\caption{Instalación rápida de dependencias para \pachtool.}
     \label{ej:pip_install}
 \end{figure}
 
@@ -71,7 +70,7 @@ ejecución de cada etapa independientemente de los métodos utilizados,
 generando una salida uniforme.
 
 \pachtool cuenta con diferentes módulos, cada uno con interfaces específicas que pueden utilizarse de manera
-independiente y también se provee de una interfaz única de centralización y cómputo general para 
+independiente y también se provee una interfaz única de centralización y cómputo general para 
 facilitar la interacción entre ellas, permitiendo la ejecución del algoritmo 
 de descubrimiento, simplificación y generalización completo.
 
@@ -104,7 +103,7 @@ Uno de los procesos más costosos del \autoref{algo} consiste en obtener el poli
 el conjunto de vectores Parikh de un log, i.e. linea \ref{algo:lineqhull} del algoritmo.
 El procedimiento correspondiente a \textsc{ConvexHull} ha sido implementado utilizando el paquete Python \emph{pyhull}~\cite{pyhull}, 
 un wrapper para Python del \qhulltool~\cite{Barber96}, y mediante las técnicas de alto nivel para manejo de 
-logs de gran dimensión, introducidas en~\cite{CarmonaC14}, sampling y projection.
+logs de gran dimensión, introducidas en~\cite{CarmonaC14}, sampling y proyección.
 
 Mediante el paquete pyqhull se obtiene la $H$-representación a coeficientes en $\mathbb{R}$ correspondiente a la cápsula convexa
 para los puntos. Como se vio en la~\autoref{sec:2.discovery polyhedra}, se requiere el $Z$-poliedro,
@@ -131,7 +130,7 @@ la solución obtenida mediante este método es demasiado general, degradando por
 Es importante aclarar, que aún cuando los poliedros que se obtienen mediante este procedimiento 
 representan el conjunto trazas del log de manera más eficaz que lo obtenidos mediante el 
 enfoque usual (i.e. el presentado en ~\autoref{sec:4.qhull}), no lo hacen de manera eficiente.
-Para casos artificiales los resultados son auspiciosos, pero el tiempo de computo insumido 
+Para casos artificiales los resultados son auspiciosos, pero el tiempo de computo
 resulta prohibitivo para el uso de SMT-poliedro en casos de uso reales.
 
 \subsection{Redes de Petri}
@@ -191,7 +190,7 @@ reportados se encuentran expresados en segundos.
 
 La herramienta ha sido ejecutada en diferentes benckmarks, reportando datos relevantes como la 
 complejidad esctructural del modelo obtenido, precisión, generalización y los tiempos en segundos 
-empleados en por cada acción significativa del proceso (e.g. algoritmo de descubrimiento,
+empleados por cada acción significativa del proceso (e.g. algoritmo de descubrimiento,
 proceso de simplificación iterativo, generalización).
 El conjunto de benchmarks (trazas positivas y negativas) puede verse en~\autoref{tab:bench}, donde se
 indican el número de trazas en cada log $|\pmlog|$, el número de eventos $|E|$ (i.e. la suma de las 
@@ -247,7 +246,7 @@ el siguiente formato:
 Los resultados relacionados al tiempo de ejecución de \pachtool se reportan en~\autoref{tab:pol_time}.
 La primera columna muestra el tiempo para calcular la cápsula convexa; el resto de las columnas, informa
 sobre el tiempo de la simplificación. Por ejemplo, el tiempo total de \pachtool como método de descubrimiento
-mediante la simplificación SMT iterativo mediante información positiva corresponde a la suma de la $1^{er}$ y $2^{da}$ columnas.
+mediante la simplificación SMT iterativa mediante información positiva corresponde a la suma de la $1^{er}$ y $2^{da}$ columnas.
 %En general el procedimiento \textsc{Removal} corresponde a la operación que mayor tiempo consume, debido a que se
 %debe iterar sobre todas los semiespacios y todos los puntos negativos verificando si se puede elimnar.
 Dado que para las codificaciones SMT se utiliza un enfoque iterativo para obtener la solución óptima,
@@ -264,11 +263,11 @@ utilizar la técnica de proyección de~\cite{CarmonaC14} y esto consume gran par
 \input{tables/table_pol_time}
 \input{tables/table_pol_simp}
 
-En~\autoref{tab:pol_simp} se reportan los resultados en la simplicidad -o complejidad estructural
-según lo visto en~\autoref{sec:3.complexity}- alcanzados. 
+En la~\autoref{tab:pol_simp} se reportan los resultados en la simplicidad -o complejidad estructural
+según lo visto en~\autoref{sec:3.complexity}- obtenidos. 
 Puede verse que la primera columna muestra los valores más altos dado a que no se realiza simplificación.
-Para todos los casos los mejores resultados (resaltados en negrita) se obtienen después de aplicar el 
-procedimiento de \textsc{Removal} luego de aplicar la simplificación SMT iterativamente sobre cada semiespacio
+Para todos los casos, los mejores resultados (resaltados en negrita) se obtienen después de aplicar el 
+procedimiento \textsc{Removal} luego de aplicar la simplificación SMT iterativamente sobre cada semiespacio
 con información positiva (es decir, el neto obtenido en la $2^{da}$ columna). 
 Entre los resultados pueden observarse algunos casos en los cuales no fue posible obtener
 un modelo simplificado (celdas con cruces). Esto ocurre al utilizar simplificación estructural 
