@@ -7,7 +7,7 @@ En este capítulo introduciremos las definiciones y conceptos básicos con los q
 esta tesina. Se presentarán la \textit{minería de procesos} (\autoref{sec:2.process mining}), 
 las \textit{redes de Petri} (\autoref{sec:2.Petrinets}), \textit{Vectores Parikh} (\autoref{sec:2.parikh}), 
 \textit{Dominios numéricos abstractos} y su aplicación al desubrimiento de procesos (\autoref{sec:2.discovery}).
-Luego se realizará una introducción a la \textit{Teoría de satisfacibilidad módulo} 
+Luego se realizará una introducción a \textit{satifabilidad módulo teorías} 
 y se introducirán los conceptos utilizados de \textit{logs} (\autoref{sec:2.logs}) 
 e \textit{información negativa} (\autoref{sec:2.negative}).
 
@@ -29,7 +29,7 @@ está en los procesos, en el flujo de un sistema.
 \label{sec:2.logs}
 
 La minería de procesos tiene su punto inicial en la recopilación de un \textit{log de eventos}. 
-Un evento refiere a una actividad de un sistema $\sys$ y
+Un evento refiere a la ocurrencia de una actividad de un sistema $\sys$ y
 una traza de eventos -o simplemente traza- se define como una sucesión
 ordenada de estos eventos, por lo general, generadas de manera automática.
 Un log de eventos -o simplemente \textit{log}- por su parte, se conforma de un
@@ -50,14 +50,14 @@ adicional (e.g. medio, tipo, user) que permite un entendimiento mayor del deveni
 
 Existen diferentes formas en las que se puede representar un log y debido a que provienen de diferentes
 sistemas, su representación dista de ser homogénea. Para intentar evitar esta heterogeneidad de representación,
-se utiliza mayoritariamente el standard para describir logs llamado 
+se utiliza mayoritariamente el estándar para describir logs llamado 
 \textit{e\textbf{X}tensible \textbf{E}vent \textbf{S}tream}, \textbf{XES}.
 
 XES consiste en un lenguaje basado en XML creado específicamente para representar logs de eventos que busca 
 un formato universal que permita la creación de herramientas reutilizables y la comunicación e intercambio de 
 información y, aunque su objetivo primario es la minería de procesos, también se 
 utiliza en otras áreas como minería de datos y análisis estadístico.
-En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguiendo el standard XES.
+En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguiendo el estándar XES.
 
 \begin{figure}[h]
     \begin{minted}[
@@ -101,17 +101,17 @@ En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguie
   	</trace>
   </log>
     \end{minted}
-    \caption{Un (muy) pequeño ejemplo de un log siguiendo el standard XES.}
+    \caption{Un (muy) pequeño ejemplo de un log siguiendo el estándar XES.}
     \label{fig:xeslog}
 \end{figure}
 
 Formalmente, dado un alfabeto $T$\footnote{Ver nota previa referente a la colisión de nombres} representando
-al conjunto de posibles eventos, un log se define como un conjunto $\pmlog \in \mathcal{P}(\eventstar)$\footnote{
+al conjunto de posibles actividades, un log se define como un conjunto $\pmlog \in \mathcal{P}(\eventstar)$\footnote{
 Los logs pueden ser definidos de manera más general como \dquote{multiconjuntos} donde algunos comportamientos
 pueden ser observados múltiples veces. No consideramos este enfoque ya que no consideramos 
 la frecuencia de cada traza; las redes solo contemplan la presencia o ausencia de un cierto comportamiento.}. 
-Los elementos del log \pmlog, llamados \textit{trazas}, son secuencias de eventos de $T$,
-i.e. $\sigma \in \eventstar$. 
+Los elementos del log \pmlog, llamados \textit{trazas}, son secuencias de eventos de del conjunto
+de actividades $T$, i.e. $\sigma \in \eventstar$. 
 Por abuso de notación, se utiliza $\sigma \in \sys$, para indicar que existe una ejecución del sistema $\sys$
 en la que se presentan los eventos de $\sigma$ de manera ininterrumpida y ordenada.
 Dados un número natural $1 \leq k \leq n$ y una traza $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$, 
@@ -215,8 +215,8 @@ Por su parte, los arcos ponderados vienen dados por \mbox{$F:(P \times T) \cup (
 y un marking $M$ viene dado por la función \mbox{$M:P \to \nat$}.
 Por último, $M_0$ representa el estado inicial de la red, i.e. el marking inicial.
 
-\footnotetext[1]{ En este trabajo, utilizamos el mismo símbolo $T$ para denotar el conjunto de transiciones -\textit{transiciones}-
-    de una red de Petri así como para el alfabeto de eventos de las trazas de un log.
+\footnotetext[1]{ En este trabajo, utilizamos el mismo símbolo $T$ para denotar el conjunto de transiciones
+    de una red de Petri así como para el alfabeto de actividades de las trazas de un log.
     Esta colisión es intencionada ya que, en nuestro modelo, cada transición se corresponde biunívocamente
     con una actividad del log.
 }
@@ -281,7 +281,7 @@ Sea $p$ un place con \mbox{$\preset{p}=\{x_1,\ldots,x_k\}$}, \mbox{$\postset{p}=
 y una función de marcado $M$ constante  tal que a cada place le asigna 1 token.
 Siendo $M_0(p)$ la cantidad de tokens en el marking inicial 
 para el place $p$, entonces, la siguiente ecuación
-se satisface para cualquier secuencia de eventos $\sigma$
+se satisface para cualquier secuencia $\sigma$
 
 \bequationl{1place_cte}
     M(p) = M_0(p) + \widehat\sigma(x_1)+\cdots +\widehat\sigma(x_k) - \widehat\sigma(y_1)-\cdots -\widehat\sigma(y_l).
@@ -354,11 +354,11 @@ $T=\{t_1,t_2,\dots,t_n\}$, se utiliza $|\sigma|_{t_i}$ para representar la
 cantidad de ocurrencias de $t_i$ en $\sigma$.
 Luego, el \emph{vector Parikh} de $\sigma$ se define como un vector
 de longitud $n$ en el cual cada componente toma como valor la cantidad de ocurrencias
-del evento asociado.
+de la actividad asociado al evento.
 
 \begin{definition}
     \label{def:pv}
-    (Vector Parikh). Sea $T=\{t_1,\ldots,t_n\}$ un alfabeto de eventos,
+    (Vector Parikh). Sea $T=\{t_1,\ldots,t_n\}$ un alfabeto de actividades,
     el vector Parikh de una secuencia de eventos sobre $T$ se define como
     la función
 
@@ -566,7 +566,7 @@ puntos negativos que se encuentran muy cercanos al poliedro generado, reduciendo
 método presentado.
 
 
-\section{Teorías de satisfacibilidad módulo}
+\section{Satisfabilidad módulo teorías}
 \label{sec:2.smt}
 
 El problema de satisfacer un conjunto de restricciones posee múltiples aplicaciones
@@ -576,22 +576,23 @@ teoría de grafos. Todos ellos comparten un componente fundamental, utilizan fó
 lógicas para describir los estados y las transformaciones de estados que se suceden
 en un cierto modelo.
 
-Los problemas más usuales de satisfacibilidad consisten en hacer válida una cierta 
-expresión booleana, es decir, satisfacibilidad de problemas proposicionales 
+Los problemas más usuales de satisfabilidad consisten en hacer válida una cierta 
+expresión booleana, es decir, satisfabilidad de problemas proposicionales 
 o \textit{SAT} (de \textit{Propositional \textbf{SAT}isfability Problem}). Para resolverlos,
 se cuenta con los conocidos SAT-solvers~\cite{barrettSMT2009}.
 Por otra parte, existen problemas cuya modelización es más natural utilizando lenguajes con
 mayor poder de expresión, como la lógica de primer orden o lógicas de mayor orden las cuales
 admiten diferentes expresiones como variables no booleanes, funciones y cuantificadores.
 Para este tipo de problemas, no bastará con utilizar un SAT-solver pero se cuenta con
-otro tipo de herramientas, los llamados resolvedores de teorías de satisfacibilidad módulo
--\textit{satisfaibility modulo theories solvers}-, los actualmente populares \textit{SMT-solvers}~\cite{deMoura2009}.
+otro tipo de herramientas, los llamados resolvedores de satisfabilidad módulo teorías
+-\textit{satisfability modulo theories solvers}-, los actualmente populares \textit{SMT-solvers}~\cite{deMoura2009}.
 
 Los \textit{SMT-solvers} permiten determinar la veracidad o falsedad de un cierto modelo
 basándose en una teoría de fondo aribitraria que otorga mayor expresividad al lenguaje.
 Por ejemplo, la teoría aritmética, nos permite utilizar los símbolos  $+$, $<$, $\leq$ 
 así como variables numéricas para representar una fórmula para la cual 
 el SMT-solver puede (intentar) determinar su veracidad.
+\todo[]{No debería agregar el hecho de que no siempre la solución es la misma ni la óptima?}
 
 \section{Enunciado del problema} 
 \label{sec:2.problem}

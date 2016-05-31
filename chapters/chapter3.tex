@@ -1,4 +1,4 @@
-\chapter{Descubrimiento de procesos supervisado}
+\chapter{Descubrimiento supervisado de procesos}
 \label{chap:3}
 
 En este capítulo, nos centraremos en el área de la minería de procesos que refiere
@@ -7,21 +7,20 @@ que represente el funcionamiento de un cierto sistema a partir de un log del mis
 Para ello, revisamos el algoritmo de descubrimiento introducido en~\cite{LeonCB15},
 el cual consiste en una extensión del algoritmo en~\cite{CarmonaC14} que permite 
 introducir información negativa al proceso de búsqueda. De este análisis se observan 
-ciertas limitaciones que poseen estos enfoques, por lo cual planteamos un nuevo 
+ciertas limitaciones que posee este enfoque, por lo cual planteamos un nuevo 
 algoritmo de descubrimiento como una extensión al proceso en~\cite{LeonCB15} mediante 
-la que buscamos salvar ambos inconvenientes con el fin de obtener, de manera automática, 
+la que buscamos salvar estos inconvenientes con el fin de obtener, de manera automática, 
 un modelo que sea a la vez adecuado, preciso, general y simple.
 
 Se detallará el algoritmo de descubrimiento propuesto y se mostrará además,
-que la técnica introducida es independiente del proceso de descubrimiento
-y puede ser utilizado para simplificar los modelos obtenidos por otras técnicas 
-de descubrimiento de procesos.
+que la técnica de simplificación introducida es independiente del proceso de descubrimiento
+y puede ser utilizado para simplificar los modelos obtenidos por otras técnicas.
 
 \section{Algoritmo de descubrimiento}
 \label{sec:3.algodisco}
 
 Según lo visto en \autoref{sec:2.discovery discovery}, el descubrimiento de procesos
-refiere al proceso mediante el cual, partiendo del log de un sistema, se busca
+refiere a la técnica mediante la cual, partiendo del log de un sistema, se busca
 un modelo que lo represente.
 Para este fin, existen diferentes metodologías~\cite{CarmonaC14,LeonCB15,MedeirosAW03,AalstWM04}.
 En este trabajo, se introduce una extensión del algoritmo presentado en~\cite{LeonCB15} (el cual a
@@ -64,47 +63,46 @@ i.e. se obtiene un modelo \textit{overfitting}.
 
 \begin{example}
     Sea el log $\pmlog=\{ ac, abac, abab \}$ cuyo vector de Parikh es 
-    $\parikh{\pmlog}=\{ (0,0,0),(1,0,0), (1,0,1),\\(1,1,0), (2,1,0), (2,1,1),(2,2,0) \}$ (asumiendo el orden $(a,b,c)$).
+    $\parikh{\pmlog}=\{ (0,0,0),(1,0,0), (1,0,1),(1,1,0), (2,1,0), (2,1,1),(2,2,0) \}$ (asumiendo el orden $(a,b,c)$).
     Si se proyecta sobre las actividades $\{a,b\}$ y se utiliza una muestra con los puntos
     $\{(1,0,1),(1,1,0),(2,1,1),(2,2,0)\}$, el conjunto de puntos proyectados es
     $\{ (1,0), (1,1), (2,1), (2,2) \}$. 
-    Así, utilizando las técnicas en~\cite{CarmonaC14}, se obtendrá un modelo con
-    representado por la inecuación \mbox{$a \ge b$}.
+    Así, utilizando las técnicas en~\cite{CarmonaC14}, se obtendrá la inecuación
+    \mbox{$a \ge b$}.
     
     Puede observarse que esto representa una subestimación del modelo ideal (si se consideran
-    todos los puntos del log), el cual puede representarse mediante la inecuación $a \ge b + c$.
+    todos los puntos del log), cuya $H$-representación corresponde a la inecuación $a \ge b + c$.
 \end{example}
 
 La segunda limitación surge de la metodología utilizada para computar el poliedro que contiene los 
 puntos en el conjunto de vectores de Parikh. Debido a la metodología utilizada, se obtiene un 
-modelo complicado del sistema. Debido a la metodología utilizada, se obtiene un 
-modelo complicado del sistema. Existe en~\cite{CarmonaC14} un post procesamiento de simplificación, pero este es
+modelo complejo del sistema. Existe en~\cite{CarmonaC14} un post procesamiento de simplificación, pero este es
 realizado de manera heurística y manual, seleccionando un subconjunto de las restricciones que conforman la
 $H$-representación del poliedro computado. Solo se utilizan las restricciones con coeficientes \dquote{simples}, 
 eliminando el resto del modelo. 
 Esta elección esta basada en la presunción de que, en la vida real, los procesos son definidos de manera
 que sean \textit{simples} y más especialmente en el campo de la gestión de procesos de negocio. Esta presunción,
-aunque no es necesariamente desacertada, generalice demasiado el modelo, convirtiéndolo en un modelo
+aunque no es necesariamente desacertada, generaliza demasiado el modelo, convirtiéndolo en un modelo
 impreciso.
 
 Por su parte, en~\cite{LeonCB15} se propone un método supervisado para la simplificación del modelo que 
-introduce el manejo de información negativa en caso de estar disponible.
+introduce el manejo de información negativa.
 De manera iterativa, se consideran cada uno de los hiperplanos que conforman la $H$-representación del poliedro
 y se intenta desplazar y rotar el mismo para obtener un modelo más simple.
-Para evitar degradar el sistema, al simplificar cada inecuación se limita de manera que cada punto aceptado
-inicialmente siga siendo aceptado y, en caso de poseer información negativa, se restringe la simplificación
+Para evitar degradar el sistema, se limitan las simplificaciones a realizar sobre cada inecuación
+de manera que cada punto aceptado inicialmente siga siendo aceptado y se restringe también
 de manera que ningún punto prohibido sea aceptado.
 
 El inconveniente con este enfoque es que trata los hiperplanos de manera aislada; cada inecuación
 simplificada debe incluir, al menos, las mismas soluciones que la original (para evitar un modelo no adecuado) y no
 debe incluir ningún punto negativo. Sin embargo, dado que el comportamiento del sistema no es definido por los 
-semiespacios aislados sino por la unión de todos ellos, es el modelo quien no debe admitir puntos prohibidos 
-y no un semiespacio particular.
+semiespacios aislados sino por la intersección de todos ellos, es el modelo quien debe admitir los puntos del log,
+y restringir los puntos prohibidos y no un semiespacio particular.
 
 \begin{example}
     \label{ex:prob_gen}
     En la \autoref{fig:glob_encoding}, se muestra un poliedro inicial \autoref{sfig:glob_encoding.1} 
-    y un punto $(9,4)$ que pertenece al semiespacio definido por el plano $p$.
+    y un punto $(9,4)$ que pertenece al semiespacio definido por el plano $p$ pero no al poliedro.
 
     \begin{figure}[H]
       \centering
@@ -113,11 +111,11 @@ y no un semiespacio particular.
       \hfill
       \subbottom[\label{sfig:glob_encoding.2}]{%
         \scaledinput{0.40}{img/ineq2}}
-      \caption{Simplificación individual vs. simplificación matricial.}
+      \caption{Simplificación individual vs. simplificación estructural.}
       \label{fig:glob_encoding}
     \end{figure}
 
-    Si se aplica la técnica propuesta en~\cite{LeonCB15} a este plano, de manera aislada,
+    Si se aplica la técnica propuesta en~\cite{LeonCB15} a este plano de manera aislada,
     no se obtendrá nunca el poliedro $p'$ en \autoref{sfig:glob_encoding.2} ya que
     $p'$ no admite como solución al punto $(9,4)$. 
     Sin embargo, es claro que el punto $(9,4)$ no pertenece al poliedro~\autoref{sfig:glob_encoding.2}.
@@ -145,7 +143,7 @@ transformación a una red de Petri según se detalló en~\autoref{sec:2.discover
 Por otro lado, en la sección inferior de la \autoref{fig:flow}, se representa a modo de introducción,
 como el uso de información negativa proveniente de diferentes medios, se utiliza para simplificar 
 el modelo obtenido con el costo de incluir nuevos puntos al modelo final.
-Los detalles de este enfoque se encuentran a continuación.
+Los detalles de este enfoque se precisan a continuación.
 
 \begin{algorithm}[H]
 \caption{Descubrimiento de procesos supervisado}
@@ -173,7 +171,7 @@ Los detalles de este enfoque se encuentran a continuación.
   \label{algo}
 \end{algorithm}
 
-El \autoref{algo} describe el enfoque propuesto paso a paso utilizando pseudocódigo. Un conjunto de trazas 
+El \autoref{algo} describe paso a paso el enfoque propuesto utilizando pseudocódigo. Un conjunto de trazas 
 positivas y un conjunto de trazas negativas conforman la entrada 
 (respectivamente \dquote{log de eventos} e \dquote{información negativa} en \autoref{fig:flow}). 
 En las líneas \ref{algo:line1}-\ref{algo:line2} se calculan todos los puntos positivos $pp$ para
@@ -187,16 +185,16 @@ una instancia de SMT, la cual no necesariamente provee la solución óptima (pue
 por lo que se utiliza un proceso de refinamiento iterativo para conseguir el óptimo.
 
 La función \textsc{Removal} corresponde a la optimización del procedimiento de eliminación presentado en~\cite{LeonCB15}.
-En este punto, se considera la información negativa $np$, eliminando únicamente aquellos hiperplanos
+En este punto, se considera, de existir, la información negativa $np$, eliminando únicamente aquellos hiperplanos
 que no agreguen ninguno de los puntos de $np$ al modelo.
 
 Por último, el conjunto de semiespacios es transformado en una red de Petri mediante \textsc{Hull2Net} utilizando
 la dualidad que existe entre los poliedros y las ecuaciones de marking de una red de Petri
 presentada en \autoref{sec:2.discovery discovery}.
 
-Del hecho de que \textsc{ConvexHull} puede depender de las técnicas de muestreo y proyección y del
+Del hecho de que el resultado de \textsc{ConvexHull} puede depender de las técnicas de muestreo y proyección y del
 hecho que que \textsc{Shift\&Rotate} está representado como una instancia de SMT (la cual puede poseer múltiples soluciones
-y la devuelta depender de la implementación del solver) el algoritmo \autoref{algo} es no determinista, i.e. dados
+y la devuelta depende de la implementación del solver) el algoritmo \autoref{algo} es no determinista, i.e. dados
 los mismos logs positivo y negativo de entrada se pueden obtener diferentes resultados.
 
 \footnotetext[1]{ Nótese que en el caso de las trazas negativas, se utilizan únicamente los puntos correspondientes
@@ -207,15 +205,15 @@ los mismos logs positivo y negativo de entrada se pueden obtener diferentes resu
 \section{Generalización y simplificación}
 \label{sec:3.gensimp}
 
-En la \autoref{sec:2.discovery} se explica como partiendo de un conjunto de logs de un sistema, se puede
-buscar un poliedro convexo que contenga el conjunto de vectores Parikh y luego considerar la $H$-representación para
+En la \autoref{sec:2.discovery} se explica cómo partiendo de un conjunto de logs de un sistema, se puede
+buscar un poliedro convexo que contenga al conjunto de vectores Parikh y luego considerar la $H$-representación para
 obtener una red de Petri que modele el sistema que generó el log; estos pasos corresponden
 a las líneas \ref{algo:line1}-\ref{algo:lineqhull} de \autoref{algo}.
 Sin embargo, la estructura de esta red suele ser excesivamente compleja debido a que se utilizan 
 algoritmos de programación lineal que no calculan un poliedro arbitrario que contenga los puntos,
 sino que calculan la cápsula convexa. Aunque en primer instancia puede parecer algo positivo, la restricción
 de minimalidad impuesta genera modelos demasiado complejos, alejados del proceso real, lo que
-implica que pierda utilidad. Por este motivo, luego de obtener el modelo, se realiza un post
+implica que el modelo pierda utilidad. Por este motivo, luego de obtener el modelo, se realiza un post
 procesamiento para simplificar el poliedro y por ende el modelo.
 
 \begin{example} 
@@ -223,9 +221,9 @@ procesamiento para simplificar el poliedro y por ende el modelo.
     En \autoref{sfig:simp.1} se muestra un poliedro (el área gris claro) cuya $H$-representación viene
     dada por la intersección de los semiespacios definidos por $\{p_0,p_1\}$ y algunas de las caminatas generadas por las trazas.
     Mediante el proceso de generalización, puede obtenerse el poliedro definido 
-    mediante la intersección de los semiespacios con fonteras $\{p_0,p_2\}$ (la unión de las áreas gris clara y gris oscura), 
+    mediante la intersección de los semiespacios $\{p_0,p_2\}$ (la unión de las áreas gris clara y gris oscura), 
     i.e. un poliedro cuyo $Z$-poliedro contiene más puntos.
-    Los puntos marcados mediante $\bullet$ no son solución de$\{p_0,p_1\}$ pero si lo son de $\{p_0,p_2\}$.
+    Los puntos marcados mediante $\bullet$ no son solución de $\{p_0,p_1\}$ pero si lo son de $\{p_0,p_2\}$.
     La \autoref{sfig:simp.2} y la \autoref{sfig:simp.3} muestran las redes de Petri inferidas por cada uno 
     de los poliedros. 
 
@@ -296,7 +294,7 @@ sistema para asegurar que mantenemos un modelo adecuado, esto se refleja en~\eqr
 
 Para obtener la $H$-representación de un poliedro que implique una representación más simple y general de una red de Petri, 
 las condiciones \eqref{eq:enc1}, \eqref{eq:enc2} y \eqref{eq:enc3} pueden ser codificadas utilizando 
-teorías de satisfacibilidad módulo. 
+satisfabilidad módulo teorías. 
 
 \begin{example}
 Para la matriz de incidencia de~\autoref{sfig:simp.2}, la codificación como SMT resulta
@@ -314,12 +312,12 @@ $$\begin{array}{l}
 \Rightarrow (\beta_{1,0} + \beta_{1,1} \cdot \widehat\sigma(x) + \beta_{1,2 }\cdot  \widehat\sigma(y) \ge 0 \land \beta_{2,0} + \beta_{2,1} \cdot \widehat\sigma(x) + \beta_{2,2} \cdot  \widehat\sigma(y) \ge 0)
 \end{array}$$
 
-para esta codificación, se obtiene la siguiente solución (mediante el uso de los SMT-Solvers)
+para esta codificación, se obtiene automáticamente la siguiente solución (mediante el uso de los SMT-Solvers)
 
 $$\beta_{1,0}=6,\beta_{1,1}=-1,\beta_{1,2}=2, \beta_{2,0}=1,\beta_{2,1}=1,\beta_{2,2}=-1$$
 
 correspondiente al marking de la red en~\autoref{sfig:simp.3}.
-Se puede ver que el método propuesto no sacrifica lo adecuado de un modelo, ya que el $Z$-poliedro obtenido
+Se puede ver que el método propuesto no sacrifica lo adecuado del modelo, ya que el $Z$-poliedro obtenido
 contiene al original.
 \end{example}
 
@@ -341,7 +339,7 @@ contiene al original.
 \subsection{Uso de información negativa}
 \label{sec:3.gensimp negative}
 
-El proceso de generalización y simplificación propuesto en~\autoref{sec:3.gensimp} introduce puntos al modelo, 
+El proceso de generalización y simplificación propuesto en la~\autoref{sec:3.gensimp} introduce nuevos puntos al modelo, 
 los cuales generan nuevos comportamientos del sistema representado. Si se cuenta con un log negativo
 puede considerarse esta información para asistir al procedimiento y evitar la degradación
 de la solución.
@@ -353,7 +351,7 @@ verificar que las transformaciones realizadas al poliedro no conviertan a estos 
 Como se vio en ~\autoref{sec:3.algodisco}, el enfoque presentado en~\cite{LeonCB15},
 introduce las trazas negativas en el algoritmo de simplificación.
 En cada procesamiento aislado de los hiperplanos, se limitan las simplificaciones 
-aplicadas a cada uno de manera que el hiperesapcio no admita \emph{ningún} punto negativo.
+aplicadas a cada uno de manera que el hiperespacio no admita \emph{ningún} punto negativo.
 Esta estrategia posee un problema análogo al considerado con información únicamente positiva; en este caso
 un hiperespacio puede contener un punto negativo siempre que exista otro hiperespacio
 que no lo admita.
@@ -386,7 +384,7 @@ Mediante esta representación, se fuerza que, para cada punto negativo,
 al menos una de las inecuaciones no se satisfaga.
 
 Si no se cuenta con información negativa, la restricción \eqref{eq:enc1} es necesaria para evitar 
-la solución trivial (i.e. remover todos los hiperplanos), esto no ocurre en el caso se conocen
+la solución trivial (i.e. remover todos los hiperplanos), esto no ocurre en el caso en el que se conocen
 comportamientos prohibidos; la solución trivial admitiría cualquier comportamiento negativo, por 
 lo que podemos prescindir de \eqref{eq:enc1}.
 
@@ -451,11 +449,11 @@ sea una solución de $H \setminus {h}$.
 
 El resultado de este procedimiento depende de la calidad de la información negativa:
 un mal conjunto de trazas prohibidas puede permitir remover demasiados semiespacios,
-deteriorando la precisión de la red de Petri final. Como puede verse en los experimentos,
+deteriorando la precisión de la red de Petri final. Como podrá verse en los experimentos,
 las trazas que se obtienen en~\cite{BrouckeWVB14} permiten remover semiespacios sin 
 impactar en gran medida la calidad de las métricas de la red.
 
-\subsection{Conceptos de complejidad}
+\subsection{Conceptos de simplicidad y complejidad}
 \label{sec:3.complexity}
 
 Existen diferentes conceptos de complejidad referidos a las redes de Petri~\cite{Lassen08,Mendling2007}. 
@@ -482,6 +480,10 @@ los tokens consumidos y los tokens producidos por cada transición.
     \eequation
 \end{definition}
 
+Luego, la \emph{simplicidad} de una red de Petri es inversamente proporcional a su complejidad estructural. Es decir
+que una cierto modelo $N'$ es considerado \textit{más simple} que un modelo $N$ siempre que la red de Petri 
+que representa a $N'$ posea una complejidad estructural menor a la red que representa al modelo $N$.
+
 \begin{example}
     La complejidad de los poliedros~\autoref{sfig:simp.1} y~\autoref{sfig:simp.2} siguiendo 
     la ~\autoref{def:complex} es 14 y 12 respectivamente.
@@ -504,9 +506,10 @@ los tokens consumidos y los tokens producidos por cada transición.
     procedimiento es $\xi = 100 - 100 \times (c_2 / c_1) = 32\%$.
 \end{example}
 
-Es importante destacar que existen casos donde las nociones de complejidad coinciden en el sentido de indicar
-qué red es más simple, debido a que, remover un hiperplano, es equivalente a simplificar todos sus coeficientes
-hasta cero. Sin embargo, este no es siempre el caso. Siguiendo la definición aquí propuesta, una red que contenga
+Es importante destacar que existen casos donde la noción de complejidad introducida coincide con las utilizadas
+en~\cite{Lassen08,Mendling2007} en el sentido de indicar qué red es más simple, debido a que, remover un hiperplano,
+es equivalente a simplificar todos sus coeficientes hasta cero. Sin embargo, este no es siempre el caso.
+Siguiendo la definición aquí propuesta, una red que contenga
 dos places y coeficientes pequeños (en valor absoluto) es más simple que una red que contenga un único place con 
 coeficientes altos lo cual contradice las métricas que se ocupan en la simplicidad visual (e.g. contar la cantidad
 de places de una red).
@@ -516,7 +519,7 @@ de places de una red).
 
 Es importante observar que las técnicas presentadas en la sección anterior son independientes al algoritmo de 
 descubrimiento presentado en~\cite{CarmonaC14} y pueden ser aplicadas sobre cualquier
-red de Petri que satisfaga los supuestos, i.e. cualquier red de Petri pura, sin transiciones silenciosas y sin
+red de Petri que satisfaga las hipótesis, i.e. cualquier red de Petri pura, sin transiciones silenciosas y sin
 dos transiciones representando una misma acción. 
 
 En \autoref{sec:2.discovery}, se explica la correspondencia entre un poliedro y una de de Petri mediante
@@ -535,7 +538,7 @@ En este capítulo se revisaron los algoritmos de descubrimiento presentados en~\
 mostrando los inconvenientes que presenta cada uno. 
 
 Para resolver estas deficiencias, se definió lo que consiste en el mayor aporte del presente trabajo, el  algoritmo de
-generalización y simplificación utilizado SMT-solvers e información negativa.
+generalización y simplificación utilizando SMT-solvers e información negativa.
 El algoritmo plantea dos técnicas de post procesamiento a aplicarse sobre una red de Petri, una basada en 
 desplazamientos y rotaciones sobre la representación como $H$-poliedro. La segunda, sobre esta misma representación,
 consiste en un proceso de eliminación automática controlada mediante el cual se intenta 

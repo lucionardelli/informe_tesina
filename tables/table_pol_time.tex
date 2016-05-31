@@ -1,4 +1,4 @@
-% !TEX spellcheck = en-EN
+% !TEX spellcheck = es-AR
 
 \begin{table}[t]
 
@@ -8,47 +8,42 @@
 \def\negsep{\hspace{2.5pt}}
 
 \centering
-\small
-\tt
-\begin{adjustbox}{width=\textwidth}
-\resizebox{18cm}{!}{
-\begin{tabular}{lr@{\sep}r@{\sep}r@{\tinysep}rr@{\tinysep}r@{\sep}r@{\sep}}
+\tiny
+\begin{tabular}{l r  r  r  r r  r  r  }
 &
-&\multicolumn{2}{c}{\normalfont \bf Positive}
-&\multicolumn{2}{c}{\normalfont \bf Positive/Negative \ }
+&\multicolumn{2}{c}{\normalfont \textbf{Positivo}}
+&\multicolumn{2}{c}{\normalfont \textbf{Positivo/Negativo}}
 &\multicolumn{2}{c}{\normalfont \textsc{Removal}}\\
   \cmidrule(r){3-4}
   \cmidrule(r){5-6}
   \cmidrule(r){7-8}
   \normalfont Benchmark
-& \normalfont Polyhedra
-& \normalfont Halfspace
-& \normalfont Matrix
-& \normalfont Halfspace
-& \normalfont Matrix
-& \normalfont Baseline
+& \normalfont Poliedro
+& \normalfont Semiespacio
+& \normalfont Matriz
+& \normalfont Semiespacio
+& \normalfont Matriz
+& \normalfont Base
 & \normalfont SMT
 \\
 \midrule
 \newrow
-\rm\bench[32]{A} & 40,07 & 273,65 & 9,11 & 15,73 & 9,57 & 317,28 & 366,59 \newrow
-\rm\bench[42]{A} & 3,82 & 182,78 & 7,18 & 11,63 & 9,97 & 363,10 & 357,57 \newrow
-\rm\bench{Choice} & 0,10 & 0,41 & 0,73 & 0,29 & 0,75 & 0,64 & 0,62 \newrow
-%\rm\bench{Complex} & 89,46 & 294,07 & 8,27 & N/A & 12,39 & N/A & N/A \newrow
-\rm\bench{ConfDimB} & 0,05 & 0,32 & 0,46 & 0,26 & 0,73 & 0,56 & 0,58 \newrow
-\rm\bench[5]{Cycles} & 0,16 & 1,37 & 0,88 & 0,59 & 0,98 & 2,09 & 1,87 \newrow
-\rm\bench[2]{DbMut} & 0,26 & 3,35 & 1,13 & 0,97 & 1,39 & 10,57 & 10,52 \newrow
-\rm\bench{DocumentFlow} & 0,19 & 0,62 & 1,01 & 0,53 & 1,20 & 1,27 & 1,23 \newrow
-\rm\bench{FHMexample} & 0,21 & 5,95 & 0,93 & 0,69 & 0,84 & 17,97 & 17,60 \newrow
-\rm\bench{Incident} & 0,12 & 15,03 & 1,13 & 1,07 & 1,19 & 7,94 & 8,36 \newrow
-\rm\bench{Receipt} & 0,23	 & 10,48 & 1,35 & 1,50 & 1,70 & 42,45 & 55,61 \newrow
-\rm\bench{Svn} & 0,22 & 63,96 & 2,10 & 3,26 & 1,53 & 341,09 & 372,00 \newrow
-\rm\bench[32]{T} & 871,47 & 610,30 & 22,08 & 38,95 & 30,06 & 3451,96 & 2101,92 \newrow
-\rm\bench{Telecom} & 1,66 & 21,48 & 1,47 & 1,46 & 2,00 & 77,10 & 61,31 \newrow
+\bench[32]{A} & 40,07 & 273,65 & 9,11 & 15,73 & 9,57 & 317,28 & 366,59 \newrow
+\bench[42]{A} & 3,82 & 182,78 & 7,18 & 11,63 & 9,97 & 363,10 & 357,57 \newrow
+\bench{Choice} & 0,10 & 0,41 & 0,73 & 0,29 & 0,75 & 0,64 & 0,62 \newrow
+\bench{ConfDimB} & 0,05 & 0,32 & 0,46 & 0,26 & 0,73 & 0,56 & 0,58 \newrow
+\bench[5]{Cycles} & 0,16 & 1,37 & 0,88 & 0,59 & 0,98 & 2,09 & 1,87 \newrow
+\bench[2]{DbMut} & 0,26 & 3,35 & 1,13 & 0,97 & 1,39 & 10,57 & 10,52 \newrow
+\bench{DocumentFlow} & 0,19 & 0,62 & 1,01 & 0,53 & 1,20 & 1,27 & 1,23 \newrow
+%\bench{FHMexample} & 0,21 & 5,95 & 0,93 & 0,69 & 0,84 & 17,97 & 17,60 \newrow
+\bench{Incident} & 0,12 & 15,03 & 1,13 & 1,07 & 1,19 & 7,94 & 8,36 \newrow
+\bench{Receipt} & 0,23	 & 10,48 & 1,35 & 1,50 & 1,70 & 42,45 & 55,61 \newrow
+\bench{Svn} & 0,22 & 63,96 & 2,10 & 3,26 & 1,53 & 341,09 & 372,00 \newrow
+\bench[32]{T} & 871,47 & 610,30 & 22,08 & 38,95 & 30,06 & 3451,96 & 2101,92 \newrow
+\bench{Telecom} & 1,66 & 21,48 & 1,47 & 1,46 & 2,00 & 77,10 & 61,31 \newrow
 \\
 \bottomrule
-\end{tabular}}
-\end{adjustbox}
-\rm\caption{Computational times of \pachtool.}
+\end{tabular}
+\caption{\tiny Tiempo de ejecución total de \pachtool.}
 \label{tab:pol_time}
 \end{table}

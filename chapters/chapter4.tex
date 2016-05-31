@@ -1,395 +1,317 @@
-\chapter{Análisis de requerimientos}
-\label{cap:corpus}
+% !TEX encoding = UTF-8 Unicode
+% Capítulo 4 - Implementación
+\chapter[Implementación]{Implementación}
 
-El primer paso en la construcción de cualquier sistema de software, incluyendo los sistemas de generación de lenguaje natural, es realizar un análisis de requerimientos y a partir de estos generar una especificación inicial para el sistema. Para el análisis de requerimientos, se seguirá el enfoque sugerido por Reiter y Dale~\cite{reiter_dale} en el cual se propone realizar un corpus de textos de ejemplo y a partir de ellos obtener los requerimientos para el trabajo.
+En este capítulo se introducirán los detalles más relevantes del desarrollo de una nueva
+herramienta para la minería de procesos, \pachtool, realizada como parte de esta tesina. 
 
-\section{Corpus de descripciones}                 
+Además, se presentarán y analizarán diferentes resultados experimentales 
+de utilizar \pachtool como una instancia del~\autoref{algo} y además
+de utilizarlo como una herramienta de
+simplificación y generalización sobre un cierto modelo dado. 
 
-Según la definición de la RAE~\cite{dicrae}, un corpus es un \emph{``conjunto lo más extenso y ordenado posible de datos o textos científicos, literarios, etc., que pueden servir de base a una investigación''}. En particular, el corpus utilizado para la construcción de un sistema de NLG estará formado por un conjunto de ejemplos de datos de entrada junto a la correspondiente salida (texto en lenguaje natural) para cada uno de estos. En nuestro caso, la entrada será un grupo de clases de prueba (en lenguaje Z) junto a las designaciones correspondientes a la especificación testeada, mientras que la salida estará formada por descripciones en lenguaje natural de las clases de prueba antes mencionadas. En lo posible, el corpus de textos deberá cubrir todo el rango de textos que esperan ser producidos por el sistema de NLG; éste debería cubrir los casos más frecuentes, así como los casos más inusuales que pudieran ocurrir.
+\section{PacH}
+\label{sec:4.pach}
 
-%~\footnote{Una vez recolectada una colección inicial de textos de ejemplo, es posible que sea necesario aplicar algunas modificaciones sobre ésta. Esto se puede deber a que algunos de los textos recolectados resulten técnicamente implosibles de generar y sea necesarios removerlos del corpus, que existan diferentes variantes correspondientes a la misma entrada de texto y requiramos resolver posibles conflictos, textos que puedan ser mejorados y puedan ser modificados, etc. Llamaremos corpus objetivo al resultado de aplicar al corpus inicial todas las modificaciones antes mencionadas (de ser necesarias).}
-Siguiendo la metodología propuesta por Reiter y Dale, para construir el corpus que se utilizará a lo largo de todo el trabajo se deberá elaborar, en primera instancia, un \emph{corpus inicial} y luego, de ser necesario, se deberá trabajar el mismo a fin de confeccionar un \emph{corpus objetivo} que será con el que finalmente se trabajará. Para construir un \emph{corpus inicial} se debe recolectar un conjunto lo suficientemente amplio de ejemplos que debería ser representativo de la variedad de textos que se desea generar. Luego una persona capacitada (en nuestro caso alguien capaz de leer esquemas Z y con un alto conocimiento del dominio de aplicación) deberá describir en lenguaje natural los ejemplos antes mencionados. Esta colección de ejemplos y descripciones de los mismos constituirá nuestro \emph{corpus inicial}. Es posible que esta recopilación requiera algunas modificaciones, por ejemplo: podría ocurrir que alguno de los textos resulten técnicamente imposibles de generar y sea necesarios removerlos del corpus, también podrían existir diferentes variantes correspondientes a la misma entrada de texto y deberíamos resolver los posibles conflictos, etc. Llamaremos, finalmente, \emph{corpus objetivo} al resultado de aplicar las modificaciones necesarias al \emph{corpus inicial}. Este \emph{corpus objetivo} es el que se utilizará para sustentar muchas de las decisiones que se tomarán a lo largo de este trabajo. Además, podría ser de utilidad\footnote{Esto no está contemplado dentro del alcance de este trabajo, pero como veremos en el capítulo \ref{cap:conclusion}, podría ser tenido en cuenta en trabajos futuros.} para realizar una evaluación de nuestro sistema una vez desarrollado, comparando los textos generados por la implementación realizada con las descripciones del corpus realizadas por la persona especializada.
+Para el desarrollo de esta tesina, el~\autoref{algo} ha sido implementado íntegramente 
+como una herramienta de linea de comando llamada \pachtool~\cite{pach}.
 
-En el apéndice~\ref{ape:corpus} podemos encontrar los textos incluidos en el corpus utilizado para este trabajo. Para elaborar el mismo, se ha recolectado una colección de clases de prueba generadas con \emph{Fastest} a partir de distintas especificaciones y luego se escribió manualmente cada una de las descripciones para las mismas. En este proceso, se intentó abarcar todo el rango de textos que se espera que nuestro sistema sea capaz de producir, para esto, se ha tenido en cuenta incluir una gran variedad de clases de pruebas de modo que cubran todas las expresiones u operadores de Z contemplados dentro del alcance de este trabajo, considerando también las posibles combinaciones de estas expresiones. Se trabajó también con especificaciones sobre distintos dominios de aplicación a fin de lograr un corpus que sea de utilidad para dar con una solución independiente del dominio de aplicación. En total se han incluido clases de prueba generadas con \emph{Fastest} para 5 especificaciones distintas; del total se escogieron las más significativas para describir en lenguaje natural y se ignoraron aquellas que contenían algún operador no considerado dentro del alcance de este trabajo.
+La herramienta se encuentra desarrollada en Python y ha sido satisfactoriamente probada en Linux y MAC;
+el código fuente se encuentra disponible bajo licencia BSD en
+\begin{center}\url{http://github.com/lucionardelli/PacH}\end{center}
 
+\pachtool maneja los estándar para logs (XES) y redes de Petri (PNML) y puede funcionar como 
+una herramienta de descubrimiento de procesos a partir de logs, generalización y eliminación
+o simplemente como una herramienta de post procesamiento de modelos existentes.
 
-En la figura~\ref{fig:ej_corpus} podemos observar uno de los ejemplos incluidos en el corpus de descripciones utilizado para este trabajo. En este caso la clase de prueba \emph{LookUp\_SP\_1} (generada a partir de la especificación introducida previamente) y las designaciones correspondientes a la especificación en cuestión serán la entrada del sistema de NLG\footnote{Estrictamente hablando, todas las designaciones de la especificación deberían formar parte de la entrada del sistema de NLG. En este caso, se incluyeron sólo las designaciones relevantes a fin de simplificar el ejemplo.}, teniendo como salida la descripción en lenguaje natural presente en el ejemplo.
+Una lista exhaustiva de comandos y opciones se encuentra disponible en el sitio de la herramienta.
+
+%Assume that we have a log file of positive traces \verb!log.xes! and a log file of forbidden traces \verb!neg_log.xes!, we instruct \pachtool to do supervised process discovery with the following command:
+%\begin{verbatim}
+%./pach.py log.xes
+%  [--negative neg_log.xes]
+%  [--sampling [<number of samplings>] [<sampling size>]]
+%  [--projection [<max group size>] [<connected model>]]
+%  [--smt-matrix [<timeout>]]
+%  [--smt-iter [<timeout>]]
+%\end{verbatim}	
+%
+%By default the tool only considers positive traces and generates the net obtained from the polyhedron covering all positive points. Negative information can be used with the option \verb!--negative!. Options \verb!--projection! and \verb!--sampling! can be used to project and sample; \verb!--smt-matrix! and \verb!--smt-iter! instructs \pachtool to simplify the matrix or the half-spaces respectively. \fxnote{Lucio}
+
+%It is worth noticing that by the non-determinism of the sampling selection, the information used for the projection and the solution obtained by the SMT-solver, \pachtool may generate different nets when the tool is called several times with the same inputs.
+
+\subsection*{Instalación}
+Para utilizar \pachtool, se deben cumplir con algunos requerimientos. Para esto, 
+nos basamos en \texttt{pip}~\cite{pip}, un manejador de paquetes de Python. Con esto,
+simplemente se debe correr el siguiente comando para obtener todos los
+paquetes necesarios:
 
 \begin{figure}[H]
+    \centering
+    \begin{Verbatim}[frame=single,fontsize=\scriptsize]
+        pip install -r requirements.txt
+    \end{Verbatim}
+    \caption{Instalación rápida de dependencias para \pachtool.}
+    \label{ej:pip_install}
+\end{figure}
+
+La lista completa de requerimientos, con la versión especificada para cada paquete,
+puede verse el archivo \texttt{requirements.txt}.
+
+\section{Estructura General}
+\label{sec:4.general}
+
+Ideada inicialmente como una herramienta de experimentación,
+que permitiese validar los nuevos resultados teóricos propuestos, su crecimiento ha ido de la mano
+de las necesidades, finalizando con una implementación completa en Python del~\autoref{algo},
+con posibilidad de realizar el proceso de simplificación y generalización sobre cualquier modelo.
+Además, se cuenta con la posibilidad de comparar los distintos métodos de simplificación
+implementados gracias a una serie de objetos abstractos que permiten medir tiempos de 
+ejecución de cada etapa independientemente de los métodos utilizados, 
+generando una salida uniforme.
+
+\pachtool cuenta con diferentes módulos, cada uno con interfaces específicas que pueden utilizarse de manera
+independiente y también se provee de una interfaz única de centralización y cómputo general para 
+facilitar la interacción entre ellas, permitiendo la ejecución del algoritmo 
+de descubrimiento, simplificación y generalización completo.
+
+A continuación se realizará un resumen de las funcionalidades que presenta \pachtool;
+una guía rápida de uso, detallando los argumentos y opciones de cada componente,
+puede encontrarse en el repositorio mencionado.
+
+\subsection{Interpretación de archivos}
+\label{sec:4.parsing}
+
+Se ha implementado mediante el patrón de diseño \textit{strategy} por lo que permite
+de manera sencilla extender los algoritmos de parseo para nuevos formatos.
+Actualmente, utilizada como herramienta de minería de procesos, permite interpretar 
+logs en el formato estándar, XES (\autoref{sec:2.logs}) o en formato de texto (con eventos
+separados por espacios y fin de línea para separar trazas).
+
+Por otro lado, si se utiliza \pachtool como una herramienta de post procesamiento, 
+permite interpretar cualquier modelo que se encuentre representado
+como una red de Petri mediante el estándar PNML.
+
+\subsection{Poliedros convexos}
+\label{sec:4.convex_polyhedra}
+
+%Basándose en la relación existente entre redes de Petri y la $H$-representación de un poliedro presentada en~\autoref{sec:2.discovery},
+
+\subsubsection{Poliedro convexo}
+\label{sec:4.qhull}
+
+Uno de los procesos más costosos del \autoref{algo} consiste en obtener el poliedro convexo que contenga 
+el conjunto de vectores Parikh de un log, i.e. linea \ref{algo:lineqhull} del algoritmo.
+El procedimiento correspondiente a \textsc{ConvexHull} ha sido implementado utilizando el paquete Python \emph{pyhull}~\cite{pyhull}, 
+un wrapper para Python del \qhulltool~\cite{Barber96}, y mediante las técnicas de alto nivel para manejo de 
+logs de gran dimensión, introducidas en~\cite{CarmonaC14}, sampling y projection.
+
+Mediante el paquete pyqhull se obtiene la $H$-representación a coeficientes en $\mathbb{R}$ correspondiente a la cápsula convexa
+para los puntos. Como se vio en la~\autoref{sec:2.discovery polyhedra}, se requiere el $Z$-poliedro,
+por lo cual se utilizan operadores de expansión que permiten obtener una \dquote{sobre-representación} a coeficientes en $\mathbb{Z}$.
+
+\subsubsection{SMT-poliedro}
+\label{sec:4.smthull}
+
+Adicionalmente \pachtool implementa la posibilidad de codificar el problema de obtener un 
+poliedro convexo que represente el comportamiento de un cierto log y que no permita ninguna de los 
+de las trazas correspondientes a un log negativo mediante el uso de SMT-solvers.
+
+Para poder utilizar este enfoque, se busca minimizar la cantidad de semiespacios utilizados
+en la $H$-representación de un cierto poliedro que contenga el conjunto de vectores Parikh
+del log y no contemple ninguno de los puntos negativos.
+Este método posee una limitante inevitable y es que el uso de información negativa es requerido.
+Si no se utilizan puntos prohibidos, limitando el poliedro de manera que no los contenga,
+la solución obtenida mediante este método es demasiado general, degradando por completo el modelo.
+%Las soluciones de un SMT-solver suelen ser más rápidas si no se codifica la búsqueda de la solución óptima a un cierto problema,
+%es por esto que en ocasiones es preferible un enfoque iterativo de resolución.
+%Esta solución es la implementada: se busca la resolución al problema de forma iterativa, minimizando la cantidad de hiperplanos
+%mediante los cuales se describe el poliedro que contiene el conjunto de puntos.
+
+Es importante aclarar, que aún cuando los poliedros que se obtienen mediante este procedimiento 
+representan el conjunto trazas del log de manera más eficaz que lo obtenidos mediante el 
+enfoque usual (i.e. el presentado en ~\autoref{sec:4.qhull}), no lo hacen de manera eficiente.
+Para casos artificiales los resultados son auspiciosos, pero el tiempo de computo insumido 
+resulta prohibitivo para el uso de SMT-poliedro en casos de uso reales.
+
+\subsection{Redes de Petri}
+\label{sec:4.petri}
+
+\pachtool implementa una representación interna para redes de Petri que permite trabajar con ellas de manera sencilla.
+Mediante esta representación se codifica la biyección existente entre una red de Petri y la $H$-representación 
+correspondiente a un poliedro utilizando la relación presentada en~\autoref{sec:2.discovery}, permitiendo
+moverse entre las representaciones en ambas direcciones de manera transparente.
+
+Además se cuenta con la posibilidad de generación del archivo PNML\footnote{PNML consiste del estándar para representación
+de redes de Petri, por sus siglas en inglés \textit{\textbf{P}etri \textbf{N}et \textbf{M}arkup \textbf{L}anguage}},
+correspondiente a la solución simplificada del modelo obtenido.
+
+\subsection{Generalización y simplificación}
+\label{sec:4.simplification}
+
+Los procedimientos de generalización y simplificación mediante SMT-solvers se encuentran implementados utilizando \texttt{Z3}~\cite{MouraB08}. 
+La herramienta soporta la codificación SMT presentada en este trabajo (i.e. considerando la matriz extendida
+como entrada del SMT-Solver) así como también admite la representación de~\cite{LeonCB15} (i.e. considerando los semiespacios uno a uno).
+
+Ambos métodos de simplificación han sido codificados siguiendo dos enfoques diferentes soportados por \texttt{Z3}
+siendo el enfoque a utilizar es una de las variables de configuración.
+El primer enfoque consiste en codificar el problema como un problema de minimización, buscando 
+el menor valor para la complejidad estructural del modelo.
+El segundo enfoque por su parte, consiste en un proceso iterativo; en cada iteración se busca
+una \dquote{mejor} solución (i.e. con menor complejidad estructural asociada) y se repite el proceso
+hasta que no se pueda obtener tal solución.
+En aquellos casos donde el primer enfoque termina, el resultado se obtiene más rápidamente y además 
+suele ser más preciso comparado con el método iterativo. Sin embargo, el segundo enfoque
+permite encontrar soluciones para casos en los cuales el primer enfoque falla.
+Experimentalmente se recomienda utilizar el primer enfoque siempre que la cantidad de eventos del log
+sea cercana a los 1200 eventos.
+
+\section{Resultados experimentales}
+\label{sec:4.experiments}
+
+El enfoque descripto en~\autoref{chap:3}, ha sido evaluado en diferentes logs correspondientes
+a ejemplos tanto artificiales como reales. Con el fin de comprobar la universalidad de la técnica presentada,
+como se vio en~\autoref{sec:3.simplification}, se tomaron además modelos obtenidos mediante \textit{ILP miner}~\cite{WDHS08},
+una herramienta para minería de procesos que obtiene también redes de Petri adecuadas.
+
+La calidad de las redes obtenidas y simplificadas se evalúa mediante las técnicas en~\cite{AMCDA15} para medir
+la precisión de un modelo y el enfoque en~\cite{BrouckeWVB14} para medir la generalización. El grado de
+simplificación obtenido se obtiene según lo visto en~\autoref{sec:3.complexity}.
+Cabe aclarar que dado que las técnicas de descubrimiento basadas en teoría de poliedros y la herramienta \textit{ILP miner}
+generan modelos adecuados, el~\autoref{theo:fit} garantiza que todos los modelos generados y/o simplificados
+mediante el enfoque de esta tesina serán también adecuados.
+
+Los experimentos han sido ejecutados en una máquina de 16 núcleos, 2.3GHz y 24GB de memoria RAM y los tiempos
+reportados se encuentran expresados en segundos.
+
+\section{Descubrimiento supervisado de procesos}
+\label{sec:4.supervised}
+
+\input{tables/table_benchmarks}
+
+La herramienta ha sido ejecutada en diferentes benckmarks, reportando datos relevantes como la 
+complejidad esctructural del modelo obtenido, precisión, generalización y los tiempos en segundos 
+empleados en por cada acción significativa del proceso (e.g. algoritmo de descubrimiento,
+proceso de simplificación iterativo, generalización).
+El conjunto de benchmarks (trazas positivas y negativas) puede verse en~\autoref{tab:bench}, donde se
+indican el número de trazas en cada log $|\pmlog|$, el número de eventos $|E|$ (i.e. la suma de las 
+longitudes de todas las trazas) y el número total de tipos diferentes de actividades $|T|$.
+Las trazas negativas han sido generadas utilizando el algoritmo propuesto en~\cite{BrouckeWVB14},
+concatenando cada traza con un postfijo aleatoria con longitud igual a la longitud original de la traza
+negativa.
+
+El conjunto completo de benchmarks, conjuntamente con la salida de las diferentes ejecuciones puede 
+encontrarse en el repositorio de \pachtool.
+
+En las tablas \ref{tab:pol_time} a~\ref{tab:pol_gen}, se encuentran los resultados para cada benchmark siguiendo
+el siguiente formato:
+
 \begin{itemize}
-\item \emph{Clase de prueba para operación LookUp}\\
-\begin{schema}{LookUp\_ SP\_ 1}\\
- st : SYM \pfun VAL \\
- s? : SYM 
-\where
- s? \in \dom st \\
- \dom st = \{ s? \}
-\end{schema}
-
-\item \emph{Designaciones SymbolTable}\\
-
-\begin{itemize}[label={--}]
-  \item símbolo a buscar $\approx s?$
-  \item símbolos cargados en la tabla $\approx \dom st$
+    \item \textbf{Poliedro:} corresponde al enfoque en ~\cite{CarmonaC14} sin aplicar simplificaciones.
+    \item \textbf{Semiespacio:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
+    \item \textbf{Matriz:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
+      presentado en~\autoref{sec:3.gensimp}.
+    \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo base en la $1^{er}$ columna (Base) 
+      y sobre el modelo obtenido luego de la simplificación en la $2^{da}$ columna (SMT).
+      \todo[inline]{Esto no me gusta, pero la verdad es que no entiendo bien que representan las columnas de Removal, así que no se como parafresearlo...}
 \end{itemize}
 
-\bigskip
-\item \emph{Descripción en lenguaje natural para LookUp\_SP\_1}\\
-
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!50!black,
-  colbacktitle=gray!75!black,title=LookUp\_SP\_1]
-  Se busca un símbolo en la tabla, cuando:
-     \begin{itemize}
-  	    \item[--]{El símbolo a buscar pertenece a los símbolos cargados en la tabla.}
-        \item[--]{El símbolo a buscar es el único elemento de los símbolos cargados en la tabla.} 
-     \end{itemize}
-\end{tcolorbox}
-
-\end{itemize}
-\caption{Corpus de textos}
-\label{fig:ej_corpus}
-\end{figure}
-
-\section{Análisis del corpus}
-\label{sec:corpus_analisis}
-
-En lo que queda de este capítulo nos encargaremos de analizar los ejemplos presentes en el corpus a fin de extraer los requerimientos para nuestro sistema. Este estudio nos ayudará a sustentar muchas las decisiones que se tomarán al realizar el diseño de nuestro sistema de NLG. 
-
-Comenzaremos analizando las clases de prueba generadas por \emph{Fastest} y la correlación entre la estructura de las mismas y la estructura de las descripciones en lenguaje natural. Luego estudiaremos la verbalización de las expresiones Z presentes en las clases de prueba, analizaremos el rol de las designaciones y se dará un conjunto de reglas para describir estas expresiones. Por último se contemplarán cuestiones gramaticales que se deberán tener en cuenta para la realización del sistema.
-
-\section{Estructura de las descripciones}
-\label{sec:corpus_descripciones}
-Podemos notar que las clases de prueba generadas por \emph{Fastest} se encuentran formadas siempre por conjunciones de predicados atómicos y que a cada uno de estos le corresponde exactamente una oración en lenguaje natural dentro del texto final. Además, estas oraciones dependen exclusivamente del predicado que describen, es decir, éstas no contienen información sobre otros predicados ni hacen referencia a otras frases generadas. En la figura~\ref{fig:ej_test_desc} podemos evidenciar esta correspondencia.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{img/ej_test_desc.png}
-\caption{Estructura descripciones}
-\label{fig:ej_test_desc}
-\end{figure}
-
-Además, podemos observar del corpus (apéndice \ref{ape:corpus}) que todas las descripciones de las clases de prueba poseen la misma estructura. En todas se comienza por el nombre de la clase de prueba, seguido por un pequeño detalle de la operación a testear y luego una lista de oraciones encargadas de describir cada uno de los predicados presentes en el cuerpo de la clase de prueba. Conocer la estructura del texto a generar nos será de utilidad para la elaboración del \emph{document plan} (capítulo ~\ref{cap:document_planning}).
-
-\section{Verbalización de expresiones Z}
-\label{sec:corpus_verbalizacion}
-
-La tarea de describir un esquema Z correspondiente a una clase de prueba, se puede reducir básicamente a \emph{verbalizar} individualmente cada uno de los predicados atómicos que constituyen el cuerpo del esquema Z. Esta \emph{verbalización} de predicados Z será el desafío principal de este trabajo. Definir con precisión los detalles de ésta será de vital importancia para el desarrollo de las etapas de \emph{microplanning} y \textit{surface realization} de nuestro sistema de NLG (capítulo~\ref{cap:microplanning} y \ref{cap:realization}). En esta sección nos concentraremos especialmente en analizar y especificar la tarea de verbalización.
-
-Podemos notar dos aspectos fundamentales sobre la \emph{verbalización} de expresiones Z. En primer lugar, podemos ver que hay textos que se repiten (con pequeñas variantes, que analizaremos posteriormente) independientemente del dominio de aplicación y que estos surgen a raíz de los operadores de Z presentes en los predicados que se describen. Por otro lado, podemos observar el rol fundamental de las designaciones que posibilitan la introducción de texto dependiente del dominio de aplicación en las descripciones. Consideremos, por ejemplo, las siguientes dos expresiones y sus respectivas descripciones en lenguaje natural, una pertenece al ejemplo de la figura~\ref{fig:ej_corpus} y la otra describe un predicado que forma parte de una clase de prueba para la especificación de un sistema bancario:
-
-\bigskip
-\begin{enumerate}
-	\item $s? \in \dom st$ $\rightarrow$ \emph{``El símbolo a buscar \textbf{pertenece a}  a los símbolos cargados en la tabla.''}
-	\item $num? \in \dom cajas$ $\rightarrow$ \emph{``El número de cuenta del nuevo cliente \textbf{pertenece a} los números de cuenta cargados en el banco.''}
-\end{enumerate}
-el símbolo a buscar 
-\bigskip
-Como vemos, el texto \emph{``\textbf{pertenece a}''} aparece en ambas descripciones como resultado de verbalizar el operador $\in$, diferenciándose ambas descripciones en el texto que antecede y sucede al mismo. Por otro lado, estos últimos, bien podrían ser las verbalizaciones de las expresiones que se encuentran a la derecha e izquierda del operador $\in$, respectivamente, por lo que podríamos pensar en una verbalización recursiva sobre la estructura de las expresiones Z. Es posible encontrar estos tipos de patrones en todas las descripciones presentes en el corpus. Esto resulta un buen punto de partida para intentar especificar nuestra tarea de verbalización. En un primer intento, entonces, se definirá la tarea de verbalización en base a los operadores que la componen. Especificaremos esta tarea mediante una función que tomará como entrada una expresión Z y devolverá una descripción en lenguaje natural para la misma. Ésta será recursiva sobre la estructura de las expresiones Z y tendrá tantos casos en su definición como operadores contemplados dentro del alcance de este trabajo (además de las posibles combinaciones de los mismos que puedan resultar de interés y requieran un tratamiento particular). En base al ejemplo anterior, podríamos proponer la siguiente definición para verbalizar el operador $\in$\footnote{Supondremos que el operador $+$ se encargará de realizar una concatenación de \textit{strings} agregando un espacio entre las mismas.}$^{,}$\footnote{El nombre de la función se encuentra primado intencionalmente. Más adelante se presentará la definición final para la función de verbalización que hará uso de \texttt{verb'} como función auxiliar.} :
-
-{
-\begin{figure}[H]
-\center
-$\texttt{verb'} (x \in y) = \texttt{verb}(x) + \text{\emph{``pertenece a''}} + \texttt{verb}(y)$
-\end{figure}
-}
-
-Como se mencionó anteriormente, para verbalizar términos compuestos se necesitará verbalizar recursivamente las partes que componen a los mismos. En el ejemplo anterior se necesitaría conocer las verbalizaciones de las expresiones $x$ e $y$ para poder obtener una verbalización para $x \in y$.
-
-Retomando el ejemplo de la figura~\ref{fig:ej_corpus}, nos concentraremos en verbalizar la primera expresión de la clase de prueba:
-
-\begin{figure}[H]
-\center
-$s? \in \dom st$
-\end{figure}
-
-En este caso, según la verbalización propuesta anteriormente, podríamos verbalizar la expresión como:
-
-\begin{figure}[H]
-\center
-$\texttt{verb'} (s? \in \dom st) \rightarrow \texttt{verb}(s?) + \text{\emph{``pertenece a''}} + \texttt{verb}(\dom st)$
-\end{figure}
-
-Teniendo que verbalizar $s?$ y $\dom st$. En este caso, ambas expresiones se encuentran designadas, lo que sería de gran ayuda para nuestra tarea de verbalización ya que en estas situaciones podremos construir la descripción en base al texto presente en la designación y sin intentar verbalizar la expresión en base al término Z que la compone. En el ejemplo anterior, no deberíamos intentar verbalizar $\dom st$ como:
-
-\begin{figure}[H]
-\center
-$\texttt{verb'}(\dom st) \rightarrow \text{\emph{``el dominio''}} + \texttt{verb}(st)$
-\end{figure}
-
-\noindent
-de hacerlo, estaríamos perdiendo información valiosa para nuestras descripciones contenida en las designaciones ya que las designaciones son nuestra única forma de introducir texto referente al dominio de aplicación en las descripciones. 
-
-En general, para verbalizar una expresión designada, deberemos utilizar el texto presente en las designaciones (en algunos casos, como veremos más adelante, con algunas pequeñas modificaciones, para resolver ciertas cuestiones de concordancia gramatical). Será un requerimiento para nuestra tarea de verbalización, entonces, contemplar en primera instancia si la expresión a describir se encuentra designada antes de intentar describirla en base a los operadores que la componen; de estar designada, se deberá construir una descripción en base a su designación. 
-
-Como se mencionó previamente, el nombre de la función anterior (\texttt{verb'}) fue primado intencionalmente a fin de utilizar esta función como auxiliar para la definición final de la tarea de verbalización. En la figura~\ref{fig:def-verb} se introduce una nueva definición para esta tarea donde se considera la designación de la expresión a verbalizar (si es que se encuentra designada) antes de intentar describir la misma en base a los operadores que la constituyen.
-
-\begin{figure}[H]
-\begin{minted}[escapeinside=@@,bgcolor=bg]{haskell}
-verb (@$exp$@) = if esta_designada(@$exp$@)
-             then designacion(@$exp$@)
-             else verb'(@$exp$@)
-\end{minted}
-\caption{Definición verbalización}
-\label{fig:def-verb}
-\end{figure}
-
-Como podemos ver en la figura anterior, se hace uso de \texttt{verb'} que será la responsable de generar las verbalizaciones para las expresiones de Z en base a un conjunto de reglas dependientes del operador a describir, como la introducida anteriormente para el caso del operador $\in$. Por otro lado, se abstrae por medio de \texttt{esta\_designada()} la tarea de verificar si una expresión se encuentra designada y mientras que la función \texttt{designacion()} será la encargada de generar una descripción en base a la designación de la expresión a describir. 
-
-
-Tanto para determinar si una expresión se encuentra designada como para generar una descripción para la misma, deberemos considerar el hecho de que ésta podría estar parametrizada. En particular, para la verbalización de una expresión que se encuentra designada por medio de una designación parametrizada, deberíamos considerar tanto el texto presente en la designación como también la verbalización del argumento parametrizado. Por otro lado, de tratarse de una designación no parametrizada podríamos utilizar el texto tal cual se encuentra en la misma. Por ejemplo, teniendo en cuenta las designaciones introducidas en la figura~\ref{fig:ej_designacion}, obtendríamos la siguiente designación para el término $s?$:
-
-\begin{figure}[H]
-\center
-$\texttt{designacion}(s?) \rightarrow \text{\emph{``símbolo a buscar''}}$
-\end{figure}
-
-\noindent
-Por otro lado, si se tratase de un término que concuerda con una designación parametrizada, como $st~s?$, podríamos generar la descripción haciendo uso de su designación y la verbalización del argumento de la siguiente manera: 
-
-\begin{figure}[H]
-\center
-$\texttt{designacion}(st~s?) \rightarrow \text{\emph{``información asociada a''}} + \texttt{verb}(s?)$
-\end{figure}
-
-%\section{Rol de las designaciones}
-%\label{sec:corpus_designaciones}
-
-\section{Reglas de verbalización}
-\label{sec:corpus_reglas}
-
-En esta sección retomaremos al análisis de la función \texttt{verb'} presentando una especificación para la misma, basada en un conjunto de reglas (similares a la introducida anteriormente para la verbalización del operador $\in$) para la definición por casos de la misma. Luego, en lo que queda de este capítulo nos concentraremos en estudiar, como consecuencia de estas reglas, algunos aspectos gramaticales que deberemos contemplar.
-
-Comenzaremos, a continuación, por completar la definición\footnote{La idea no es que ésta sea una definición final, sino sólo un bosquejo que nos permita analizar los requerimientos que deberán ser contemplados posteriormente, que atenderemos principalmente en las etapas de \textit{microplanning} y \textit{surface realization}.} de \texttt{verb'}, basándonos en los textos presentes en el corpus, incluyendo los casos para todos los operadores considerados dentro del alcance del trabajo, así como las combinaciones más relevantes de los mismos\footnote{Para algunos de estos casos se necesita contemplar el género y número de las verbalizaciones recursivas que lo conforman. En estos casos, nos referiremos al género masculino mediante la letra \emph{M}, y se utilizará \emph{F} para hacer referencia al genero femenino. Por otro lado cuando se haga referencia al número, se utilizará \emph{S} para indicar que el género de un constituyente es singular y \emph{P} en caso de que sea plural.}:
-%. Además entraremos más en detalle sobre las tarea de verificar si una expresión se encuentra designada y la generación de un descripción en lenguaje natural para una expresión ya designada.  %Cabe aclarar, que en este caso, tendremos que contemplar si la designación correspondiente es una designación parametrizada. De no ser el caso, el resultado sería exactamente el texto que forma parte de la designación, del contrario, habrá primero que verbalizar el parámetro de la designación, teniendo luego que construir la descripción final a partir del texto de la designación parametrizada y la verbalización del parámetro.
-%TODO~\footnote{TODO: aclarar que suponemos que el parámetro debe estar designado?}
-
-\newpage 
-\begin{mdframed}[style=codebox]
-\begin{minted}[escapeinside=@@]{haskell}
-
-verb' (@$\{exp_1\} = exp_2$@) = verb(@$exp_1$@) + 
-                       "es el único elemento de" + 
-                       verb(@$exp_2$@)
-
-verb' (@$exp_1 = \{\}$@) = "no hay ningún elemento en" + 
-                    verb(@$exp_1$@) 
-
-verb' (@$exp_1 \cap exp_2 = \{\}$@) = verb(@$exp_1$@)  +  
-                         "y" +  
-                         verb(@$exp_2$@)  +  
-                         "no tienen ningún elemento en común"
-
-verb' (@$exp_1 \cap \{exp_2\} = \{\}$@) = verb(@$exp_2$@) +  
-                           "no pertenece a" +  
-                           verb(@$exp_1$@) 
-
-verb' (@$exp_1 = exp_2$@)
-    | (num == S) = verb(@$exp_1$@) + "es igual a" + verb(@$exp_2$@) 
-    | (num == P) = verb(@$exp_1$@) + "son iguales a" + verb(@$exp_2$@) 
-    where num = numero(verb(@$exp_1$@))
-
-verb' (@$exp_1 \neq \{\}$@) = "existe al menos un elemento en" +  
-                    verb(@$exp_1$@) 
-
-verb' (@$exp1 \cap exp2 \neq \{\}$@) = verb(@$exp_1$@)  +  
-                         "y" +  
-                         verb(@$exp_2$@) +  
-                         "tienen al menos un elemento en común" 
-
-verb' (@$exp_1 \neq exp_2$@)
-    | (num == S) = verb(@$exp_1$@) + "no es igual a" + verb(@$exp_2$@) 
-    | (num == P) = verb(@$exp_1$@) + "no son iguales a" + verb(@$exp_2$@) 
-    where num = numero(verb(@$exp_1$@))
-
-verb' (@$exp_1 < exp_2$@) = verb(@$exp_1$@) +  
-                     "es menor a" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 < 0$@)
-    | (gen == M) = verb(@$exp_1$@) + "es negativo" 
-    | (gen == F) = verb(@$exp_1$@) + "es negativa" 
-    where gen = genero(verb(@$exp_1$@))
-                                 
-verb' (@$exp_1 \leq exp_2$@) = verb(@$exp_1$@) +  
-                     "es menor o igual a" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 > exp_2$@) = verb(@$exp_1$@) +  
-                     "es mayor a" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 > 0$@)  =
-    | (gen == M) = verb(@$exp_1$@) + "es positivo" 
-    | (gen == F) = verb(@$exp_1$@) + "es positiva" 
-    where gen = genero(verb(@$exp_1$@))
-
-verb' (@$exp_1 \geq exp_2$@) = verb(@$exp_1$@) +  
-                     "es mayor o igual a" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 \in exp_2$@)
-    | (num == S) = verb(@$exp_1$@) + "pertenece a" + verb(@$exp_2$@) 
-    | (num == P) = verb(@$exp_1$@) + "pertenecen a" + verb(@$exp_2$@) 
-    where num = numero(verb(@$exp_1$@))
-
-verb' (@$exp_1 \notin exp_2$@)  = 
-    | (num == S) = verb(@$exp_1$@) + "no pertenece a" + verb(@$exp_2$@) 
-    | (num == P) = verb(@$exp_1$@) + "no pertenecen a" + verb(@$exp_2$@) 
-    where num = numero(verb(@$exp_1$@))
-
-verb' (@$exp_1 \subset exp_2$@)
-    | (gen == M && num == S) = verb(@$exp_1$@) + 
-                               "está incluido en" + 
-                               verb(@$exp_2$@) 
-    | (gen == M && num == P) = verb(@$exp_1$@) + 
-                               "están incluidos en" + 
-                               verb(@$exp_2$@) 
-    | (gen == F && num == S) = verb(@$exp_1$@) + 
-                               "está incluida en" + 
-                               verb(@$exp_2$@) 
-    | (gen == F && num == P) = verb(@$exp_1$@) + 
-                               "están incluidas en" + 
-                               verb(@$exp_2$@) 
-    where gen = genero(verb(@$exp_1$@))
-          num = numero(verb(@$exp_1$@))
-
-verb' (@$\{exp_1, ... , exp_n\} \subset exp_m$@) = verb(@$exp_1$@) +  
-                               ", ... , y" +  
-                               verb(@$exp_n$@) +  
-                               "pertenecen a" +
-                               verb(@$exp_m$@)
-
-verb' (@$exp_1 \not\subset exp_2$@)  = 
-    | (gen == M && num == S) = verb(@$exp_1$@) + 
-                               "no está incluido en" + 
-                               verb(@$exp_2$@) 
-    | (gen == M && num == P) = verb(@$exp_1$@) + 
-                               "no están incluidos en" + 
-                               verb(@$exp_2$@) 
-    | (gen == F && num == S) = verb(@$exp_1$@) + 
-                               "no está incluida en" + 
-                               verb(@$exp_2$@) 
-    | (gen == F && num == P) = verb(@$exp_1$@) + 
-                               "no están incluidas en" + 
-                               verb(@$exp_2$@) 
-    where gen = genero(verb(@$exp_1$@))
-        num = numero(verb(@$exp_1$@))
-
-verb' (@$exp_1 \subseteq exp_2$@) = verb(@$exp_1$@) +  
-                    "está incluido o es igual a" +  
-                    verb(@$exp_2$@) 
-
-verb' (@$\{exp_1, ... , exp_n\} \subseteq exp_m$@) = verb(@$exp_1$@) +  
-                               ", ... , y" +  
-                               verb(@$exp_n$@) +  
-                               "pertenecen a" +
-                               verb(@$exp_m$@)
-
-verb' (@$exp_1 \not\subseteq exp_2$@) = "existe al menos un elemento en" +  
-                     verb(@$exp_1$@) +  
-                     "que no se está en" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 \mapsto exp_2$@) = "el par ordenado formado por:" +  
-                      verb(@$exp_1$@) +  
-                      "y" +  
-                      verb(@$exp_2$@) 
-
-verb' (@$\{\}$@) = "el conjunto vacío" 
-
-verb' (@$\{exp_1\}$@) = "el conjunto formado por"  +  
-                 verb(@$exp_1$@) 
-
-verb' (@$\{exp_1, ... ,exp_n\}$@) = "el conjunto formado por" +  
-                        verb(@$exp_1$@) +  
-                        ", ... , y" +  
-                        verb(@$exp_n$@) 
-
-verb' (@$exp_1 \cup exp_2$@) = "elementos en" +  
-                     verb(@$exp_1$@) +  
-                     "y en" +  
-                     verb(@$exp_2$@) 
-
-verb' (@$exp_1 \cap exp_2$@) = "elementos en" +  
-                    verb(@$exp_1$@) +  
-                    "que también se encuentren en" +  
-                    verb(@$exp_2$@) 
-
-verb' (@$f~exp_1$@) = verb(@$f$@) +  
-                 "aplicada a" +  
-                 verb(@$exp_1$@) 
-
-verb' (@$dom(exp_1)$@) = "dominio de" +  
-                    verb(@$exp_1$@) 
-
-verb' (@$ran(exp_1)$@) = "rango de" +  
-                    verb(@$exp_1$@)  
-\end{minted}
-\end{mdframed}
-
-Como era de esperarse, podemos notar que, a fin de lograr descripciones más naturales, deberemos contemplar algunas combinaciones entre los distintos términos posibles. Por ejemplo, podemos ver que en el caso de la igualdad entre conjuntos, se propone una descripción para el caso en que uno de los conjuntos esté formado por un único elemento y otra verbalización distinta en el caso de que este conjunto se encuentre vacío.
-
-\section{Aspectos gramaticales}
-\label{sec:corpus_gramatica}
-
-Podemos observar que en algunos casos el texto generado por nuestra verbalización puede variar de acuerdo a aspectos gramaticales, en particular, las distintas variantes de nuestras oraciones dependerán del género y número de los constituyentes de las mismas. En estos casos, nos debemos asegurar que las palabras generadas por nuestro sistema concuerden con rasgos gramaticales de, por ejemplo, otra palabra introducida por medio de una designación. Para esto deberemos considerar algunas reglas de \emph{concordancia gramatical}, como la concordancia de número entre el verbo y el núcleo del sujeto para el caso del operador $\in$:
-
-
-\bigskip
-\begin{minted}[escapeinside=@@,bgcolor=bg]{haskell}
-verb' (@$exp_1 \in exp_2$@)
-     | (num == S) = verb(@$exp_1$@) + "pertenece a" + verb(@$exp_2$@) 
-     | (num == P) = verb(@$exp_1$@) + "pertenecen a" + verb(@$exp_2$@) 
-     where num = numero(verb(@$exp_1$@))
-\end{minted} 
-
-\bigskip
-En estos casos, deberemos realizar una análisis del sujeto y según corresponda conjugar correctamente el verbo utilizando, para el ejemplo anterior, deberíamos utilizar el verbo ``\emph{pertenece}'' o ``\emph{pertenecen}'' según corresponda.
-
-Hay algunos casos de la definición anterior en los que el verbo que forma parte del predicado del texto a generar no requieren ningún tratamiento a fin de que el mismo concuerde en número y forma con el sujeto (esto fue contemplado de antemano y no depende de cuestiones externas como podría ser texto introducido por medio de designaciones). Por ejemplo, los siguientes casos:
-
-\bigskip
-\begin{minted}[escapeinside=@@,bgcolor=bg]{haskell}
-verb' (@$exp_1 = \{\}$@)       = "no hay ningún elemento en" + 
-                          verb(@$exp_1$@) 
-                                 
-verb' (@$exp_1 \cap exp_2 = \{\}$@) = verb(@$exp_1$@)  +  
-                         "y" +  
-                         verb(@$exp_2$@)  +  
-                         "no tienen ningún elemento en común"
-\end{minted} 
-
-\bigskip
-Por otro lado, podemos observar que las oraciones en las que debemos prestar especial atención a cuestiones de concordancia gramatical resultan oraciones bimembres, todas expresadas en tiempo presente, conformadas de la siguiente manera: 
-\begin{figure}[H]
-\center
-\textbf{sujeto} + \textbf{verbo} + \textbf{objeto}
-\end{figure}
-
-\noindent
-Como por ejemplo, los siguientes casos:
-
-\bigskip
-\begin{enumerate}
- \item \nlgfun{verb'($exp1 \in exp2$)} $\rightarrow$ \textbf{sujeto} + \emph{``pertenece(n)''} + \textbf{objeto}
- \item \nlgfun{verb'($exp1 \subset exp2$)} $\rightarrow$ \textbf{sujeto} + \emph{``está(n) incluido/a(s)''} + \textbf{objeto}
-\end{enumerate}
-
-\bigskip
-Puntualmente se ha observado que será necesario conjugar el verbo de una oración de forma tal que concuerde con el número del sujeto de la misma. Algo parecido pasa con el atributo en los casos que se utiliza un verbo copulativo en el que se deberá hacer concordar el mismo con número y género del sujeto. Podemos ver que en el ejemplo anterior la palabra \emph{``incluido''} cumple el rol de atributo del verbo copulativo \emph{``estar''} y deberá concordar en número y forma con el sujeto de la oración. 
-
-
-Otra cuestión que podemos observar a partir de las designaciones documentadas es que, en general para las designaciones no parametrizadas\footnote{Las designaciones parametrizadas son más complejas de trabajar. Éstas estarán formadas generalmente por una oración bimembre que contendrá al parámetro. En el capítulo \ref{sec:verbalizacion_designaciones} retomaremos sobre este tema y estudiaremos en detalle cómo verbalizarlas.}, se utilizan frases nominales para escribir las designaciones. Es decir, presentarán la siguiente estructura:
-
-\begin{figure}[H]
-\center
-\textbf{[artículo]} + \textbf{sustantivo} + \textbf{[complemento]}
-\end{figure}
-
-Como vemos, el artículo puede o no estar presente en las designaciones. Por ejemplo, en ninguna de las designaciones de la figura~\ref{fig:ej_corpus} se incluyeron los artículos, pero fue necesario determinar el artículo indicado (de acuerdo al sujeto) y agregarlos en la descripción. Será un requerimiento, entonces, que nuestro sistema identifique los casos en los que sea necesario agregar el artículo apropiado de forma que concuerde en género y número con el sustantivo. 
-
-Todas estas observaciones sobre la concordancia gramatical entre los constituyentes de nuestras oraciones serán importantes para el desarrollo del realizador lingüístico que estudiaremos en detalle en el capítulo \ref{cap:realization}.
+%%%For the SMT simplification, a timeout of 600 milliseconds has been set for the solver. The selection have been done based on previous experience of the authors using SMT solver; normally if no answer is obtained for encodings of this size after the selected time threshold, no answer will be obtained even if the timeout is completely removed.
+
+%Loss resultados de las tablas a continuación consitutyen el resultado de una estrategia de validación basada en 10
+%corridas diferentes
+
+%%%To calculate all the results as presented in the tables below, we apply a ten-fold cross-validation strategy as follows: 
+%%%for each input event log, we split the log in ten equally sized new logs. Next, models are discovered and simplified 
+%%%over 
+%%%nine out of ten sub-logs, leaving out the remaining 10 percent of traces, repeated ten times (e.g. in the first fold, a 
+%%%net is discovered whilst leaving out log number 1, in the second fold, a net is discovered whilst leaving out log number 
+%%%2, and so on). To obtain conformance checking results, each originally left-out sub-log in each of the ten folds is 
+%%%replayed over the discovered net, hence obtaining out-of-fold results. At the end of the run, final values are obtained 
+%%%by averaging the results over all folds. We highlight that, although such a cross-validated setup is estándar practice 
+%%%in the field of machine learning, it is rarely encountered in process mining works, as such a setup is generally 
+%%%considered unnecessary or undesirable due to the fact that most discovered models are used for descriptive, rather than 
+%%%predictive means. Secondly, it can also be argued that applying a cross-validation pre-processing step is less 
+%%%straightforward than with normal, traditional data mining setups, as the random sampling of traces from an event log 
+%%%might create sub-logs which miss some key behavioral patterns, which are still contained in other sub-logs (and which were 
+%%%contained in the original log), such as the inclusion of certain activities in the activity alphabet or the inclusion of 
+%%%every binary relationship present in the original log. Since both discovery techniques included in our setup guarantees 
+%%%the discovery of perfectly fitting nets (i.e. a fitness/recall value of 1), this provides us with a good means to 
+%%%inspect the impact of the loss of behavior stemming from cutting the event log. Indeed, we have generally observed that 
+%%%out-of-fold averaging of recall scores provides recall scores which are below one, though the decrease was minimal for 
+%%%all 
+%%%logs, indicating that the cross-validation setup applied is safe for further use and that the presented metrics below are valid for use and interpretation.
+%%%
+
+
+Los resultados relacionados al tiempo de ejecución de \pachtool se reportan en~\autoref{tab:pol_time}.
+La primera columna muestra el tiempo para calcular la cápsula convexa; el resto de las columnas, informa
+sobre el tiempo de la simplificación. Por ejemplo, el tiempo total de \pachtool como método de descubrimiento
+mediante la simplificación SMT iterativo mediante información positiva corresponde a la suma de la $1^{er}$ y $2^{da}$ columnas.
+%En general el procedimiento \textsc{Removal} corresponde a la operación que mayor tiempo consume, debido a que se
+%debe iterar sobre todas los semiespacios y todos los puntos negativos verificando si se puede elimnar.
+Dado que para las codificaciones SMT se utiliza un enfoque iterativo para obtener la solución óptima,
+suelen ser necesarias varias iteraciones para la codificación de~\cite{LeonCB15} ($2^{da}$ y $4^{ta}$ columnas). 
+Esto produce un gran aumento de los tiempos de la $2^{da}$ columna para las redes que tienen mayor cantidad de places
+e.g. \bench[32]{A}, \bench[42]{A}, \bench{Svn}; este comportamiento no se repite para la $4^{ta}$ columna
+debido a que el SMT-solver no es capaz de encontrar una solución (i.e. devuelve \emph{unsat}) y el método no debe computar todos los casos.
+Por otro lado, al aplicar el enfoque presentado en esta tesina (columnas $3^{ra}$ y $5^{ta}$), los tiempos son 
+generalmente bajos debido a que, luego de pocas iteraciones, se encuentra la solución óptima o no se encuentra solución.
+Por su parte, puede verse como los benchmarks que presentan gran cantidad de places insumen más tiempo que el resto
+en el cálculo del poliedro (i.e. correspondiente a la primer columna). Esto es debido al hecho de que se debe
+utilizar la técnica de proyección de~\cite{CarmonaC14} y esto consume gran parte del tiempo computacional.
+
+\input{tables/table_pol_time}
+\input{tables/table_pol_simp}
+
+En~\autoref{tab:pol_simp} se reportan los resultados en la simplicidad -o complejidad estructural
+según lo visto en~\autoref{sec:3.complexity}- alcanzados. 
+Puede verse que la primera columna muestra los valores más altos dado a que no se realiza simplificación.
+Para todos los casos los mejores resultados (resaltados en negrita) se obtienen después de aplicar el 
+procedimiento de \textsc{Removal} luego de aplicar la simplificación SMT iterativamente sobre cada semiespacio
+con información positiva (es decir, el neto obtenido en la $2^{da}$ columna). 
+Entre los resultados pueden observarse algunos casos en los cuales no fue posible obtener
+un modelo simplificado (celdas con cruces). Esto ocurre al utilizar simplificación estructural 
+sin información negativa o en el caso de la simplificación iterativa utilizando información negativa.
+En el primer caso, esto se debe a que el SMT no puede obtener una solución mejor sin alcanzar el timeout impuesto
+para fines experimentales (parámetro configurable del algoritmo). El segundo caso se debe a la naturaleza restrictiva
+del proceso (como se explica en la~\autoref{fig:glob_encoding}); ya que se utilizan tantas trazas negativas como positivas,
+cada simplificación posee gran cantidad de restricciones haciendo imposible que se mejore.
+
+
+Las tablas~\ref{tab:pol_prec} y \ref{tab:pol_gen} muestran, respectivamente, la precisión y generalización de las redes
+obtenidas mediante \pachtool. De la~\autoref{tab:pol_prec}, se puede observar que 
+aplicar simplificación SMT iterativamente sólo con información positiva disminuye en gran medida la precisión de las
+redes (e.g. \bench{option}, \bench{ConfDimB}) . Sin embargo, esto no ocurre si se considera 
+información negativa; en la mayoría de los casos la simplificación estructural no logra reducir o generalizar.
+En términos de generalización (ver ~\autoref{tab:pol_gen}) los valores mínimos y máximos están muy 
+cerca. Para la mitad de los benchmarks, \pachtool sin simplificación ya obtiene los mejores resultados;
+para el resto de casos, se obtiene el mejor resultado luego de aplicar el proceso de \textsc{Removal}.
+
+\input{tables/table_pol_prec}
+
+Para resumir, las columnas $5^{ta}$ y $6^{ta}$ de las tablas ~\ref{tab:pol_prec} y~\ref{tab:pol_gen} muestran que 
+la precisión y la generalización son similares al utilizar la simplificación estructural utilizando información 
+negativa o el procedimiento \textsc{Removal}; 
+Si tenemos en cuenta la relación costo/beneficio de las métricas de calidad, este resultado,
+en combinación con los resultados de la~\autoref{tab:pol_simp}
+sugieren que el proceso óptimo consiste en aplicar el método presentado en esta tesina (i.e. simplificación de la matriz 
+extendida del sistema) seguido del procedimiento de \textsc{Removal}.
+
+\input{tables/table_pol_gen}
 
 \section{Resumen del capítulo}
-En este capítulo se analizaron los aspectos más destacados observados en el corpus de descripciones. Se detallaron los requerimientos necesarios para las distintas etapas de nuestro sistema de NLG. Vimos la estructura de las descripciones que se utilizarán en el capítulo \ref{cap:document_planning} donde estudiaremos la tarea de estructuración del documento, estudiamos la verbalización de expresiones y se presentó una especificación para esta tarea que será de vital ayuda para el desarrollo del \emph{microplanner} que estudiaremos en el capítulo \ref{cap:microplanning}, finalmente observamos algunos aspectos gramaticales que deberemos contemplar para la \textit{surface realization} en el capítulo \ref{cap:realization}.
+\label{sec:4.resumen}
+
+En este capítulo se introdujo la herramienta \pachtool, realizada como parte de esta tesina. Se realizó un breve
+resumen de las cualidades que presenta así como algunos detalles referentes a su implementación.
+
+A su vez, se presentaron los resultados experimentales de aplicar \pachtool tanto como un algoritmo de 
+descubrimiento, generalización y simplificación (i.e. una implementación del ~\autoref{algo}) así como 
+utilizada como herramienta de post procesamiento sobre modelos obtenidos mediante otra herramienta de 
+minería de procesos, \textit{ILP miner}.
+
+Por último se realizó un análisis de los resultados obtenidos y se pudo concluir que la herramienta presentada
+es capaz de generar, dado un modelo adecuado de un cierto sistema, un nuevo modelo con una menor complejidad estructural
+sin con esto degenerar la precisión del mismo.
 

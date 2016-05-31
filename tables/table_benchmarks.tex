@@ -1,50 +1,34 @@
-
-\newcommand\newrow{\\[-1.5pt]}
-
 \begin{table}[t]
+\tiny
 
-\def\sep{\hspace{22pt}}
-\centering
-\footnotesize
-\tt
-\begin{tabular}{lr@{\sep}r@{\sep}r@{\sep}lr@{\sep}r@{\sep}r@{\sep}}
-&\multicolumn{3}{c}{\normalfont \bf Positive Traces}
+\center
+\def\sep{\hspace{10pt}}
+\begin{tabular}{l   r   r   r   l   r   r   r}
+&\multicolumn{3}{c}{\normalfont \textbf{Trazas positivas}}
 &
-&\multicolumn{3}{c}{\normalfont \bf Negative Traces}
+&\multicolumn{3}{c}{\normalfont \textbf{Trazas Negativas}}
 \\
-  \cmidrule(r){2-4}
-  \cmidrule(r){6-8}
-  \small Benchmark
-& \small $| \pmlog |$
-& \small $| E |$
-& \small $| T |$
-&
-& \small $| \pmlog |$
-& \small $| E |$
-& \small $| T |$
+\cmidrule(r){2-4}
+\cmidrule(r){6-8}
+\small Benchmark  & \small $| \pmlog |$  & \small $| E |$  & \small $| T |$  & & \small $| \pmlog |$  & \small $| E |$  & \small $| T |$
 \\
 \midrule
-
-\rm\bench[32]{A} & 100 & 2483 & 32 & & 100 & 3134 & 32\newrow
-\rm\bench[42]{A} & 100 & 3308 & 42 & & 100 & 3484 & 42\newrow
-\rm\bench{Choice} & 300 & 2400 & 12 & & 300 & 3144 & 12\newrow
-\rm\bench{Complex} & 6107 & 83713 & 19 & & 6107 & 143232 & 19\newrow
-\rm\bench{ConfDimB} & 500 & 3725 & 11 & & 500 & 5476 & 11\newrow
-\rm\bench[5]{Cycles} & 100 & 4000 & 20 & & 100 & 3728 & 20\newrow
-\rm\bench[2]{DbMut} & 500 & 8204 & 32 & & 500 & 11904 & 32\newrow
-\rm\bench{DocumentFlow} & 1000 & 5328 & 59 & & 1000 & 7570 & 59\newrow
-\rm\bench{FHMexample} & 1000 & 13837 & 13  & & 1000 & 19188 & 13\newrow
-\rm\bench{Incident} & 1000 & 4931 & 18 & & 1000 & 9168 & 18\newrow
-\rm\bench{Receipt} & 1434 & 8577 & 27 & & 1434 & 13968 & 27\newrow
-\rm\bench{Svn} & 765 & 7959 & 13 & & 765 & 24612 & 13\newrow
-\rm\bench[32]{T} & 100 & 3766 & 33 & & 100 & 3716 & 33\newrow
-\rm\bench{Telecom} & 17812 & 83286 & 42 & & 17812 & 159090 & 42\newrow
-
-\\
-\bottomrule
+\bench[32]{A} & 100 & 2483 & 32 & & 100 & 3134 & 32\newrow
+\bench[42]{A} & 100 & 3308 & 42 & & 100 & 3484 & 42\newrow
+\bench{Choice} & 300 & 2400 & 12 & & 300 & 3144 & 12\newrow
+\bench{Complex} & 6107 & 83713 & 19 & & 6107 & 143232 & 19\newrow
+\bench{ConfDimB} & 500 & 3725 & 11 & & 500 & 5476 & 11\newrow
+\bench[5]{Cycles} & 100 & 4000 & 20 & & 100 & 3728 & 20\newrow
+\bench[2]{DbMut} & 500 & 8204 & 32 & & 500 & 11904 & 32\newrow
+\bench{DocumentFlow} & 1000 & 5328 & 59 & & 1000 & 7570 & 59\newrow
+\bench{FHMexample} & 1000 & 13837 & 13  & & 1000 & 19188 & 13\newrow
+\bench{Incident} & 1000 & 4931 & 18 & & 1000 & 9168 & 18\newrow
+\bench{Receipt} & 1434 & 8577 & 27 & & 1434 & 13968 & 27\newrow
+\bench{Svn} & 765 & 7959 & 13 & & 765 & 24612 & 13\newrow
+\bench[32]{T} & 100 & 3766 & 33 & & 100 & 3716 & 33\newrow
+\bench{Telecom} & 17812 & 83286 & 42 & & 17812 & 159090 & 42\newrow
 \end{tabular}
 \vspace{0pt}
-\rm
-\caption{The set of logs included in the benchmark and their corresponding sizes.}
+\caption{\tiny El conjunto de logs incluídos en el benckmark y sus correspondientes tamaños.}
 \label{tab:bench}
 \end{table} 
