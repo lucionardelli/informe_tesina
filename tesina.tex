@@ -1,6 +1,6 @@
 %!TEX spellcheck = es-AR
 % !TEX encoding = UTF-8 Unicode
-\documentclass[spanish,12pt,a4paper]{memoir} % Change font size here (allowable values are 9pt-12pt), change the paper size, specify one or two sided printing and specify whether to show trimming lines
+\documentclass[spanish,12pt,a4paper]{memoir}
 \usepackage[spanish,es-tabla]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,latexsym}
@@ -27,6 +27,11 @@
 \usetikzlibrary{automata,petri,positioning,shapes,snakes,arrows,backgrounds,babel}
 \tikzstyle{tplace}=[circle,draw,inner sep=1.8mm]
 \usepackage{amsthm}
+% Encabezado "lindo"
+% Memoir y fancyhdr definen ambos esto. Pero lo definen igual, así que no hay problema
+% Fuente: http://tex.stackexchange.com/questions/37868/fancyhdr-and-memoir
+\let\footruleskip\undefined
+\usepackage{fancyhdr}
 % Saca los espacios adicionales de las listas tipo itemize
 \usepackage{enumitem}
 \usepackage{hypcap}
@@ -60,13 +65,21 @@
 \def\subfigureautorefname{Figura}
 \def\equationautorefname{Ecuación}
 
-%% Activa la numeracion de subchaptersciones
+%% Activa la numeracion de subsecciones
 %\setchaptersnumdepth{subsection}
 \setcounter{secnumdepth}{5} 
-% Mostrar sub chaptersciones en indice
+% Mostrar sub secciones en índice
 \setcounter{tocdepth}{2}
 
 \hypersetup{pdftex,colorlinks=true,allcolors=blue}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL]{\nouppercase\leftmark}
+\fancyhead[OR]{\nouppercase\rightmark}
+\fancyhead[ER,OL]{\thepage}
+
 
 \begin{document} 
 
@@ -127,15 +140,13 @@ Universidad Nacional de Rosario
 \include{chapters/chapter2}
 % Descubrimiento de procesos supervisado
 \include{chapters/chapter3}
-% Implementación
+% Implementación y resultados experimentales
 \include{chapters/chapter4}
-% Experimentos
+% Conclusiones y trabajo futuro
 %\include{chapters/chapter5}
-% Conclusiones
-%\include{chapters/chapter6}
 
-%\bibliographystyle{alpha}
-\bibliographystyle{elsarticle-num}
+\bibliographystyle{alpha}
+%\bibliographystyle{elsarticle-num}
 \bibliography{biblio}
 
 \end{document} 
