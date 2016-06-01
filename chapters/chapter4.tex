@@ -1,6 +1,7 @@
 % !TEX encoding = UTF-8 Unicode
 % Capítulo 4 - Implementación
 \chapter[Implementación y resultados experimentales ]{Implementación y resultados experimentales}
+\label{chap:4}
 
 En este capítulo se introducirán los detalles más relevantes del desarrollo de una nueva
 herramienta para la minería de procesos, \pachtool, realizada como parte de esta tesina. 
@@ -41,7 +42,8 @@ Una lista exhaustiva de comandos y opciones se encuentra disponible en el sitio 
 
 \subsection*{Instalación}
 Para utilizar \pachtool, se deben cumplir con algunos requerimientos. Para esto, 
-nos basamos en \texttt{pip}~\cite{pip}, un manejador de paquetes de Python. Con esto,
+nos basamos en \texttt{pip}~\footnote{\texttt{pip}, PyPA, \url{https://pip.pypa.io/en/stable/}, v8.1.2},
+un manejador de paquetes de Python. Con esto,
 simplemente se debe correr el siguiente comando para obtener todos los
 paquetes necesarios:
 
@@ -96,12 +98,13 @@ como una red de Petri mediante el estándar PNML.
 
 %Basándose en la relación existente entre redes de Petri y la $H$-representación de un poliedro presentada en~\autoref{sec:2.discovery},
 
-\subsubsection{Poliedro convexo}
+\subsubsection{Poliedros convexos}
 \label{sec:4.qhull}
 
 Uno de los procesos más costosos del \autoref{algo} consiste en obtener el poliedro convexo que contenga 
 el conjunto de vectores Parikh de un log, i.e. linea \ref{algo:lineqhull} del algoritmo.
-El procedimiento correspondiente a \textsc{ConvexHull} ha sido implementado utilizando el paquete Python \emph{pyhull}~\cite{pyhull}, 
+El procedimiento correspondiente a \textsc{ConvexHull} ha sido implementado utilizando el paquete Python
+\texttt{pyhull}~\footnote{\texttt{pyhull}, Shyue Ping Ong, \url{https://github.com/materialsvirtuallab/pyhull},v1.5.4}, 
 un wrapper para Python del \qhulltool~\cite{Barber96}, y mediante las técnicas de alto nivel para manejo de 
 logs de gran dimensión, introducidas en~\cite{CarmonaC14}, sampling y proyección.
 
@@ -152,7 +155,7 @@ Los procedimientos de generalización y simplificación mediante SMT-solvers se 
 La herramienta soporta la codificación SMT presentada en este trabajo (i.e. considerando la matriz extendida
 como entrada del SMT-Solver) así como también admite la representación de~\cite{LeonCB15} (i.e. considerando los semiespacios uno a uno).
 
-Ambos métodos de simplificación han sido codificados siguiendo dos enfoques diferentes soportados por \texttt{Z3}
+Ambos métodos de simplificación han sido codificados siguiendo dos enfoques diferentes soportados por \texttt{Z3},
 siendo el enfoque a utilizar es una de las variables de configuración.
 El primer enfoque consiste en codificar el problema como un problema de minimización, buscando 
 el menor valor para la complejidad estructural del modelo.
@@ -182,8 +185,24 @@ mediante el enfoque de esta tesina serán también adecuados.
 
 Los experimentos han sido ejecutados en una máquina de 16 núcleos, 2.3GHz y 24GB de memoria RAM y los tiempos
 reportados se encuentran expresados en segundos.
+Para obtener una 
 
-\section{Descubrimiento supervisado de procesos}
+%Para el cálculo de todos los resultados experimentales presentados a continuación, se aplica una estrategia de \dquote{validación 
+%cruzada de diez pasos} -\textit{ten-fold cross-validation}- de la siguiente manera:
+%se divide cada registro en diez nuevos logs de igual tamaño cada uno.
+%Luego, se realizan diez itereaciones de los porcedimientos de descubrimiento y simplificación 
+%tomando en cada una de las iteraciones nueve de estos \dquote{sub-logs}, ignorando el décimo. 
+%En cada caso, el sub-log no tuilizado es evaluado sobre el modelo obtenido de las restantes
+%para comprobar que el modelo es válido para este.
+%Por útlimo, para obtener los valores deseados se realiza un promedio de los resultados de todas
+%las iteraciones.
+%Vale aclarar que, aunque tal configuración de validación cruzada es una práctica habitual
+%en el campo del aprendizaje automático, el mismo rara vez se encuentra en proceso de minería de procesos,
+%ya que se considera innecesario o incluso indeseable debido al hecho de que los modelos buscados son
+%de tipo descriptivo y no predictivos. Además, la aplicación de una validación cruzada
+%pre-procesamiento de paso es menor
+%sencillo que con configuraciones de minería de datos normales y tradicionales, como el muestreo aleatorio de las huellas de un registro de eventos
+\subsection{Descubrimiento supervisado de procesos}
 \label{sec:4.supervised}
 
 \input{tables/table_benchmarks}
@@ -207,7 +226,7 @@ el siguiente formato:
 
 \begin{itemize}
     \item \textbf{Poliedro:} corresponde al enfoque en ~\cite{CarmonaC14} sin aplicar simplificaciones.
-    \item \textbf{Semiespacio:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
+    \item \textbf{SemEsp:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
     \item \textbf{Matriz:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
       presentado en~\autoref{sec:3.gensimp}.
     \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo base en la $1^{er}$ columna (Base) 
@@ -241,7 +260,6 @@ el siguiente formato:
 %%%all 
 %%%logs, indicating that the cross-validation setup applied is safe for further use and that the presented metrics below are valid for use and interpretation.
 %%%
-
 
 Los resultados relacionados al tiempo de ejecución de \pachtool se reportan en~\autoref{tab:pol_time}.
 La primera columna muestra el tiempo para calcular la cápsula convexa; el resto de las columnas, informa
@@ -277,7 +295,6 @@ para fines experimentales (parámetro configurable del algoritmo). El segundo ca
 del proceso (como se explica en la~\autoref{fig:glob_encoding}); ya que se utilizan tantas trazas negativas como positivas,
 cada simplificación posee gran cantidad de restricciones haciendo imposible que se mejore.
 
-
 Las tablas~\ref{tab:pol_prec} y \ref{tab:pol_gen} muestran, respectivamente, la precisión y generalización de las redes
 obtenidas mediante \pachtool. De la~\autoref{tab:pol_prec}, se puede observar que 
 aplicar simplificación SMT iterativamente sólo con información positiva disminuye en gran medida la precisión de las
@@ -299,6 +316,46 @@ extendida del sistema) seguido del procedimiento de \textsc{Removal}.
 
 \input{tables/table_pol_gen}
 
+\subsection{Simplificación de modelos existentes}
+\label{sec:4.simp_existing}
+
+En la~\autoref{sec:3.simplification} se vio como la técnica presentada es universal y puede ser aplicada sobre
+cualquier modelo presentado como una red de Petri. Para probar esto, se toman los modelos obtenidos
+mediante \textit{ILP miner}~\cite{WDHS08} para el mismo conjunto de benchmarks y se los simplifica mediante
+\pachtool.
+
+Utilizando la misma representación utilizada en la~\autoref{sec:4.supervised}, las tablas \ref{tab:ilp_time} a
+\ref{tab:ilp_gen} muestran el resultado de aplicar simplificaciones SMT y \textsc{Removal} sobre los
+modelos generados por ILP miner.
+
+Los resultados sobre el tiempo computacional se muestran en la~\autoref{tab:ilp_time}.
+La primer columna corresponde al tiempo requerido para obtener la red inicial mediante ILP miner; las demás columnas muestran
+los tiempos de simplificación obtenidos por \pachtool. Para todos los casos que no incluyen proyección, \pachtool
+es considerablemente más rápido que ILP miner. %Para el caso del benchmark \bench[2]{DbMut}, 
+
+Si se considera la complejidad del modelo (cuyos resultados pueden verse en ~\autoref{tab:ilp_simp}) se arriba a las mismas
+conclusiones que al utilizar teoría de poliedros; los mejores resultados se obtienen
+al aplicar el  procedimiento \textsc{Removal} sobre la simplificación realizada iterativamente sobre cada semiespacio
+con información positiva únicamente. En cambio, no se logra simplificar
+los modelos obtenidos mediante ILP miner al utilizar trazas negativas. Esto se debe a que la teoría de poliedros
+genera modelos complejos al computar la cápsula convexa del conjunto de vectores Parikh de cada log. Esta
+complejidad es la que permite en la~\autoref{sec:4.supervised} la simplificación mediante SMT a diferencia
+de los modelos generados en este caso.
+
+\input{tables/table_ilp_time}
+\input{tables/table_ilp_simp}
+
+Los resultados de precisión pueden verse en~\autoref{tab:ilp_prec}. En este caso el resultado difiere de los obtenidos
+al utilizar teoría de poliedros. Los mejores resultados se obtienen, como es esperado, directamente del ILP miner y los más cercanos
+a estos valores corresponden a aplicar \textsc{Removal} sobre ellos; sin embargo, la pérdida de precisión es mayor a la obtenida
+para en la~\autoref{sec:4.supervised}.
+En cuanto a la generalización, los resultados de la~\autoref{tab:ilp_gen}, muestran que los mejores resultados se obtienen
+al aplicar \textsc{Removal} sobre el modelo obtenido luego de la simplificación iterativa mediante SMT. Sin embargo, similares
+valores de generalización se obtiene, sin aplicar dicho proceso ($2^{da}$ columna).
+
+\input{tables/table_ilp_prec}
+\input{tables/table_ilp_gen}
+
 \section{Resumen del capítulo}
 \label{sec:4.resumen}
 
@@ -311,6 +368,6 @@ utilizada como herramienta de post procesamiento sobre modelos obtenidos mediant
 minería de procesos, \textit{ILP miner}.
 
 Por último se realizó un análisis de los resultados obtenidos y se pudo concluir que la herramienta presentada
-es capaz de generar, dado un modelo adecuado de un cierto sistema, un nuevo modelo con una menor complejidad estructural
-sin con esto degenerar la precisión del mismo.
+es capaz de generar, dado un modelo adecuado de un cierto sistema, un nuevo modelo con una menor complejidad 
+estructural sin con esto degenerar la precisión del mismo.
 

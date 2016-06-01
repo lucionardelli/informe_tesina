@@ -8,7 +8,7 @@
 \def\negsep{\hspace{2.5pt}}
 
 \centering
-\tiny
+\small
 \begin{tabular}{l r  r  r  r r  r  r  }
 &
 &\multicolumn{2}{c}{\normalfont \textbf{Positivo}}
@@ -19,9 +19,9 @@
   \cmidrule(r){7-8}
   \normalfont Benchmark
 & \normalfont Poliedro
-& \normalfont Semiespacio
+& \normalfont SemEsp
 & \normalfont Matriz
-& \normalfont Semiespacio
+& \normalfont SemEsp
 & \normalfont Matriz
 & \normalfont Base
 & \normalfont SMT
@@ -33,7 +33,7 @@
 \bench{Choice} & 0,10 & 0,41 & 0,73 & 0,29 & 0,75 & 0,64 & 0,62 \newrow
 \bench{ConfDimB} & 0,05 & 0,32 & 0,46 & 0,26 & 0,73 & 0,56 & 0,58 \newrow
 \bench[5]{Cycles} & 0,16 & 1,37 & 0,88 & 0,59 & 0,98 & 2,09 & 1,87 \newrow
-\bench[2]{DbMut} & 0,26 & 3,35 & 1,13 & 0,97 & 1,39 & 10,57 & 10,52 \newrow
+%\bench[2]{DbMut} & 0,26 & 3,35 & 1,13 & 0,97 & 1,39 & 10,57 & 10,52 \newrow
 \bench{DocumentFlow} & 0,19 & 0,62 & 1,01 & 0,53 & 1,20 & 1,27 & 1,23 \newrow
 %\bench{FHMexample} & 0,21 & 5,95 & 0,93 & 0,69 & 0,84 & 17,97 & 17,60 \newrow
 \bench{Incident} & 0,12 & 15,03 & 1,13 & 1,07 & 1,19 & 7,94 & 8,36 \newrow
@@ -44,6 +44,6 @@
 \\
 \bottomrule
 \end{tabular}
-\caption{\tiny Tiempo de ejecución total de \pachtool.}
+\caption{\tiny Tiempo total de ejecución (en segundos) de \pachtool.}
 \label{tab:pol_time}
 \end{table}

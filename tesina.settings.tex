@@ -1,0 +1,93 @@
+%!TEX spellcheck = es-AR
+% !TEX encoding = UTF-8 Unicode
+\documentclass[spanish,12pt,a4paper,openright]{memoir}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,latexsym}
+% Doe's not play well with memoir
+%\usepackage{subfigure}
+\usepackage{pifont}
+\usepackage[linktocpage=true]{hyperref}
+\usepackage{MnSymbol}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage[figuresleft]{rotating}
+\usepackage{rotfloat}
+\usepackage[final]{fixme}
+\usepackage{multicol}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage{tikz}
+\newsubfloat{figure}% Allow subfloats in figure environment
+\usetikzlibrary{automata,petri,positioning,shapes,snakes,arrows,backgrounds,babel}
+\tikzstyle{tplace}=[circle,draw,inner sep=1.8mm]
+\usepackage{amsthm}
+% Encabezado "lindo"
+% Memoir y fancyhdr definen ambos esto. Pero lo definen igual, así que no hay problema
+% Fuente: http://tex.stackexchange.com/questions/37868/fancyhdr-and-memoir
+\let\footruleskip\undefined
+\usepackage{fancyhdr}
+% Saca los espacios adicionales de las listas tipo itemize
+\usepackage{enumitem}
+\usepackage{hypcap}
+\setlist{nolistsep}
+% Para armar código bonito
+\usepackage{minted}
+\usemintedstyle{bw}
+\usepackage{xcolor}
+\usepackage[framemethod=default]{mdframed}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\mdfdefinestyle{codebox}{backgroundcolor=bg,skipabove=10,linewidth=0}
+\usepackage[most]{tcolorbox}
+
+\definecolor{mygreen}{rgb}{0,0.5,0}
+
+\input{macros}
+\input{macros_environments}
+\def\chapterautorefname{Capítulo}
+
+%% Nada anda :(
+% NO QUIERO QUE DIGA SUBSUBSUB sección!
+\def\sectionautorefname{Sección}
+\def\subsectionautorefname{Sección}
+\renewcommand{\subsubsectionautorefname}{Sección}
+\let\subsectionautorefname\sectionautorefname
+\let\subsubsectionautorefname\sectionautorefname
+
+
+
+\def\exampleautorefname{Ejemplo}
+\def\definitionautorefname{Definición}
+\def\propositionautorefname{Prop.}
+\def\lemmaautorefname{Lema}
+\def\remarkautorefname{Observación}
+\def\assumptionautorefname{Assumption}
+\def\theoremautorefname{Teorema}
+\def\algorithmautorefname{Algoritmo}
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\subfigureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+
+%% Activa la numeracion de subsecciones
+%\setchaptersnumdepth{subsection}
+%%%\setcounter{secnumdepth}{3} 
+% Mostrar sub secciones en índice
+\setcounter{tocdepth}{3}
+
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL]{\nouppercase\leftmark}
+\fancyhead[OR]{\nouppercase\rightmark}
+\fancyhead[ER,OL]{\thepage}
+
+
+
