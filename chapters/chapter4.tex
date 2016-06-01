@@ -319,19 +319,19 @@ extendida del sistema) seguido del procedimiento de \textsc{Removal}.
 \subsection{Simplificación de modelos existentes}
 \label{sec:4.simp_existing}
 
-En la~\autoref{sec:3.simplification} se vio como la técnica presentada es universal y puede ser aplicada sobre
+En la~\autoref{sec:3.simplification} se vio cómo la técnica presentada es universal y puede ser aplicada sobre
 cualquier modelo presentado como una red de Petri. Para probar esto, se toman los modelos obtenidos
-mediante \textit{ILP miner}~\cite{WDHS08} para el mismo conjunto de benchmarks y se los simplifica mediante
+mediante el \textit{ILP miner}~\cite{WDHS08} para el mismo conjunto de benchmarks y se los simplifica mediante
 \pachtool.
 
 Utilizando la misma representación utilizada en la~\autoref{sec:4.supervised}, las tablas \ref{tab:ilp_time} a
 \ref{tab:ilp_gen} muestran el resultado de aplicar simplificaciones SMT y \textsc{Removal} sobre los
-modelos generados por ILP miner.
+modelos generados por el ILP miner.
 
 Los resultados sobre el tiempo computacional se muestran en la~\autoref{tab:ilp_time}.
-La primer columna corresponde al tiempo requerido para obtener la red inicial mediante ILP miner; las demás columnas muestran
+La primer columna corresponde al tiempo requerido para obtener la red inicial mediante el ILP miner; las demás columnas muestran
 los tiempos de simplificación obtenidos por \pachtool. Para todos los casos que no incluyen proyección, \pachtool
-es considerablemente más rápido que ILP miner. %Para el caso del benchmark \bench[2]{DbMut}, 
+es considerablemente más rápido que el ILP miner. %Para el caso del benchmark \bench[2]{DbMut}, 
 
 Si se considera la complejidad del modelo (cuyos resultados pueden verse en ~\autoref{tab:ilp_simp}) se arriba a las mismas
 conclusiones que al utilizar teoría de poliedros; los mejores resultados se obtienen
@@ -348,10 +348,10 @@ de los modelos generados en este caso.
 Los resultados de precisión pueden verse en~\autoref{tab:ilp_prec}. En este caso el resultado difiere de los obtenidos
 al utilizar teoría de poliedros. Los mejores resultados se obtienen, como es esperado, directamente del ILP miner y los más cercanos
 a estos valores corresponden a aplicar \textsc{Removal} sobre ellos; sin embargo, la pérdida de precisión es mayor a la obtenida
-para en la~\autoref{sec:4.supervised}.
+en la~\autoref{sec:4.supervised}.
 En cuanto a la generalización, los resultados de la~\autoref{tab:ilp_gen}, muestran que los mejores resultados se obtienen
-al aplicar \textsc{Removal} sobre el modelo obtenido luego de la simplificación iterativa mediante SMT. Sin embargo, similares
-valores de generalización se obtiene, sin aplicar dicho proceso ($2^{da}$ columna).
+al aplicar \textsc{Removal} sobre el modelo obtenido luego de la simplificación iterativa mediante SMT. Sin embargo, 
+valores similares de generalización se obtiene, sin aplicar dicho proceso ($2^{da}$ columna).
 
 \input{tables/table_ilp_prec}
 \input{tables/table_ilp_gen}
