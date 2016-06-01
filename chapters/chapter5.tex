@@ -4,11 +4,11 @@
 \section*{Conclusiones}
 
 En esta tesina se ha presentado una novedosa técnica de minería de procesos mediante un enfoque
-supervisado basado en dominios numéricos abstractos y el uso de resolvedores de satisfacibilidad 
+supervisado basado en dominios numéricos abstractos y el uso de satisfacibilidad 
 módulo teorías que permite, mediante el uso de información negativa, obtener, simplificar y
 generalizar modelos de procesos a partir de un log de eventos. Esta información negativa puede provenir 
 de un un log con trazas prohibidas (i.e. comportamientos que el sistema \emph{no} debe ejecutar),
-derivada artificialmente o de conocimiento experto.
+se derivada artificialmente o proveniente de conocimiento experto.
 
 Este trabajo utiliza un concepto fundamental como es el de supervisar (ya sea manual o automáticamente)
 las técnicas de minería de procesos de manera de mejorar la calidad de los modelos derivados de
@@ -27,21 +27,6 @@ Por otra parte, \pachtool permite generalizar y simplificar modelos de procesos 
 una red de Petri de manera supervisada mediante el uso de información negativa. Este 
 post procesamiento no necesariamente debe ser aplicado sobre los modelos generados por \pachtool,
 sino que también pueden aplicarse sobre modelos obtenidos por otras herramientas de descubrimiento.
-
-En la \autoref{fig:allsimp} puede observarse un ejemplo donde visualmente se aprecian los beneficios del
-uso de la metodología introducida.
-
-\begin{figure}[H]
-    \centering
-    \subbottom[\label{sfig:allsimp.1}\tiny\pachtool y teoría de poliedros]{\scalebox{.04}{\includegraphics{img/cycles-pol}}}
-    \hspace{1cm}
-    \subbottom[\label{sfig:allsimp.2}\tiny\textsc{Removal} sobre~\autoref{sfig:allsimp.1}]{\scalebox{.05}{\includegraphics{img/cycles-pol-rem}}}
-    \subbottom[\label{sfig:allsimp.3}\tiny Enfoque de~\cite{Murata89}]{\scalebox{.04}{\includegraphics{img/cycles_murata}}}
-    \hspace{7mm}
-    \subbottom[\label{sfig:allsimp.4}\tiny Enfoque de~\cite{LeonCB15}]{\scalebox{.04}{\includegraphics{img/cycles_pnsimp}}}
-    \label{fig:allsimp}
-    \caption{Ejemplo de la aplicación de la técnica presentada.}
-\end{figure}
 
 Los resultados experimentales realizados mediante \pachtool sobre diferentes logs, tanto 
 artificiales como reales, avalan la efectividad de la técnica presentada.
