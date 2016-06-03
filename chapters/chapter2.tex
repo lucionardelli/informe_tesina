@@ -230,7 +230,7 @@ Se le llama red de Petri \emph{pura} a una red que no posee ciclos de longitud u
 $\forall p \in P:~ {\preset{p}} \mathrel{\cap} {\postset{p}} = \emptyset$.
 En adelante, asumiremos que todas las redes de Petri con las que trabajamos son puras.
 Esto es una consecuencia de utilizar la teoría de poliedro como se verá en el siguiente capítulo
-\todo[inline]{Ver a que debemos hacer referencia acá. se que en algún lado lo escibí...}.
+%\todo[inline]{Ver a que debemos hacer referencia acá. se que en algún lado lo escibí...}.
 Es importante destacar que esto no es una 
 restricción importante ya que podemos, de manera sistemática, relajar un modelo no puro agregando
 places ficticios y convertir cualquier ciclo de longitud uno en un ciclo de longitud dos para
@@ -278,8 +278,8 @@ llamado \emph{conjunto alcanzable} de $N$, se lo nota $\rs(N)$.
 \end{figure}
 
 Sea $p$ un place con \mbox{$\preset{p}=\{x_1,\ldots,x_k\}$}, \mbox{$\postset{p}=\{y_1,\ldots,y_l\}$} 
-y una función de marcado $M$ constante  tal que a cada place le asigna 1 token.
-Siendo $M_0(p)$ la cantidad de tokens en el marking inicial 
+y una función de marcado $M$ constante  tal que a cada place le asigna 1 ficha.
+Siendo $M_0(p)$ la cantidad de fichas en el marking inicial 
 para el place $p$, entonces, la siguiente ecuación
 se satisface para cualquier secuencia $\sigma$
 
@@ -592,7 +592,7 @@ basándose en una teoría de fondo aribitraria que otorga mayor expresividad al 
 Por ejemplo, la teoría aritmética, nos permite utilizar los símbolos  $+$, $<$, $\leq$ 
 así como variables numéricas para representar una fórmula para la cual 
 el SMT-solver puede (intentar) determinar su veracidad.
-\todo[]{No debería agregar el hecho de que no siempre la solución es la misma ni la óptima?}
+%\todo[]{No debería agregar el hecho de que no siempre la solución es la misma ni la óptima?}
 
 \section{Enunciado del problema} 
 \label{sec:2.problem}

@@ -229,9 +229,8 @@ el siguiente formato:
     \item \textbf{SemEsp:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
     \item \textbf{Matriz:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
       presentado en~\autoref{sec:3.gensimp}.
-    \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo base en la $1^{er}$ columna (Base) 
-      y sobre el modelo obtenido luego de la simplificación en la $2^{da}$ columna (SMT).
-      \todo[inline]{Esto no me gusta, pero la verdad es que no entiendo bien que representan las columnas de Removal, así que no se como parafresearlo...}
+  \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo base en la columna \textit{Base} 
+      y sobre el modelo más simple obtenido luego de aplicar ambas simplificaciónes en la columna \textit{SMT}.
 \end{itemize}
 
 %%%For the SMT simplification, a timeout of 600 milliseconds has been set for the solver. The selection have been done based on previous experience of the authors using SMT solver; normally if no answer is obtained for encodings of this size after the selected time threshold, no answer will be obtained even if the timeout is completely removed.
