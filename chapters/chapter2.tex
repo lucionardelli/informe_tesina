@@ -21,11 +21,10 @@ La minería de procesos es el nombre dado a un conjunto de técnicas que tienen
 como objetivo extraer información referente al proceso de un cierto sistema
 con el objetivo de poder analizar, probar ciertas propiedades 
 así como implementar posibles mejoras sobre dicho proceso.
-
-A diferencia de las técnicas clásicos de las técnicas de minería de datos, el foco
+A diferencia de las técnicas clásicas de minería de datos, el foco
 está en los procesos, en el flujo de un sistema.
 
-\subsection{Logs} 
+\subsection{Logs de eventos} 
 \label{sec:2.logs}
 
 La minería de procesos tiene su punto inicial en la recopilación de un \textit{log de eventos}. 
@@ -43,7 +42,7 @@ que agrupe dichas actividades en trazas.
 Sin embargo, un log puede contener, además, datos adicionales que, aunque no sean fundamentales, pueden
 ayudar a la minería de procesos otorgándole mayor nivel de detalle y claridad.
 
-La \autoref{tab:log_ex} muestra un ejemplo parcial de un conjunto de logs con información 
+La~\autoref{tab:log_ex} muestra un ejemplo parcial de un conjunto de logs con información 
 adicional (e.g. medio, tipo, user) que permite un entendimiento mayor del devenir del proceso.
 
 \input{tables/table_log.tex}
@@ -51,13 +50,13 @@ adicional (e.g. medio, tipo, user) que permite un entendimiento mayor del deveni
 Existen diferentes formas en las que se puede representar un log y debido a que provienen de diferentes
 sistemas, su representación dista de ser homogénea. Para intentar evitar esta heterogeneidad de representación,
 se utiliza mayoritariamente el estándar para describir logs llamado 
-\textit{e\textbf{X}tensible \textbf{E}vent \textbf{S}tream}, \textbf{XES}.
+\textit{e\textbf{X}tensible \textbf{E}vent \textbf{S}tream} (\textbf{XES}).
 
 XES consiste en un lenguaje basado en XML creado específicamente para representar logs de eventos que busca 
 un formato universal que permita la creación de herramientas reutilizables y la comunicación e intercambio de 
 información y, aunque su objetivo primario es la minería de procesos, también se 
 utiliza en otras áreas como minería de datos y análisis estadístico.
-En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguiendo el estándar XES.
+En la~\autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguiendo el estándar XES.
 
 \begin{figure}[h]
     \begin{minted}[
@@ -101,27 +100,27 @@ En la \autoref{fig:xeslog}, se transcribe un ejemplo artificial de un log siguie
   	</trace>
   </log>
     \end{minted}
-    \caption{Un (muy) pequeño ejemplo de un log siguiendo el estándar XES.}
+    \caption{Un ejemplo (muy) pequeño de un log en formato XES.}
     \label{fig:xeslog}
 \end{figure}
 
-Formalmente, dado un alfabeto $T$\footnote{Ver nota previa referente a la colisión de nombres} representando
+Formalmente, dado un alfabeto $T$ representando
 al conjunto de posibles actividades, un log se define como un conjunto $\pmlog \in \mathcal{P}(\eventstar)$\footnote{
 Los logs pueden ser definidos de manera más general como \dquote{multiconjuntos} donde algunos comportamientos
 pueden ser observados múltiples veces. No consideramos este enfoque ya que no consideramos 
 la frecuencia de cada traza; las redes solo contemplan la presencia o ausencia de un cierto comportamiento.}. 
-Los elementos del log \pmlog, llamados \textit{trazas}, son secuencias de eventos de del conjunto
+Los elementos del log \pmlog, llamados \textit{trazas}, son secuencias de eventos del conjunto
 de actividades $T$, i.e. $\sigma \in \eventstar$. 
 Por abuso de notación, se utiliza $\sigma \in \sys$, para indicar que existe una ejecución del sistema $\sys$
 en la que se presentan los eventos de $\sigma$ de manera ininterrumpida y ordenada.
-Dados un número natural $1 \leq k \leq n$ y una traza $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$, 
+Dado un número natural $1 \leq k \leq n$ y una traza $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$, 
 se llama sufijo de $\sigma$  a la traza $\sigma_{k+1},\sigma_{k+2},\dots,\sigma_n$
 y  prefijo a a la traza $\sigma_1,\sigma_2,\dots,\sigma_k$.
 
 %Abusando de notación,  si una cierta traza $\sigma'$ es el prefijo de alguna traza de $\pmlog$, se dice que 
 %$\sigma' \in \pmlog$ .
 
-\subsection{Minería de procesos} 
+\subsection{Generación de modelos a partir de logs} 
 \label{sec:2.process mining subsection}
 
 La \textit{minería de procesos} -\textit{PM} por sus siglas en inglés \textit{Process Mining}-
@@ -130,20 +129,20 @@ tipo de proceso informatizado. Se puede dividir la minería de procesos en tres 
 de procesos} (i.e. extraer un modelo del proceso a partir de un log), \textit{validación de procesos} (i.e. controlar posibles fallas 
 al comparar un modelo con un log) y \textit{mejora de modelos} (i.e. corregir un cierto modelo basado en la información extraída de los logs)~\cite{Aalst2004,AalstBook,FahlandA15}.
 
-En la ~\autoref{fig:pmcycle} se muestra como se relacionan los diferentes tipos de PM entre sí, con los logs de procesos
+En la~\autoref{fig:pmcycle} se muestra como se relacionan los diferentes tipos de PM entre sí, con los logs de procesos
 y con otros modelos, en búsqueda de un modelo de los procesos de un cierto sistema.
 
 \begin{figure}[h]
   	\centering
     \includegraphics[scale=0.5]{img/pmcycle.png}\\
-    \caption{Interacción de los diferentes tipos de PM.}
+    \caption{Interacción entre los distintos tipos de minería de procesos.}
     \label{fig:pmcycle}
 \end{figure}
 
 Al relacionar el comportamiento de un log $\pmlog$, el lenguaje de una red, i.e. $\Language(N)$ y 
 el propio sistema $\sys$, se definen nuevos conceptos~\cite{BuijsDA14}
 que ayudan a cuantificar la calidad del modelo propuesto: modelo \emph{incompleto},
-modelo \emph{adecuado}, modelo \emph{preciso}, modelo \emph{generalizador} de un log y \emph{simpleza} de un modelo.
+modelo \emph{adecuado}, modelo \emph{preciso}, modelo \emph{generalizador} de un log y modelo \emph{simple}.
 %incomplete, fitness, precise, generalization, simple
 
 \begin{itemize}
@@ -163,10 +162,10 @@ modelo \emph{adecuado}, modelo \emph{preciso}, modelo \emph{generalizador} de un
 
 El primero de los enfoques de la minería de procesos, el descubrimiento de procesos, busca extraer un modelo $N$
 (e.g. diagrama UML, BPMN, red de Petri) a partir de un log $\pmlog$ con el objetivo de modelar
-el proceso subyacente en un cierto sistema $\sys$. 
+el proceso subyacente de un cierto sistema $\sys$. 
 
 La validación de procesos, por su parte, comprende analizar la calidad de un cierto modelo,
-posiblemente obtenido mediante las técnicas de descubrimiento del punto anterior. En este punto, 
+posiblemente obtenido mediante las técnicas de descubrimiento del punto anterior. En este punto
 son necesarios, por lo menos, un modelo $N$ y un log $\pmlog$ y consiste en medir la calidad 
 de $N$ en reproducir los comportamientos observados en $\pmlog$. Para medir la calidad de $N$ se 
 utilizan los conceptos ut supra definidos:
@@ -211,15 +210,14 @@ cantidad de puntos igual a dicho número.
 
 Formalmente, una red de Petri es una 4-upla $(P,T,F,M_0)$ donde $P$ y $T$\footnotemark[1]
 representan los conjuntos finitos y disjuntos de places y transiciones respectivamente.
-Por su parte, los arcos ponderados vienen dados por \mbox{$F:(P \times T) \cup (T \times P)  \to \nat$}
-y un marking $M$ viene dado por la función \mbox{$M:P \to \nat$}.
+Por su parte, los arcos ponderados corresponden a la función \mbox{$F:(P \times T) \cup (T \times P)  \to \nat$}
+y los marking son dados por la función \mbox{$M:P \to \nat$}.
 Por último, $M_0$ representa el estado inicial de la red, i.e. el marking inicial.
 
-\footnotetext[1]{ En este trabajo, utilizamos el mismo símbolo $T$ para denotar el conjunto de transiciones
+\footnotetext[1]{En este trabajo, se utiliza el mismo símbolo $T$ para denotar el conjunto de transiciones
     de una red de Petri así como para el alfabeto de actividades de las trazas de un log.
-    Esta colisión es intencionada ya que, en nuestro modelo, cada transición se corresponde biunívocamente
-    con una actividad del log.
-}
+    Esta colisión es intencionada ya que, en el modelo presentado, cada transición se corresponde biunívocamente
+    con una actividad del log.}
 
 El \textit{preset} y \textit{postset} de un place $p$ corresponden al conjunto 
 de transiciones que \dquote{llegan} y \dquote{salen} de $p$. Se denotan como $\preset{p}$ y $\postset{p}$
@@ -241,14 +239,14 @@ dinámicos; este comportamiento dinámico está definido mediante las \emph{regl
 Intuitivamente, el dinamismo de una red viene dado por los markings que se encuentran en cada
 uno des sus places, los cuales se van \dquote{moviendo} de un place a otro a través de la 
 ejecución de las transiciones. 
-Para que una transición pueda ser recorrida, debe estar \emph{habilitada}. Una transición 
+Para que una transición pueda ser ejecutada, debe estar \emph{habilitada}. Una transición 
 $t \in T$ está habilitada, en un cierto marking $M$ si 
 
 \bequation
     \mbox{$\forall p \in P:~ M(p) \ge F(p,t) $}.
 \eequation
 
-Es decir, una transición $t$ se encuentra habilitadas, si el marking contiene suficientes
+Es decir, una transición $t$ se encuentra habilitada, si el marking contiene suficientes
 fichas como marca el preset de $t$.
 
 Ejecutar una transición $t$ sobre un place $p \in P$ en un cierto marking genera 
@@ -278,7 +276,7 @@ llamado \emph{conjunto alcanzable} de $N$, se lo nota $\rs(N)$.
 \end{figure}
 
 Sea $p$ un place con \mbox{$\preset{p}=\{x_1,\ldots,x_k\}$}, \mbox{$\postset{p}=\{y_1,\ldots,y_l\}$} 
-y una función de marcado $M$ constante  tal que a cada place le asigna 1 ficha.
+y una función de marcado $M$ constante  tal que a cada place le asigna una única ficha.
 Siendo $M_0(p)$ la cantidad de fichas en el marking inicial 
 para el place $p$, entonces, la siguiente ecuación
 se satisface para cualquier secuencia $\sigma$
@@ -287,6 +285,8 @@ se satisface para cualquier secuencia $\sigma$
     M(p) = M_0(p) + \widehat\sigma(x_1)+\cdots +\widehat\sigma(x_k) - \widehat\sigma(y_1)-\cdots -\widehat\sigma(y_l).
 \eequation
 
+Donde $\widehat\sigma(e)$ representa la cantidad de eventos correspondientes a la actividad $e$ observados
+hasta el momento.
 Generalizando la ecuación \eqref{eq:1place_cte} para permitir arcos ponderados, se tiene
 
 \bequationl{1place_wei}
@@ -302,7 +302,7 @@ utilizando la notación matricial, se obtiene la ecuación conocida como
 \eequation
 
 donde $M$ y $M_0$ son vectores y $A$ representa la \emph{matriz de incidencia}
-del grafo; La matriz $A$ posee $|P|$ filas y $|T|$ columnas y representa las conexiones 
+del grafo; la matriz $A$ posee $|P|$ filas y $|T|$ columnas y representa las conexiones 
 existentes en la red.
 
 De la ecuación \eqref{eq:matrix_eq} se desprende el concepto
@@ -313,13 +313,13 @@ de soluciones de la siguiente inecuación
     M = M_0 + A \cdot \widehat\sigma \geq 0.
 \eequation
 
-%Utilizando la ecuación \eqref{eq:matrix_ineq} resulta natural definir el concepto
+%Utilizando la ecuación \eqref{eq:matrix_ineq} se define el concepto
 %de complejidad de una red de Petri como la suma
-%de los valores absolutos de todos los coeficientes de la matriz $A$ con la suma
-%de los valores absolutos del vector de $M_0$.
+%de los valores absolutos de todos los coeficientes de la matriz $A$ y
+%la de los valores absolutos del vector de $M_0$.
 
 A continuación, a modo de ejemplo, se construye la ecuación \eqref{eq:matrix_ineq} de
-la red de Petri de la ~\autoref{fig:pn1}, 
+la red de Petri de la~\autoref{fig:pn1}, 
 
 \bequation
     \left[\begin{array}{c} 1 \\ 6 \end{array} \right] +
@@ -349,7 +349,7 @@ que modela el procesos del sistema.
 \subsection{Vectores Parikh} 
 \label{sec:2.parikh}
 
-Dada una traza $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$, sobre un alfabeto
+Dada una traza $\sigma=\sigma_1\cdot\sigma_2\cdot\ldots\cdot\sigma_n$ sobre un alfabeto
 $T=\{t_1,t_2,\dots,t_n\}$, se utiliza $|\sigma|_{t_i}$ para representar la
 cantidad de ocurrencias de $t_i$ en $\sigma$.
 Luego, el \emph{vector Parikh} de $\sigma$ se define como un vector
@@ -443,14 +443,14 @@ Dado un poliedro convexo $\ph$, el conjunto de puntos enteros dentro de $\ph$
 forman una látice entera, denominada $Z$-poliedro de $\ph$.
 % Cambió de idioma y se transvistió...
 Dado que en este trabajo se utilizará un poliedro convexo que contenga la representación como vectores Parikh
-de un log, el espacio estará restringido a pntos entereso, i.e. al $Z$-poliedro correspondiente.
+de un log, el espacio estará restringido a puntos enteros, i.e. al $Z$-poliedro correspondiente.
 
 \subsection{Descubrimiento de procesos} 
 \label{sec:2.discovery discovery}
 
-El objetivo del \textit{descubrimiento de procesos} es encontrar un 
-modelo $N$ (e.g. una red de Petri) que represente, el comportamiento 
-observado en un cierto log $\pmlog$.
+%%%El objetivo del \textit{descubrimiento de procesos} es encontrar un 
+%%%modelo $N$ (e.g. una red de Petri) que represente, el comportamiento 
+%%%observado en un cierto log $\pmlog$.
 
 En~\cite{CarmonaC14} se presentan diferentes técnicas 
 para el descubrimiento de redes de Petri a partir del 
@@ -475,9 +475,9 @@ puede representarse como un conjunto de \dquote{caminatas} en $\mathbb{N}^n$. Ca
 en una caminata se mueve de un punto de la látice a otro aumentando únicamente uno de
 los componentes de la $n$-upla en una unidad.
 
-En \autoref{fig:simp}, se puede ver la correspondencia entre un log y una red
-de Petri.  En ~\autoref{sfig:simp.1} se representan tres caminatas en un espacio
-bidimensional. Las áreas en gris claro representan un poliedro que contiene todos 
+En la~\autoref{fig:simp}, se puede ver la correspondencia entre un log y una red
+de Petri. En la~\autoref{sfig:simp.1} se representan tres caminatas en un espacio
+bidimensional. El área en gris claro representa un poliedro que contiene todos 
 los puntos visitados por las tres caminatas. Dicho poliedro, puede representarse como 
 la intersección de dos semiespacios en $\mathbb{R}^2$
 
@@ -501,15 +501,15 @@ la intersección de dos semiespacios en $\mathbb{R}^2$
 \bequation
     \begin{array}{lllllll}
         p_0 = 1&+&\widehat\sigma(x)&-&\widehat\sigma(y)&\geq&0\\
-        p_1 = 6&-&2\cdot\widehat\sigma(x)&+&3\cdot\widehat\sigma(y)&\geq&0
-    \end{array}.
+        p_1 = 6&-&2\cdot\widehat\sigma(x)&+&3\cdot\widehat\sigma(y)&\geq&0.
+    \end{array}
 \eequation
 
 El poliedro puede ser representado también, de la forma de la ecuación \eqref{eq:matrix_ineq} 
-obteniendo así la interpretación de la ecuación de marcado para la red de Petri en ~\autoref{sfig:simp.2}.
+obteniendo así la interpretación de la ecuación de marcado para la red de Petri en la~\autoref{sfig:simp.2}.
 Cada semiespacio del poliedro, i.e. cada fila de la matriz, está representado por un place de la red.
 El conjunto de vectores Parikh generados por esta red corresponden al $Z$-poliedro del poliedro 
-representado en ~\autoref{sfig:simp.1}.
+representado en la~\autoref{sfig:simp.1}.
 
 %En resumen, dado un log $\pmlog$, podemos aplicar las técnicas introducidas en~\cite{CarmonaC14}
 %al conjunto $\parikh{\pmlog}$ para obtener un poliedro que pueda luego ser transformado en 
@@ -547,21 +547,21 @@ evitar durante la ejecución del sistema y como tal no debe ser aceptado en el m
 \end{definition}
 
     Debido al hecho de que los logs de eventos existentes en la vida real rara vez contienen información negativa, 
-en este trabajo se utilizan métodos alternativos de obtener dicha información. En~\cite{Goedertier2009} 
+en este trabajo se utilizan métodos alternativos para obtener dicha información. En~\cite{Goedertier2009} 
 y~\cite{BrouckeWVB14} se presentan métodos eficientes de inducir la llamada \textit{información negativa artificial},
 basada en la información positiva. 
-%En \cite{Goedertier2009,BrouckeWVB14}  el concepto utilizado es de una traza positiva
+%En~\cite{Goedertier2009,BrouckeWVB14}  el concepto utilizado es de una traza positiva
 %a la cual se las concatena con un único evento negativo.
 %Corresponde al caso particular en que para todas las trazas negativas,
-%según la definición \autoref{def:neg}, $|\sigma'|=k=n-1$. 
-En este trabajo se utiliza la \autoref{def:neg}, una versión más general 
+%según la definición~\autoref{def:neg}, $|\sigma'|=k=n-1$. 
+En este trabajo se utiliza la~\autoref{def:neg}, una versión más general 
 a la utilizada en~\cite{Goedertier2009,BrouckeWVB14} ya que se utilizan sufijos
 automáticos sobre las trazas negativas obtenidas del algoritmo 
 descrito en~\cite{BrouckeWVB14}.
 Esta generalización responde al hecho  de que las trazas negativas 
 son tranformadas en puntos negativos y luego estos son utilizados
 para restringir el proceso de expansión y/o rotación en pos de mejorar el modelo.
-Las trazas de la forma utilizada en \cite{Goedertier2009,BrouckeWVB14} generan
+Las trazas de la forma utilizada en~\cite{Goedertier2009,BrouckeWVB14} generan
 puntos negativos que se encuentran muy cercanos al poliedro generado, reduciendo la aplicabilidad del 
 método presentado.
 
@@ -591,7 +591,7 @@ Los \textit{SMT-solvers} permiten determinar la veracidad o falsedad de un ciert
 basándose en una teoría de fondo aribitraria que otorga mayor expresividad al lenguaje.
 Por ejemplo, la teoría aritmética, nos permite utilizar los símbolos  $+$, $<$, $\leq$ 
 así como variables numéricas para representar una fórmula para la cual 
-el SMT-solver puede (intentar) determinar su veracidad.
+el SMT-solver puede determinar su veracidad.
 %\todo[]{No debería agregar el hecho de que no siempre la solución es la misma ni la óptima?}
 
 \section{Enunciado del problema} 
@@ -614,10 +614,10 @@ en la construcción de la red, por lo que el desafío consiste en minimizar la c
 \label{sec:2.resumen}
 En este capítulo se hizo una introducción a diferentes temas fundamentales para la comprensión y el desarrollo de este trabajo. 
 Se presentaron conceptos cruciales como \textit{redes de Petri}, \textit{minería de procesos},
-\textit{SMT-solvers}, \textit{poliedros convexos} y \textit{látices enteras}; se dieron definiciones como la de \textit{Vector Parikh} 
-y \textit{vectores Parikh de un log} y se describieron ciertas nociones 
-utilizadas como las de \textit{logs}, \textit{información negativa} 
-o el concepto  entendido por complejidad de una red de Petri.
+\textit{SMT-solvers}, \textit{poliedros convexos} y \textit{látices enteras}; se dieron definiciones como la de 
+\textit{vectores Parikh de un log} y se describieron ciertas nociones 
+utilizadas como las de \textit{logs} e \textit{información negativa} 
+%o el concepto entendido por complejidad de una red de Petri.
 
 En particular, se ejemplificó la relación que existe entre ciertas redes de Petri con una látice entera y 
 como utilizar esta relación para generar un primer modelo de un sistema a partir de un cierto log.

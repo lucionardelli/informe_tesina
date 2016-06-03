@@ -19,7 +19,7 @@ y puede ser utilizado para simplificar los modelos obtenidos por otras técnicas
 \section{Algoritmo de descubrimiento}
 \label{sec:3.algodisco}
 
-Según lo visto en \autoref{sec:2.discovery discovery}, el descubrimiento de procesos
+Según lo visto en la~\autoref{sec:2.discovery discovery}, el descubrimiento de procesos
 refiere a la técnica mediante la cual, partiendo del log de un sistema, se busca
 un modelo que lo represente.
 Para este fin, existen diferentes metodologías~\cite{CarmonaC14,LeonCB15,MedeirosAW03,AalstWM04}.
@@ -101,7 +101,7 @@ y restringir los puntos prohibidos y no un semiespacio particular.
 
 \begin{example}
     \label{ex:prob_gen}
-    En la \autoref{fig:glob_encoding}, se muestra un poliedro inicial \autoref{sfig:glob_encoding.1} 
+    En la~\autoref{fig:glob_encoding}, se muestra un poliedro inicial~\autoref{sfig:glob_encoding.1} 
     y un punto $(9,4)$ que pertenece al semiespacio definido por el plano $p$ pero no al poliedro.
 
     \begin{figure}[H]
@@ -116,7 +116,7 @@ y restringir los puntos prohibidos y no un semiespacio particular.
     \end{figure}
 
     Si se aplica la técnica propuesta en~\cite{LeonCB15} a este plano de manera aislada,
-    no se obtendrá nunca el poliedro $p'$ en \autoref{sfig:glob_encoding.2} ya que
+    no se obtendrá nunca el poliedro $p'$ en la~\autoref{sfig:glob_encoding.2} ya que
     $p'$ no admite como solución al punto $(9,4)$. 
     Sin embargo, es claro que el punto $(9,4)$ no pertenece al poliedro~\autoref{sfig:glob_encoding.2}.
 \end{example}
@@ -124,24 +124,24 @@ y restringir los puntos prohibidos y no un semiespacio particular.
 \subsection{Etapas del procedimiento propuesto}
 \label{sec:3.algodisco stages}
 
-El procedimiento propuesto para descubrimiento y simplificación de procesos se ilustra en~\autoref{fig:flow}.
+El procedimiento propuesto para descubrimiento y simplificación de procesos se ilustra en la~\autoref{fig:flow}.
 En la parte superior, dentro del marco negro, se representa el enfoque utilizado en~\cite{CarmonaC14} 
 mediante el cual se obtiene un modelo sin utilizar trazas negativas; corresponde a la interpretación
 de un log como un conjunto de vectores Parikh, luego la obtención de un poliedro y por ultimó a la 
-transformación a una red de Petri según se detalló en~\autoref{sec:2.discovery}.
+transformación a una red de Petri según se detalló en la~\autoref{sec:2.discovery}.
 
 \begin{figure}[H]
     \begin{center}
 %\scalebox{1}{\input{img/flow.pdf_t}}
-    \scalebox{.6}{\includegraphics{img/approach_homero}}
-    \caption{Procedimiento supervisado propuesto (fuera del marco) en contraposición al enfoque
-        en~\cite{CarmonaC14} (dentro del marco).}
+    \scalebox{.5}{\includegraphics{img/approach_homero}}
+    %\scalebox{.6}{\includegraphics{img/bak_approach}}
+    \caption{Comparativa de los diferentes enfoques de descubrimiento de procesos.}
     \label{fig:flow}
     \end{center}
 \end{figure}
 
-Por otro lado, en la sección inferior de la \autoref{fig:flow}, se representa a modo de introducción,
-como el uso de información negativa proveniente de diferentes medios, se utiliza para simplificar 
+Por otro lado, en la sección inferior de la~\autoref{fig:flow}, se representa a modo de introducción,
+cómo el uso de información negativa proveniente de diferentes medios, se utiliza para simplificar 
 el modelo obtenido con el costo de incluir nuevos puntos al modelo final.
 Los detalles de este enfoque se precisan a continuación.
 
@@ -171,10 +171,10 @@ Los detalles de este enfoque se precisan a continuación.
   \label{algo}
 \end{algorithm}
 
-El \autoref{algo} describe paso a paso el enfoque propuesto utilizando pseudocódigo. Un conjunto de trazas 
+El~\autoref{algo} describe paso a paso el enfoque propuesto utilizando pseudocódigo. Un conjunto de trazas 
 positivas y un conjunto de trazas negativas conforman la entrada 
-(respectivamente \dquote{log de eventos} e \dquote{información negativa} en \autoref{fig:flow}). 
-En las líneas \ref{algo:line1}-\ref{algo:line2} se calculan todos los puntos positivos $pp$ para
+(respectivamente \dquote{log de eventos} e \dquote{información negativa} en la~\autoref{fig:flow}). 
+En las líneas~\ref{algo:line1}-\ref{algo:line2} se calculan todos los puntos positivos $pp$ para
 cada prefijo de una traza positiva en $\pmlogp$ y los puntos negativos $np$ para las trazas en $\pmlogn$\footnotemark[1].
 Luego, se calcula un poliedro que contenga el conjunto de puntos $pp$ mediante \textsc{ConvexHull} utilizando 
 métodos de programación lineal para obtener la cápsula convexa, e.g. \qhulltool~\cite{Barber96}.
@@ -190,27 +190,26 @@ que no agreguen ninguno de los puntos de $np$ al modelo.
 
 Por último, el conjunto de semiespacios es transformado en una red de Petri mediante \textsc{Hull2Net} utilizando
 la dualidad que existe entre los poliedros y las ecuaciones de marking de una red de Petri
-presentada en \autoref{sec:2.discovery discovery}.
+presentada en la~\autoref{sec:2.discovery discovery}.
 Cabe destacar que este procedimiento es uno de los pocos que permite obtener todo el conjunto de redes de Petri P/T puras,
 i.e. redes de Petri con con fichas y arcos ponderados de manera arbitraria.
 
 Del hecho de que el resultado de \textsc{ConvexHull} puede depender de las técnicas de muestreo y proyección y del
 hecho que que \textsc{Shift\&Rotate} está representado como una instancia de SMT (la cual puede poseer múltiples soluciones
-y la devuelta depende de la implementación del solver) el algoritmo \autoref{algo} es no determinista, i.e. dados
+y la devuelta depende de la implementación del solver) el algoritmo~\autoref{algo} es no determinista, i.e. dados
 los mismos logs positivo y negativo de entrada se pueden obtener diferentes resultados.
 
-\footnotetext[1]{ Nótese que en el caso de las trazas negativas, se utilizan únicamente los puntos correspondientes
+\footnotetext[1]{Nótese que en el caso de las trazas negativas, se utilizan únicamente los puntos correspondientes
     a cada traza completa y no a todos sus prefijos. Esto se debe a que para la mayor parte de las trazas negativas 
-    el prefijo es compartido con alguna traza positiva por lo que no deben evitarse.
-}
+    el prefijo es compartido con alguna traza positiva por lo que no deben evitarse.}
     
 \section{Generalización y simplificación}
 \label{sec:3.gensimp}
 
-En la \autoref{sec:2.discovery} se explica cómo partiendo de un conjunto de logs de un sistema, se puede
+En la~\autoref{sec:2.discovery} se explica cómo partiendo de un conjunto de logs de un sistema, se puede
 buscar un poliedro convexo que contenga al conjunto de vectores Parikh y luego considerar la $H$-representación para
 obtener una red de Petri que modele el sistema que generó el log; estos pasos corresponden
-a las líneas \ref{algo:line1}-\ref{algo:lineqhull} de \autoref{algo}.
+a las líneas~\ref{algo:line1}-\ref{algo:lineqhull} de~\autoref{algo}.
 Sin embargo, la estructura de esta red suele ser excesivamente compleja debido a que se utilizan 
 algoritmos de programación lineal que no calculan un poliedro arbitrario que contenga los puntos,
 sino que calculan la cápsula convexa. Aunque en primer instancia puede parecer algo positivo, la restricción
@@ -220,18 +219,18 @@ procesamiento para simplificar el poliedro y por ende el modelo.
 
 \begin{example} 
     \label{ex:polyhedra}
-    En \autoref{sfig:simp.1} se muestra un poliedro (el área gris claro) cuya $H$-representación viene
+    En la~\autoref{sfig:simp.1} se muestra un poliedro (el área gris claro) cuya $H$-representación viene
     dada por la intersección de los semiespacios definidos por $\{p_0,p_1\}$ y algunas de las caminatas generadas por las trazas.
     Mediante el proceso de generalización, puede obtenerse el poliedro definido 
     mediante la intersección de los semiespacios $\{p_0,p_2\}$ (la unión de las áreas gris clara y gris oscura), 
     i.e. un poliedro cuyo $Z$-poliedro contiene más puntos.
     Los puntos marcados mediante $\bullet$ no son solución de $\{p_0,p_1\}$ pero si lo son de $\{p_0,p_2\}$.
-    La \autoref{sfig:simp.2} y la \autoref{sfig:simp.3} muestran las redes de Petri inferidas por cada uno 
+    La~\autoref{sfig:simp.2} y la~\autoref{sfig:simp.3} muestran las redes de Petri inferidas por cada uno 
     de los poliedros. 
 
     La secuencia de eventos $xxxyxxx$ (asumiendo la representación de los eventos siguiendo la usual de los 
-    ejes cartesianos) es una traza de la red en \autoref{sfig:simp.3} pero no de la red en \autoref{sfig:simp.2}.
-    Esto se ve representado en \autoref{sfig:simp.1} mediante el punto $(6,1)$, el cual es solución de $\{p_0,p_2\}$,
+    ejes cartesianos) es una traza de la red en la~\autoref{sfig:simp.3} pero no de la red en la~\autoref{sfig:simp.2}.
+    Esto se ve representado en la~\autoref{sfig:simp.1} mediante el punto $(6,1)$, el cual es solución de $\{p_0,p_2\}$,
     pero no es solución de $\{p_0,p_1\}$.
 \end{example}
 
@@ -249,7 +248,7 @@ de generalización se realiza de manera automática mediante el uso de SMT-solve
 verificando que no se introducen comportamientos prohibidos en el proceso.
 Luego de estas simplificaciones, la red de Petri relacionada al poliedro acepta
 una cantidad de trazas mayor, generalizando el comportamiento subyacente. 
-Como se vio en ~\autoref{sec:3.algodisco}, el algoritmo propuesto en~\cite{LeonCB15}
+Como se vio en la~\autoref{sec:3.algodisco}, el algoritmo propuesto en~\cite{LeonCB15}
 propone un procedimiento supervisado de simplificación, pero es demasiado restrictivo
 debido a su naturaleza iterativa de procesamiento (\autoref{ex:prob_gen}).
 
@@ -301,7 +300,7 @@ satisfabilidad módulo teorías.
 \begin{example}
 Para la matriz de incidencia de~\autoref{sfig:simp.2}, la codificación como SMT resulta
 
-\todo{Esto no se puede ordenar más lindo? No me gusta...}
+%\todo{Esto no se puede ordenar más lindo? No me gusta...}
 $$\begin{array}{l}
 {(\beta_{1,1} + \beta_{1,2} + \beta_{2,1} + \beta_{2,2} > 0)} \land
 {(\beta_{1,0} \geq 0)} \land
@@ -318,7 +317,7 @@ para esta codificación, se obtiene automáticamente la siguiente solución (med
 
 $$\beta_{1,0}=6,\beta_{1,1}=-1,\beta_{1,2}=2, \beta_{2,0}=1,\beta_{2,1}=1,\beta_{2,2}=-1$$
 
-correspondiente al marking de la red en~\autoref{sfig:simp.3}.
+correspondiente al marking de la red en la~\autoref{sfig:simp.3}.
 Se puede ver que el método propuesto no sacrifica lo adecuado del modelo, ya que el $Z$-poliedro obtenido
 contiene al original.
 \end{example}
@@ -350,7 +349,7 @@ Para utilizar un log negativo, se procede a considerar la representación como v
 Luego se consideran estos puntos como restricciones al aplicar la simplificación \textsc{Shift\&Rotate}; es decir, se debe 
 verificar que las transformaciones realizadas al poliedro no conviertan a estos puntos en puntos válidos.
 
-Como se vio en ~\autoref{sec:3.algodisco}, el enfoque presentado en~\cite{LeonCB15},
+Como se vio en la~\autoref{sec:3.algodisco}, el enfoque presentado en~\cite{LeonCB15},
 introduce las trazas negativas en el algoritmo de simplificación.
 En cada procesamiento aislado de los hiperplanos, se limitan las simplificaciones 
 aplicadas a cada uno de manera que el hiperespacio no admita \emph{ningún} punto negativo.
@@ -359,14 +358,14 @@ un hiperespacio puede contener un punto negativo siempre que exista otro hiperes
 que no lo admita.
 
 \begin{example}
-    En la \autoref{fig:glob_encoding}, sea \autoref{sfig:glob_encoding.1} el poliedro
+    En la~\autoref{fig:glob_encoding}, sea~\autoref{sfig:glob_encoding.1} el poliedro
     a simplificar y sea $(8,4)$ un punto prohibido, que correctamente no se encuentra entre los
     punto interiores al poliedro.
     
     La técnica propuesta en~\cite{LeonCB15}, aplicada al plano $p$ de manera aislada, 
-    no obtendrá nunca el poliedro en \autoref{sfig:glob_encoding.2} ya que
+    no obtendrá nunca el poliedro en la~\autoref{sfig:glob_encoding.2} ya que
     el semiespacio inducido por $p'$ admite como solución el punto negativo. Sin embargo, es claro que el
-    el punto $(8,4)$ no pertenece al poliedro \autoref{sfig:glob_encoding.2}.
+    el punto $(8,4)$ no pertenece al poliedro~\autoref{sfig:glob_encoding.2}.
 \end{example}
 
 De manera similar a lo realizado al considerar las trazas positivas, el algoritmo de simplificación
@@ -392,7 +391,7 @@ lo que podemos prescindir de \eqref{eq:enc1}.
 
 \begin{example} 
     \label{ex:polyhedra_part2}
-    Retomando el \autoref{ex:polyhedra}, si se desea generalizar y simplificar el modelo sin admitir el punto $(6,1)$,
+    Retomando el~\autoref{ex:polyhedra}, si se desea generalizar y simplificar el modelo sin admitir el punto $(6,1)$,
     correspondiente al comportamiento $xxxyxxx$, utilizando la nueva representación, se debe agregar la restricción
     
     \bequation
@@ -407,7 +406,7 @@ lo que podemos prescindir de \eqref{eq:enc1}.
     Utilizar este algoritmo con información negativa, remplaza el primer semiespacio por 
     $5 -2 \cdot \widehat\sigma(x) +2 \cdot \widehat\sigma(y) \ge 0$ y mantiene el segundo.
 
-    La red simplificada que se obtiene corresponde a la que se ve en \autoref{fig:neg}, donde
+    La red simplificada que se obtiene corresponde a la que se ve en la~\autoref{fig:neg}, donde
     se observa que no acepta $xxxyxxx$ como traza.
 
     \begin{figure}[H]
@@ -430,7 +429,7 @@ negativos e itera sobre los hiperplanos que definen el poliedro,
 verificando si eliminar el hiperplano convierte en alcanzable algún punto negativo.
 Si este no es el caso, la restricción puede ser eliminada sin incorporar
 ningún comportamiento prohibido al modelo del sistema. El procedimiento \textsc{Removal}
-se encuentra detallado en~\autoref{algo:rem}. El proceso $\textsc{SomeInside}(H \setminus h, np)$
+se encuentra detallado en el~\autoref{algo:rem}. El proceso $\textsc{SomeInside}(H \setminus h, np)$
 retorna \textit{true} si eliminar $h$ tiene como consecuencia que algún punto en $np$
 sea una solución de $H \setminus {h}$.
 
@@ -458,12 +457,12 @@ impactar en gran medida la calidad de las métricas de la red.
 \subsection{Conceptos de simplicidad y complejidad}
 \label{sec:3.complexity}
 
-Existen diferentes conceptos de complejidad referidos a las redes de Petri~\cite{Lassen08,Mendling2007}. 
+Existen diferentes conceptos de simplicidad referidos a las redes de Petri~\cite{Lassen08,Mendling2007}. 
 La mayor parte se centran en la simpleza visual del modelo final. Sin embargo, estás métricas usualmente 
 son definidas en una clase de redes de Petri más restrictiva, donde el principal objetivo radica en la 
 representación de flujos de trabajo. Por su parte, las redes utilizadas en este trabajo resultan más generales
 y permiten representar conceptos como recursos y costos. Por este motivo, se utiliza una definición más adecuada
-de complejidad para medir la eficiencia buscada.
+de simplicidad para medir la eficiencia buscada.
 
 La idea principal radica en minimizar los coeficientes correspondientes a la matriz de incidencia de la red.
 La complejidad de una cierta red resulta de la suma de los valores absolutos de los tokens iniciales, 
@@ -488,7 +487,7 @@ que representa a $N'$ posea una complejidad estructural menor a la red que repre
 
 \begin{example}
     La complejidad de los poliedros~\autoref{sfig:simp.1} y~\autoref{sfig:simp.2} siguiendo 
-    la ~\autoref{def:complex} es 14 y 12 respectivamente.
+    la~\autoref{def:complex} es 14 y 12 respectivamente.
     Por lo tanto, la red correspondiente a~\autoref{sfig:simp.2} es considerada más simple.
 \end{example}
 
@@ -501,9 +500,9 @@ que representa a $N'$ posea una complejidad estructural menor a la red que repre
 \end{definition}
 
 \begin{example}
-    \autoref{fig:mot} muestra el resultado de aplicar el método presentado; la red \autoref{sfig:mot1} posee
+    La~\autoref{fig:mot} muestra el resultado de aplicar el método presentado; la red~\autoref{sfig:mot.1} posee
     complejidad $c_1 = (6 + 2 + 3) + (1 + 1 + 1) + (2 + 1) + (1+1+1) + (3+1) + 1 = 25$ mientras que 
-    la red \autoref{sfig:mot2}, obtenida luego de aplicar el algoritmo presentado, posee complejidad 
+    la red~\autoref{sfig:mot.2}, obtenida luego de aplicar el algoritmo presentado, posee complejidad 
     $c_2 = (2+1+1) + (1+1+1) + (2+1) + (1+1) + (3+1) + 1 = 17$. En este ejemplo, la eficiencia porcentual del
     procedimiento es $\xi = 100 - 100 \times (c_2 / c_1) = 32\%$.
 \end{example}
@@ -519,12 +518,12 @@ de places de una red).
 \subsection{Simplificación de modelos arbitrarios}
 \label{sec:3.simplification}
 
-Es importante observar que las técnicas presentadas en la sección anterior son independientes al algoritmo de 
+Es importante observar que las técnicas presentadas en este capítulo son independientes al algoritmo de 
 descubrimiento presentado en~\cite{CarmonaC14} y pueden ser aplicadas sobre cualquier
 red de Petri que satisfaga las hipótesis, i.e. cualquier red de Petri pura, sin transiciones silenciosas y sin
 dos transiciones representando una misma acción. 
 
-En \autoref{sec:2.discovery}, se explica la correspondencia entre un poliedro y una de de Petri mediante
+En la~\autoref{sec:2.discovery}, se explica la correspondencia entre un poliedro y una de de Petri mediante
 la $H$-representación de la ecuación de marking de $\mathcal{P}$. Esta relación es utilizada en~\cite{CarmonaC14}
 para computar $N$ a partir de $\mathcal{P}$. Para utilizar el algoritmo de simplificación anterior, se utiliza
 esta correspondencia en la otra dirección, computando $\mathcal{P}$ a partir de $N$. 

@@ -15,7 +15,7 @@ simplificación y generalización sobre un cierto modelo dado.
 \label{sec:4.pach}
 
 Para el desarrollo de esta tesina, el~\autoref{algo} ha sido implementado íntegramente 
-como una herramienta de linea de comando llamada \pachtool~\footnote{\texttt{PacH}, Lucio Nardelli, \url{https://github.com/lucionardelli/PacH},v1.0}
+como una herramienta de linea de comando llamada \pachtool\footnote{\texttt{PacH}, Lucio Nardelli, \url{https://github.com/lucionardelli/PacH},v1.0.}
 La herramienta se encuentra desarrollada en Python y ha sido satisfactoriamente probada en Linux y MAC;
 el código fuente se encuentra disponible bajo licencia BSD en
 \begin{center}\url{http://github.com/lucionardelli/PacH}\end{center}
@@ -42,7 +42,7 @@ Una lista exhaustiva de comandos y opciones se encuentra disponible en el sitio 
 
 \subsection*{Instalación}
 Para utilizar \pachtool, se deben cumplir con algunos requerimientos. Para esto, 
-nos basamos en \texttt{pip}~\footnote{\texttt{pip}, PyPA, \url{https://pip.pypa.io/en/stable/}, v8.1.2},
+nos basamos en \texttt{pip}\footnote{\texttt{pip}, PyPA, \url{https://pip.pypa.io/en/stable/}, v8.1.2.},
 un manejador de paquetes de Python. Con esto,
 simplemente se debe correr el siguiente comando para obtener todos los
 paquetes necesarios:
@@ -93,18 +93,18 @@ Por otro lado, si se utiliza \pachtool como una herramienta de post procesamient
 permite interpretar cualquier modelo que se encuentre representado
 como una red de Petri mediante el estándar PNML.
 
-\subsection{Poliedros convexos}
+\subsection{Dominios numéricos abstractos}
 \label{sec:4.convex_polyhedra}
 
-%Basándose en la relación existente entre redes de Petri y la $H$-representación de un poliedro presentada en~\autoref{sec:2.discovery},
+%Basándose en la relación existente entre redes de Petri y la $H$-representación de un poliedro presentada en la~\autoref{sec:2.discovery},
 
-\subsubsection{Poliedros convexos}
+\subsubsection{Generación de poliedros}
 \label{sec:4.qhull}
 
-Uno de los procesos más costosos del \autoref{algo} consiste en obtener el poliedro convexo que contenga 
-el conjunto de vectores Parikh de un log, i.e. linea \ref{algo:lineqhull} del algoritmo.
+Uno de los procesos más costosos del~\autoref{algo} consiste en obtener el poliedro convexo que contenga 
+el conjunto de vectores Parikh de un log, i.e. linea~\ref{algo:lineqhull} del algoritmo.
 El procedimiento correspondiente a \textsc{ConvexHull} ha sido implementado utilizando el paquete Python
-\texttt{pyhull}~\footnote{\texttt{pyhull}, Shyue Ping Ong, \url{https://github.com/materialsvirtuallab/pyhull},v1.5.4}, 
+\texttt{pyhull}\footnote{\texttt{pyhull}, Shyue Ping Ong, \url{https://github.com/materialsvirtuallab/pyhull},v1.5.4.}, 
 un wrapper para Python del \qhulltool~\cite{Barber96}, y mediante las técnicas de alto nivel para manejo de 
 logs de gran dimensión, introducidas en~\cite{CarmonaC14}, sampling y proyección.
 
@@ -132,7 +132,7 @@ la solución obtenida mediante este método es demasiado general, degradando por
 
 Es importante aclarar, que aún cuando los poliedros que se obtienen mediante este procedimiento 
 representan el conjunto trazas del log de manera más eficaz que lo obtenidos mediante el 
-enfoque usual (i.e. el presentado en ~\autoref{sec:4.qhull}), no lo hacen de manera eficiente.
+enfoque usual (i.e. el presentado en la~\autoref{sec:4.qhull}), no lo hacen de manera eficiente.
 Para casos artificiales los resultados son auspiciosos, pero el tiempo de computo
 resulta prohibitivo para el uso de SMT-poliedro en casos de uso reales.
 
@@ -141,11 +141,11 @@ resulta prohibitivo para el uso de SMT-poliedro en casos de uso reales.
 
 \pachtool implementa una representación interna para redes de Petri que permite trabajar con ellas de manera sencilla.
 Mediante esta representación se codifica la biyección existente entre una red de Petri y la $H$-representación 
-correspondiente a un poliedro utilizando la relación presentada en~\autoref{sec:2.discovery}, permitiendo
+correspondiente a un poliedro utilizando la relación presentada en la~\autoref{sec:2.discovery}, permitiendo
 moverse entre las representaciones en ambas direcciones de manera transparente.
 
-Además se cuenta con la posibilidad de generación del archivo PNML\footnote{PNML consiste del estándar para representación
-de redes de Petri, por sus siglas en inglés \textit{\textbf{P}etri \textbf{N}et \textbf{M}arkup \textbf{L}anguage}},
+Además se cuenta con la posibilidad de generación del archivo PNML\footnote{\textit{PNML} consiste del estándar para representación
+de redes de Petri, por sus siglas en inglés \textit{\textbf{P}etri \textbf{N}et \textbf{M}arkup \textbf{L}anguage}.},
 correspondiente a la solución simplificada del modelo obtenido.
 
 \subsection{Generalización y simplificación}
@@ -156,7 +156,7 @@ La herramienta soporta la codificación SMT presentada en este trabajo (i.e. con
 como entrada del SMT-Solver) así como también admite la representación de~\cite{LeonCB15} (i.e. considerando los semiespacios uno a uno).
 
 Ambos métodos de simplificación han sido codificados siguiendo dos enfoques diferentes soportados por \texttt{Z3},
-siendo el enfoque a utilizar es una de las variables de configuración.
+siendo el enfoque a utilizar una de las variables de configuración.
 El primer enfoque consiste en codificar el problema como un problema de minimización, buscando 
 el menor valor para la complejidad estructural del modelo.
 El segundo enfoque por su parte, consiste en un proceso iterativo; en cada iteración se busca
@@ -171,21 +171,21 @@ sea cercana a los 1200 eventos.
 \section{Resultados experimentales}
 \label{sec:4.experiments}
 
-El enfoque descripto en~\autoref{chap:3}, ha sido evaluado en diferentes logs correspondientes
+El enfoque descripto en el~\autoref{chap:3}, ha sido evaluado en diferentes logs correspondientes
 a ejemplos tanto artificiales como reales. Con el fin de comprobar la universalidad de la técnica presentada,
-como se vio en~\autoref{sec:3.simplification}, se tomaron además modelos obtenidos mediante \textit{ILP miner}~\cite{WDHS08},
-una herramienta para minería de procesos que obtiene también redes de Petri adecuadas.
+como se vio en la~\autoref{sec:3.simplification}, se tomaron además modelos obtenidos mediante \textit{ILP miner}~\cite{WDHS08},
+una herramienta para minería de procesos que obtiene también redes de Petri adecuadas para utilizar \pachtool
+como una herramienta de simplificación.
 
 La calidad de las redes obtenidas y simplificadas se evalúa mediante las técnicas en~\cite{AMCDA15} para medir
 la precisión de un modelo y el enfoque en~\cite{BrouckeWVB14} para medir la generalización. El grado de
-simplificación obtenido se obtiene según lo visto en~\autoref{sec:3.complexity}.
+simplificación obtenido se obtiene según lo visto en la~\autoref{sec:3.complexity}.
 Cabe aclarar que dado que las técnicas de descubrimiento basadas en teoría de poliedros y la herramienta \textit{ILP miner}
 generan modelos adecuados, el~\autoref{theo:fit} garantiza que todos los modelos generados y/o simplificados
 mediante el enfoque de esta tesina serán también adecuados.
 
 Los experimentos han sido ejecutados en una máquina de 16 núcleos, 2.3GHz y 24GB de memoria RAM y los tiempos
 reportados se encuentran expresados en segundos.
-Para obtener una 
 
 %Para el cálculo de todos los resultados experimentales presentados a continuación, se aplica una estrategia de \dquote{validación 
 %cruzada de diez pasos} -\textit{ten-fold cross-validation}- de la siguiente manera:
@@ -208,29 +208,30 @@ Para obtener una
 \input{tables/table_benchmarks}
 
 La herramienta ha sido ejecutada en diferentes benckmarks, reportando datos relevantes como la 
-complejidad esctructural del modelo obtenido, precisión, generalización y los tiempos en segundos 
+complejidad estructural del modelo obtenido, precisión, generalización y los tiempos en segundos 
 empleados por cada acción significativa del proceso (e.g. algoritmo de descubrimiento,
 proceso de simplificación iterativo, generalización).
-El conjunto de benchmarks (trazas positivas y negativas) puede verse en~\autoref{tab:bench}, donde se
+El conjunto de benchmarks (trazas positivas y negativas) puede verse en la~\autoref{tab:bench}, donde se
 indican el número de trazas en cada log $|\pmlog|$, el número de eventos $|E|$ (i.e. la suma de las 
 longitudes de todas las trazas) y el número total de tipos diferentes de actividades $|T|$.
 Las trazas negativas han sido generadas utilizando el algoritmo propuesto en~\cite{BrouckeWVB14},
 concatenando cada traza con un postfijo aleatoria con longitud igual a la longitud original de la traza
-negativa.
+negativa para satisfacer la~\autoref{def:neg}.
 
 El conjunto completo de benchmarks, conjuntamente con la salida de las diferentes ejecuciones puede 
 encontrarse en el repositorio de \pachtool.
 
-En las tablas \ref{tab:pol_time} a~\ref{tab:pol_gen}, se encuentran los resultados para cada benchmark siguiendo
+En las tablas~\ref{tab:pol_time} a~\ref{tab:pol_gen}, se encuentran los resultados para cada benchmark siguiendo
 el siguiente formato:
 
 \begin{itemize}
-    \item \textbf{Poliedro:} corresponde al enfoque en ~\cite{CarmonaC14} sin aplicar simplificaciones.
-    \item \textbf{SemEsp:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
-    \item \textbf{Matriz:} corresponde al enfoque en \cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
-      presentado en~\autoref{sec:3.gensimp}.
-  \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo base en la columna \textit{Base} 
-      y sobre el modelo más simple obtenido luego de aplicar ambas simplificaciónes en la columna \textit{SMT}.
+    \item \textbf{Poliedro:} corresponde al enfoque en~\cite{CarmonaC14} sin aplicar simplificaciones.
+    \item \textbf{SemEsp:} corresponde al enfoque en~\cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
+    \item \textbf{Matriz:} corresponde al enfoque en~\cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
+      presentado en la~\autoref{sec:3.gensimp}.
+  \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo
+      sin aplicar simplificaciones en la columna \textit{Base} y sobre el modelo más simple de los
+      dos poliedros simplificados en la columna \textit{SMT}.
 \end{itemize}
 
 %%%For the SMT simplification, a timeout of 600 milliseconds has been set for the solver. The selection have been done based on previous experience of the authors using SMT solver; normally if no answer is obtained for encodings of this size after the selected time threshold, no answer will be obtained even if the timeout is completely removed.
@@ -260,7 +261,7 @@ el siguiente formato:
 %%%logs, indicating that the cross-validation setup applied is safe for further use and that the presented metrics below are valid for use and interpretation.
 %%%
 
-Los resultados relacionados al tiempo de ejecución de \pachtool se reportan en~\autoref{tab:pol_time}.
+Los resultados relacionados al tiempo de ejecución de \pachtool se reportan en la~\autoref{tab:pol_time}.
 La primera columna muestra el tiempo para calcular la cápsula convexa; el resto de las columnas, informa
 sobre el tiempo de la simplificación. Por ejemplo, el tiempo total de \pachtool como método de descubrimiento
 mediante la simplificación SMT iterativa mediante información positiva corresponde a la suma de la $1^{er}$ y $2^{da}$ columnas.
@@ -273,7 +274,7 @@ e.g. \bench[32]{A}, \bench[42]{A}, \bench{Svn}; este comportamiento no se repite
 debido a que el SMT-solver no es capaz de encontrar una solución (i.e. devuelve \emph{unsat}) y el método no debe computar todos los casos.
 Por otro lado, al aplicar el enfoque presentado en esta tesina (columnas $3^{ra}$ y $5^{ta}$), los tiempos son 
 generalmente bajos debido a que, luego de pocas iteraciones, se encuentra la solución óptima o no se encuentra solución.
-Por su parte, puede verse como los benchmarks que presentan gran cantidad de places insumen más tiempo que el resto
+Por su parte, puede verse como los benchmarks que presentan gran cantidad de places consumen más tiempo que el resto
 en el cálculo del poliedro (i.e. correspondiente a la primer columna). Esto es debido al hecho de que se debe
 utilizar la técnica de proyección de~\cite{CarmonaC14} y esto consume gran parte del tiempo computacional.
 
@@ -281,7 +282,7 @@ utilizar la técnica de proyección de~\cite{CarmonaC14} y esto consume gran par
 \input{tables/table_pol_simp}
 
 En la~\autoref{tab:pol_simp} se reportan los resultados en la simplicidad -o complejidad estructural
-según lo visto en~\autoref{sec:3.complexity}- obtenidos. 
+según lo visto en la~\autoref{sec:3.complexity}- obtenidos. 
 Puede verse que la primera columna muestra los valores más altos dado a que no se realiza simplificación.
 Para todos los casos, los mejores resultados (resaltados en negrita) se obtienen después de aplicar el 
 procedimiento \textsc{Removal} luego de aplicar la simplificación SMT iterativamente sobre cada semiespacio
@@ -294,18 +295,18 @@ para fines experimentales (parámetro configurable del algoritmo). El segundo ca
 del proceso (como se explica en la~\autoref{fig:glob_encoding}); ya que se utilizan tantas trazas negativas como positivas,
 cada simplificación posee gran cantidad de restricciones haciendo imposible que se mejore.
 
-Las tablas~\ref{tab:pol_prec} y \ref{tab:pol_gen} muestran, respectivamente, la precisión y generalización de las redes
+Las tablas~\ref{tab:pol_prec} y~\ref{tab:pol_gen} muestran, respectivamente, la precisión y generalización de las redes
 obtenidas mediante \pachtool. De la~\autoref{tab:pol_prec}, se puede observar que 
 aplicar simplificación SMT iterativamente sólo con información positiva disminuye en gran medida la precisión de las
 redes (e.g. \bench{option}, \bench{ConfDimB}) . Sin embargo, esto no ocurre si se considera 
 información negativa; en la mayoría de los casos la simplificación estructural no logra reducir o generalizar.
-En términos de generalización (ver ~\autoref{tab:pol_gen}) los valores mínimos y máximos están muy 
+En términos de generalización (ver~\autoref{tab:pol_gen}) los valores mínimos y máximos están muy 
 cerca. Para la mitad de los benchmarks, \pachtool sin simplificación ya obtiene los mejores resultados;
 para el resto de casos, se obtiene el mejor resultado luego de aplicar el proceso de \textsc{Removal}.
 
 \input{tables/table_pol_prec}
 
-Para resumir, las columnas $5^{ta}$ y $6^{ta}$ de las tablas ~\ref{tab:pol_prec} y~\ref{tab:pol_gen} muestran que 
+Para resumir, las columnas $5^{ta}$ y $6^{ta}$ de las tablas~\ref{tab:pol_prec} y~\ref{tab:pol_gen} muestran que 
 la precisión y la generalización son similares al utilizar la simplificación estructural utilizando información 
 negativa o el procedimiento \textsc{Removal}; 
 Si tenemos en cuenta la relación costo/beneficio de las métricas de calidad, este resultado,
@@ -323,7 +324,7 @@ cualquier modelo presentado como una red de Petri. Para probar esto, se toman lo
 mediante el \textit{ILP miner}~\cite{WDHS08} para el mismo conjunto de benchmarks y se los simplifica mediante
 \pachtool.
 
-Utilizando la misma representación utilizada en la~\autoref{sec:4.supervised}, las tablas \ref{tab:ilp_time} a
+Utilizando la misma representación utilizada en la~\autoref{sec:4.supervised}, las tablas~\ref{tab:ilp_time} a
 \ref{tab:ilp_gen} muestran el resultado de aplicar simplificaciones SMT y \textsc{Removal} sobre los
 modelos generados por el ILP miner.
 
@@ -332,7 +333,7 @@ La primer columna corresponde al tiempo requerido para obtener la red inicial me
 los tiempos de simplificación obtenidos por \pachtool. Para todos los casos que no incluyen proyección, \pachtool
 es considerablemente más rápido que el ILP miner. %Para el caso del benchmark \bench[2]{DbMut}, 
 
-Si se considera la complejidad del modelo (cuyos resultados pueden verse en ~\autoref{tab:ilp_simp}) se arriba a las mismas
+Si se considera la complejidad del modelo (cuyos resultados pueden verse en la~\autoref{tab:ilp_simp}) se arriba a las mismas
 conclusiones que al utilizar teoría de poliedros; los mejores resultados se obtienen
 al aplicar el  procedimiento \textsc{Removal} sobre la simplificación realizada iterativamente sobre cada semiespacio
 con información positiva únicamente. En cambio, no se logra simplificar
@@ -344,7 +345,7 @@ de los modelos generados en este caso.
 \input{tables/table_ilp_time}
 \input{tables/table_ilp_simp}
 
-Los resultados de precisión pueden verse en~\autoref{tab:ilp_prec}. En este caso el resultado difiere de los obtenidos
+Los resultados de precisión pueden verse en la~\autoref{tab:ilp_prec}. En este caso el resultado difiere de los obtenidos
 al utilizar teoría de poliedros. Los mejores resultados se obtienen, como es esperado, directamente del ILP miner y los más cercanos
 a estos valores corresponden a aplicar \textsc{Removal} sobre ellos; sin embargo, la pérdida de precisión es mayor a la obtenida
 en la~\autoref{sec:4.supervised}.
@@ -362,7 +363,7 @@ En este capítulo se introdujo la herramienta \pachtool, realizada como parte de
 resumen de las cualidades que presenta así como algunos detalles referentes a su implementación.
 
 A su vez, se presentaron los resultados experimentales de aplicar \pachtool tanto como un algoritmo de 
-descubrimiento, generalización y simplificación (i.e. una implementación del ~\autoref{algo}) así como 
+descubrimiento, generalización y simplificación (i.e. una implementación del~\autoref{algo}) así como 
 utilizada como herramienta de post procesamiento sobre modelos obtenidos mediante otra herramienta de 
 minería de procesos, \textit{ILP miner}.
 
