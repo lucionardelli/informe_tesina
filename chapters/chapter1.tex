@@ -23,7 +23,7 @@ Particularmente, en el ámbito de la gestión de procesos de negocios y sistemas
 responsables del funcionamiento correcto del sistema, los usuarios finales y analistas desean obtener
 detalles relacionados a estos procesos que les faciliten el entendimiento del proceso observado.
 Contar con un modelo claro y simple permite una mejor comprehensión del sistema 
-subyacente y posibilita además, aplicar diferentes técnicas con el objetivo de optimizar
+subyacente y posibilita además, aplicar diferentes métodos que permiten optimizar
 el flujo general del sistema~\cite{Aalst2012}.
 La minería de procesos utiliza \textit{logs} de ejecución y diferentes técnicas con el objetivo de descubrir,
 analizar y extender modelos formales del proceso revelando el comportamiento real de un sistema~\cite{AalstBook}.
@@ -47,14 +47,14 @@ adicional. Por ejemplo, si se considera la frecuencia con que ocurre cada traza,
 ponderado de manera de modelar únicamente aquellos patrones más usuales~\cite{GuntherA07,WeijtersR11,LeemansFA13}.
 
 Existen algunas pocas técnicas que consideran el problema de descubrimiento de procesos como una tarea de
-aprendizaje supervisado; es decir, considerando lac información positiva, pero incorporando además \emph{información negativa},
-donde está última representa comportamientos prohibidos del sistema. Este tipo de información negativa puede ser crucial para 
+aprendizaje supervisado; es decir, considerando la información positiva, pero incorporando además \emph{información negativa},
+donde esta última representa comportamientos prohibidos del sistema. Este tipo de información negativa puede ser crucial para 
 obtener un buen modelo que sea representativo del proceso real ya que debe asegurarse que no forman
 parte del mismo~\cite{Ferreira2006,Lamma2007,Lamma2008,alberti2008verifiable,Goedertier2009}.
 
 Considerar información negativa como parte del algoritmo de descubrimiento puede generar grandes beneficios ya que
 se puede permitir una simplificación y/o una generalización controlada del modelo restringiendo los procesos de 
-manera que no incluya las trazas prohibidas
+manera que no incluyan las trazas prohibidas.
 
 
 Una buena medida de la simplicidad de un modelo puede obtenerse, a simple vista, a partir de su representación gráfica.
@@ -86,22 +86,21 @@ de manera de obtener un modelo que además de preciso sea útil.
     Esto es representado mediante el camino que parte de $a$, pasa por el nodo no
     numerado y finaliza en $c$.
     $N_1$ puede reproducir todas las trazas en $\pmlog^+$ pero no aquellas en $\pmlog_-$; puede
-    concluirse que es un modelo adecuado, preciso y que generaliza correctamente el comportamiento
-    esperado. $N_2$ también es adecuado, pero presenta un modelo impreciso ya que acepta 
-    algunas trazas no deseadas en $\pmlog_-$, e.g. la acción $c$ puede ocurrir independientemente de que 
-    se haya ejecutado $a$. Utilizando la técnica presentada en~\cite{CarmonaC14} se obtiene el 
-    modelo $N_1$; por su parte  el segundo es generado mediante el algoritmo en~\cite{LeonCB15} si solo
-    se utiliza información positiva ya que $N_2$ es considerado más simple por poseer menos 
+    concluirse que es un modelo adecuado y preciso. $N_2$ también es adecuado, pero presenta un modelo
+    impreciso ya que acepta algunas trazas no deseadas en $\pmlog_-$, e.g. la acción $c$ puede ocurrir
+    independientemente de que se haya ejecutado $a$. Utilizando la técnica presentada en~\cite{CarmonaC14}
+    se obtiene el modelo $N_1$; por su parte  el segundo es generado mediante el algoritmo en~\cite{LeonCB15}
+    si solo se utiliza información positiva ya que $N_2$ es considerado más simple por poseer menos 
     cantidad de arcos y con menor peso. El problema de simplificar $N_1$ como $N_2$ es que se introduce
     comportamiento no deseado.
     Por su parte, el modelo $N_3$, el cual puede generarse utilizando información negativa en su construcción,
     también es adecuado, preciso, no acepta ninguno de los comportamientos no deseados y es más simple que $N_1$
 \end{example}
 
-\subsection*{Propuesta}
-\label{sec:propposal}
+%%%\subsection*{Propuesta}
+%%%\label{sec:propposal}
 
-El objetivo general de este trabajo, es entonces desarrollar un nuevo algoritmo de descubrimiento que permita considerar
+El objetivo general de este trabajo es desarrollar un nuevo algoritmo de descubrimiento que permita considerar
 información negativa como entrada y utilice esta última en un proceso supervisado de simplificación y 
 generalización. 
 
@@ -112,8 +111,8 @@ de descubrimiento de procesos. Se utilizarán para tal fin las técnicas de
 -\textit{Satisfability Modulo Theories}-~\cite{NieuwenhuisOT06}.
 
 La tesina se basa en la dualidad existente entre la ecuación de marcado de una red de Petri~\cite{SilvaTC96}
-y el dominio de un poliedro convexo tal como se utiliza en~\cite{CarmonaC14}
-Por último, una vez obtenido el poliedro convexo se lo transforma en un modelo de
+y el dominio de un poliedro convexo tal como se utiliza en~\cite{CarmonaC14}.
+Una vez obtenido el poliedro convexo se lo transforma en un modelo de
 procesos (en particular una red de Petri~\cite{Murata89}) tomando los semiespacios del poliedro y
 transformándolos en places de la red de Petri.
 
@@ -135,15 +134,16 @@ $\alpha$-algoritmo en la última década~\cite{MedeirosAW03,WenAWS07,GuoWWYY15} 
 construcciones que no son posibles mediante el algoritmo original.
 
 
-Sin embargo, estas y otras técnicas siguien focalizándose en formalismos similares tales como
+Sin embargo, éstas y otras extensiones continúan focalizándose en formalismos similares tales como
 \emph{redes heurísticas/causales}~\cite{WeijtersR11} o \emph{redes fuzzy}~\cite{AalstG07}, los cuales presentan
 una restringida expresividad.
 Esto hace que las técnicas mencionadas no sean adecuados para capturar el tipo de comportamientos más generales
-considerados en este trabajo, donde no aplican las restricciones de fichas y pesos unitarios.
+considerados en este trabajo, donde no aplican las restricciones de fichas y pesos unitarios, i.e. este trabajo
+apunta a la clase más general de redes de Petri.
 
 En términos de expresividad y capacidad para generar modelos adecuados, los únicos enfoques en la literatura 
 que son similares al utilizado en esta tesina son aquellos que utilizan \textit{teoría de regiones}~\cite{ehrenfeucht90, ehrenfeucht90a}.
-Ejemplos de la aplicación de esto pueden verse en~\cite{Bergenthum07, van2008process, CarmonaCK10, SoleC11}.
+Ejemplos de la aplicación de esta teoría pueden verse en~\cite{Bergenthum07, van2008process, CarmonaCK10, SoleC11}.
 Aunque estos trabajos generan modelos sin las mencionadas restricciones, ninguno de ellos incorpora
 información negativa como en esta tesina.
 
@@ -162,10 +162,10 @@ planeamiento y aprendizaje pare obtener el modelo del proceso.
 Lamma et al.~\cite{Lamma2007,Lamma2008,alberti2008verifiable} han aplicado una extensión a la 
 programación lógica, SCIFF, para obtener un descubrimiento declarativo supervisado de procesos.
 Aunque en este trabajo se considera la existencia de información negativa, el modelo es presentado 
-como un conjunto de restricciones lógicas y no como un modelo visual como en el enfoque presentado. 
+como un conjunto de restricciones lógicas y no como un modelo visual como en el enfoque de esta tesina. 
 
 En general, todas las técnicas supervisadas mencionadas anteriormente se encuentran relacionadas a 
-marcos teóricos diferentes, los cuales en la práctica solo puede ser aplicados a pequeños casos e 
+marcos teóricos diferentes, los cuales en la práctica solo pueden ser aplicados a pequeños casos e 
 inclusive, la naturaleza de información negativa difiere de la utilizada en este trabajo.
 
 Por su parte, Goedertier et al.~\cite{Goedertier2009} 
@@ -181,13 +181,13 @@ En~\cite{LeonRCHH15}, se presenta un técnica descubierta recientemente que perm
 La idea intuitiva es obtener un \textit{desplegado} -\textit{unfolding}- de un log de eventos utilizando 
 información de eventos independientes provista como entrada. Luego se realiza un \textit{plegado} -\textit{folding}-
 para derivar un modelo del proceso que generalice el comportamiento de manera controlada.
-Una consecuencia de utilizar el paso de desplegado como representación intermedia es que se la técnica es restringida
+Una consecuencia de utilizar el paso de desplegado como representación intermedia es que la técnica es restringida
 a redes de Petri \textit{seguras}, i.e. redes con un máximo de una ficha en cada place. Esta limitación no existe
 en el modelo utilizado en este trabajo.\\
 
 
 Por último, vemos los diferentes trabajos relacionados a la simplificación de los modelos.
-Murata presenta diferentes reglas de simplificación\cite{Murata89}, pero estás técnicas no siempre aseguran mantener
+Murata presenta diferentes reglas de simplificación\cite{Murata89}, pero estas técnicas no siempre aseguran mantener
 un modelo adecuado.
 Por su parte, los places redundantes (i.e. aquellos que no restringen la ejecución de transiciones) pueden ser detectados
 y eliminados mediante las técnicas presentadas en~\cite{ColomS89a}. 
@@ -226,7 +226,7 @@ Estas restricciones se deben al hecho de que se utiliza teoría de poliedros con
 
 Podrían evitarse estas limitaciones si se  pre-procesa el log de eventos, filtrando el ruido existente mediante
 técnicas conocidas o bien puede incrementarse artificialmente la longitud de los ciclos de longitud uno evitando los modelos 
-no puros. Sin embargo, estos procedimientos escapan del alcance de la tesina y se trabajará considerando las limitaciones
+no puros. Sin embargo, estos procedimientos escapan del alcance de la tesina y se trabajará considerando las restricciones
 enunciadas.
 
 \section{Estructura de la tesina}
@@ -242,16 +242,16 @@ En el~\autoref{chap:2}, se introducen todas las nociones preliminares necesarias
 presentadas y plantea una formalización del problema a abordar.
 
 La metodología utilizada para determinar el descubrimiento supervisado de procesos es presentado en el~\autoref{chap:3}, 
-en donde se detallan los fundamentos teóricos de la técnica desarrollada y se muestra además, como puede utilizarse para simplificar
+en donde se detallan los fundamentos teóricos de la técnica desarrollada y se muestra además, cómo puede utilizarse para simplificar
 y generalizar modelos de procesos arbitrarios.
 
 El~\autoref{chap:4} por su parte, presenta \pachtool, la herramienta desarrollada para esta tesina. Además en este mismo capítulo
-se presentan los resultados experimentales de ejecutar \pachtool sobre diferentes benchmark, tanto como una herramienta de descubrimiento
+se presentan los resultados experimentales de ejecutar \pachtool sobre diferentes benchmarks tanto como una herramienta de descubrimiento
 supervisado de procesos así como también utilizándola como herramienta de post procesamiento sobre modelos arbitrarios.
 
-Finalmente en el~\autoref{chap:5} se presentarán las conclusiones de esta tesina y se presetan una serie de posibles trabajos futuros.
+Finalmente en el~\autoref{chap:5} se presentarán las conclusiones de esta tesina así como una serie de posibles trabajos futuros.
 
-\section*{Presentación en sociedad}
+\section*{Presentación en la comunidad científica}
 \label{sec:presentacion}
 
 Los resultados teóricos de estas tesina resultaron en un artículo enviado al \dquote{Infomation System Journal} y se encuentra actualmente

@@ -166,7 +166,7 @@ En aquellos casos donde el primer enfoque termina, el resultado se obtiene más 
 suele ser más preciso comparado con el método iterativo. Sin embargo, el segundo enfoque
 permite encontrar soluciones para casos en los cuales el primer enfoque falla.
 Experimentalmente se recomienda utilizar el primer enfoque siempre que la cantidad de eventos del log
-sea cercana a los 1200 eventos.
+sea menor a los 1200 eventos.
 
 \section{Resultados experimentales}
 \label{sec:4.experiments}
@@ -229,9 +229,9 @@ el siguiente formato:
     \item \textbf{SemEsp:} corresponde al enfoque en~\cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según el enfoque de~\cite{LeonCB15}.
     \item \textbf{Matriz:} corresponde al enfoque en~\cite{CarmonaC14} aplicando simplificación mediante SMT-solvers según lo 
       presentado en la~\autoref{sec:3.gensimp}.
-  \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo
-      sin aplicar simplificaciones en la columna \textit{Base} y sobre el modelo más simple de los
-      dos poliedros simplificados en la columna \textit{SMT}.
+    \item \textbf{\textsc{Removal}:} corresponde al proceso \textsc{Removal} aplicado sobre el modelo
+        sin aplicar ninguna simplificación (columna \textit{Base}) y sobre el modelo más simple entre
+        los modelos simplificados (columna \textit{SMT})
 \end{itemize}
 
 %%%For the SMT simplification, a timeout of 600 milliseconds has been set for the solver. The selection have been done based on previous experience of the authors using SMT solver; normally if no answer is obtained for encodings of this size after the selected time threshold, no answer will be obtained even if the timeout is completely removed.
